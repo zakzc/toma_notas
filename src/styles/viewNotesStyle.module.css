@@ -1,0 +1,14 @@
+.viewNotesStyle {
+    display: table;
+    width: 100%;
+    /* display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    @media (max-width: 800px) {
+
+        .flex-item-right,
+        .flex-item-left {
+            flex: 100%;
+        }
+    } */
+}

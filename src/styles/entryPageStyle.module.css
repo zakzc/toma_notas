@@ -1,0 +1,42 @@
+.entryPageStyle {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-color: whitesmoke;
+
+}
+button {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+}
+
+ul {
+    list-style-type: none;
+    font-weight: "bold";
+    font-size: "10px";
+    line-height: 2em;
+}
+
+.textAreaStyle{ 
+    position: absolute;
+    left: 50%;
+    }
+
+#arrowRightPosition {
+    /* background-color: blue; */
+    padding-left: 40%;
+}
+
+#arrowLeftPosition {
+    /* background-color: red; */
+}
+
+/* color backgroung only for positioning */
