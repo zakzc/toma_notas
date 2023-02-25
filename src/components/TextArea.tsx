@@ -14,8 +14,8 @@ export default function TextArea(): JSX.Element {
       <br />
       <textarea
         name="Text Input"
-        rows={50}
-        cols={80}
+        rows={30}
+        cols={50}
         onChange={(e) => setInputText(e.target.value)}
       />
     </div>
