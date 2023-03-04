@@ -39,7 +39,7 @@ const Layout = (): JSX.Element => {
             />
           </Col>
         </Row>
-        <Footer changeLanguage={changeLanguage} />
+        {/* <Footer changeLanguage={changeLanguage} /> */}
       </Container>
     </>
   );
