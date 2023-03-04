@@ -15,11 +15,11 @@ const Layout = (): JSX.Element => {
   const [isOpenRight, setIsOpenRight] = useState(false);
   // 0 for Write Mode, 1 for visualise mode
   const [appMode, setAppMode] = useState(0);
-  const { t, i18n } = useTranslation();
+  // const { t, i18n } = useTranslation();
 
-  function changeLanguage(lng: string) {
-    i18n.changeLanguage(lng);
-  }
+  // function changeLanguage(lng: string) {
+  //   i18n.changeLanguage(lng);
+  // }
 
   return (
     <>

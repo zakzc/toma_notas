@@ -1,8 +1,8 @@
 import React from "react";
 // import { Link } from "react-router-dom";
-import { Container, Col, Button } from "react-bootstrap";
+import { Col, Button } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import styles from "../styles/leftPanelStyle.module.css";
+// import styles from "../styles/leftPanelStyle.module.css";
 
 interface myNotesInterface {
   noteName: string;
