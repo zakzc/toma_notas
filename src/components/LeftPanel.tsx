@@ -37,5 +37,4 @@ export default function LeftPanel({ isOpenLeft, setIsOpenLeft }): JSX.Element {
         <h2>closed</h2>
       )}
     </Col>
-  );
-}
+  );}

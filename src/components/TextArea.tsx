@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import styles from "../../Styles/LogInPageStyle.css";
+// import styles from "../../Styles/LogInPageStyle.css";
 
 export default function TextArea(): JSX.Element {
   const [inputText, setInputText] = useState("");
