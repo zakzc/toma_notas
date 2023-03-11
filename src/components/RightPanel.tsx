@@ -36,7 +36,6 @@ export default function RightPanel(props: RightPanelInterface): JSX.Element {
         </>
       ) : (
         <>
-          {" "}
           <Col></Col>
           <Col></Col>
           <Col>

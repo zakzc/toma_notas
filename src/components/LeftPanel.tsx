@@ -3,8 +3,8 @@ import React from "react";
 import { Row, Col, Button } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 ///
-import ArrowLeft from "./svg/ArrowLeft"
-import ArrowRight from "./svg/ArrowRight"
+import ArrowLeft from "./svg/ArrowLeft";
+import ArrowRight from "./svg/ArrowRight";
 
 interface myNotesInterface {
   noteName: string;
@@ -12,7 +12,7 @@ interface myNotesInterface {
 }
 
 interface LeftPanelInterface {
-  isOpenLeft: boolean,
+  isOpenLeft: boolean;
   setIsOpenLeft: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -24,8 +24,7 @@ export default function LeftPanel(props: LeftPanelInterface): JSX.Element {
     { noteName: "note 2", noteNumber: 14343 },
     { noteName: "note 3", noteNumber: 22343 },
   ];
-  
-  
+
   const OpenCloseSideTabButton = () => (
     <Row>
       {props.isOpenLeft ? (
@@ -33,7 +32,10 @@ export default function LeftPanel(props: LeftPanelInterface): JSX.Element {
           <Col></Col>
           <Col></Col>
           <Col>
-            <Button variant="light" onClick={() => props.setIsOpenLeft(!props.isOpenLeft)}>
+            <Button
+              variant="light"
+              onClick={() => props.setIsOpenLeft(!props.isOpenLeft)}
+            >
               <ArrowLeft />
             </Button>
           </Col>
@@ -41,7 +43,10 @@ export default function LeftPanel(props: LeftPanelInterface): JSX.Element {
       ) : (
         <>
           <Col>
-            <Button variant="light" onClick={() => props.setIsOpenLeft(!props.isOpenLeft)}>
+            <Button
+              variant="light"
+              onClick={() => props.setIsOpenLeft(!props.isOpenLeft)}
+            >
               <ArrowRight />
             </Button>
           </Col>
@@ -60,9 +65,6 @@ export default function LeftPanel(props: LeftPanelInterface): JSX.Element {
             {myNotes.map((n) => (
               <li key={n.noteNumber}>{n.noteName}</li>
             ))}
-          </ul>
-          <ul>
-            <li>{/* <Link to={`/login`}>Log in</Link> */}</li>
           </ul>
         </>
       ) : (
