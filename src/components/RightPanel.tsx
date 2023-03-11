@@ -40,7 +40,7 @@ export default function RightPanel(props: RightPanelInterface): JSX.Element {
           <Col></Col>
           <Col>
             <Button
-              variant="light"
+              variant="flat"
               onClick={() => props.setIsOpenRight(!props.isOpenRight)}
             >
               <ArrowLeft />

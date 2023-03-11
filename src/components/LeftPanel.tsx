@@ -33,7 +33,7 @@ export default function LeftPanel(props: LeftPanelInterface): JSX.Element {
           <Col></Col>
           <Col>
             <Button
-              variant="light"
+              variant="flat"
               onClick={() => props.setIsOpenLeft(!props.isOpenLeft)}
             >
               <ArrowLeft />
@@ -44,7 +44,7 @@ export default function LeftPanel(props: LeftPanelInterface): JSX.Element {
         <>
           <Col>
             <Button
-              variant="light"
+              variant="flat"
               onClick={() => props.setIsOpenLeft(!props.isOpenLeft)}
             >
               <ArrowRight />

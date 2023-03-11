@@ -12,11 +12,11 @@ const Header = ({ appMode, setAppMode }) => {
   const WriteViewSwitch = () => (
     <div className="centerPageStyle">
       {appMode === 0 ? (
-        <Button variant="light" onClick={() => setAppMode(1)}>
+        <Button variant="flat" onClick={() => setAppMode(1)}>
           <PenIcon />
         </Button>
       ) : (
-        <Button variant="light"  onClick={() => setAppMode(0)}>
+        <Button variant="flat"  onClick={() => setAppMode(0)}>
           <SeeIcon />
         </Button>
       )}

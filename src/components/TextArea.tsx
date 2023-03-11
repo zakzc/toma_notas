@@ -19,13 +19,13 @@ export default function TextArea(): JSX.Element {
  <Row>
    <Col>
         <Button
-              variant="light"
+              variant="flat"
               onClick={() => setIndent(!indent)}
             ><Unindent /></Button>
    </Col>
    <Col>
         <Button
-              variant="light"
+              variant="flat"
               onClick={() => setUnindent(!unindent)}
             ><Indent /></Button>
    </Col>
