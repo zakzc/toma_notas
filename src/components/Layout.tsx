@@ -24,15 +24,17 @@ const Layout = (): JSX.Element => {
   return (
     <>
       <Container fluid>
-        <Header appMode={appMode} setAppMode={setAppMode} />
         <Row>
-          <Col xs={12} md={3}>
+          <Header appMode={appMode} setAppMode={setAppMode} />
+        </Row>
+        <Row>
+          <Col xs={12} sm={12} md={3}>
             <LeftPanel isOpenLeft={isOpenLeft} setIsOpenLeft={setIsOpenLeft} />
           </Col>
-          <Col xs={12} md={6}>
+          <Col xs={12} sm={12} md={6}>
             {appMode ? <TextArea /> : <Visualise />}
           </Col>
-          <Col xs={12} md={3}>
+          <Col xs={12} sm={12} md={3}>
             <RightPanel
               isOpenRight={isOpenRight}
               setIsOpenRight={setIsOpenRight}
