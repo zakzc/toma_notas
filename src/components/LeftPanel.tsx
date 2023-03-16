@@ -16,14 +16,13 @@ interface LeftPanelInterface {
 export default function LeftPanel(props: LeftPanelInterface): JSX.Element {
   const { t } = useTranslation();
     const noteCtx = useContext(NotesContext);
-    console.log(noteCtx.nodeSet);
   // dummy value, actual values will come from DB
 
   const MyNotes = (): JSX.Element => {
     return (
       <>
         {noteCtx.nodeSet.map((i, k) => (
-          <p key={k}>{i.noteSetName}</p>
+          <div key={k}>{i.noteSetName}</div>
         ))}
       </>
     );
@@ -64,8 +63,10 @@ export default function LeftPanel(props: LeftPanelInterface): JSX.Element {
       <OpenCloseSideTabButton />
       {props.isOpenLeft ? (
         <>
-          <h1>{t("yourNotes")}</h1>
+          {/* <h3>{t("yourNotes")}</h3> */}
+          <h3>Your notes:</h3>
           <MyNotes/>
+          <br/>
         </>
       ) : (
         <></>

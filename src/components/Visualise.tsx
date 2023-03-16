@@ -8,7 +8,6 @@ import NotesContext from "../store/notes_context";
 export default function Visualise(): JSX.Element {
   // const { t } = useTranslation();
   const noteCtx = useContext(NotesContext);
-  console.log(noteCtx.nodeSet);
 
   const ViewNotes = (): JSX.Element => {
     return (
