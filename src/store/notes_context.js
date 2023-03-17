@@ -1,8 +1,8 @@
 import { createContext, useState } from "react";
 
 const NotesContext = createContext({
-  nodeSet: [],
-  currentlySelectedNote: {},
+  noteSet: [],
+  currentlySelectedNoteSet: {},
   addNewNote: () => {},
   removeNote: () => {},
 });
@@ -71,7 +71,7 @@ export function NotesContextProvider(props) {
   }
   ///
   const context = {
-    nodeSet: userNoteSet,
+    noteSet: userNoteSet,
     numberOfNotes: userNoteSet.length,
     currentlySelectedNoteSet: userNoteSet[0],
     addNewNote: addNewNoteHandler,

@@ -1,7 +1,7 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 ///
-import { Row, Col, Button } from "react-bootstrap";
-import { useTranslation } from "react-i18next";
+import { Row, Col, Button, ButtonGroup } from "react-bootstrap";
+// import { useTranslation } from "react-i18next";
 ///
 import NotesContext from "../store/notes_context";
 ///
@@ -14,16 +14,21 @@ interface LeftPanelInterface {
 }
 
 export default function LeftPanel(props: LeftPanelInterface): JSX.Element {
-  const { t } = useTranslation();
-    const noteCtx = useContext(NotesContext);
+  // const { t } = useTranslation();
+  const noteCtx = useContext(NotesContext);
+  const noteSets = noteCtx.noteSet;
   // dummy value, actual values will come from DB
 
   const MyNotes = (): JSX.Element => {
     return (
       <>
-        {noteCtx.nodeSet.map((i, k) => (
-          <div key={k}>{i.noteSetName}</div>
-        ))}
+        <ButtonGroup vertical>
+          {noteSets.map((i, k) => (
+            <Button variant="flat" key={k} onClick={() => console.log(i)}>
+              {i.noteSetName}
+            </Button>
+          ))}
+        </ButtonGroup>
       </>
     );
   };
@@ -65,8 +70,8 @@ export default function LeftPanel(props: LeftPanelInterface): JSX.Element {
         <>
           {/* <h3>{t("yourNotes")}</h3> */}
           <h3>Your notes:</h3>
-          <MyNotes/>
-          <br/>
+          <MyNotes />
+          <br />
         </>
       ) : (
         <></>
