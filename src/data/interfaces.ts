@@ -1,8 +1,7 @@
 export interface NoteInterface {
   noteText: string;
-  textLevel: number;
   noteTextId: number;
-  indentedFrom: null | number;
+  indentation: string;
 }
 
 export interface NoteSetInterface {

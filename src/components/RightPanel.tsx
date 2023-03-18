@@ -61,7 +61,7 @@ export default function RightPanel(props: RightPanelInterface): JSX.Element {
         {myViewingOptions.map((i, k) => (
           <Button
             variant="flat"
-            key={k}
+            key={k} 
             style={{ display: "flex", justifyContent: "flex-end" }}
             onClick={() => noteCtx.setCurrentViewMode(i.option)}
           >

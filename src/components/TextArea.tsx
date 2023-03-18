@@ -1,35 +1,39 @@
 import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
+// import { useTranslation } from "react-i18next";
 ///
 import { Container, Row, Col, Button } from "react-bootstrap";
 //
 import Indent from "./svg/Indent";
 import Unindent from "./svg/Unindent";
-
+import Check from "./svg/Check"
 // import styles from "../../Styles/LogInPageStyle.css";
 
 export default function TextArea(): JSX.Element {
   const [inputText, setInputText] = useState("");
   const [indent, setIndent] = useState(false)
   const [unindent, setUnindent] = useState(false)
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   console.log("Input: ", inputText);
 
   const IndentationArea = () => (
- <Row>
-   <Col>
-        <Button
-              variant="flat"
-              onClick={() => setIndent(!indent)}
-            ><Unindent /></Button>
-   </Col>
-   <Col>
-        <Button
-              variant="flat"
-              onClick={() => setUnindent(!unindent)}
-            ><Indent /></Button>
-   </Col>
- </Row>);
+    <Row>
+      <Col>
+        <Button variant="flat" size="lg" onClick={() => setIndent(!indent)}>
+          <Unindent />
+        </Button>
+      </Col>
+      <Col>
+        <Button variant="flat" size="lg" onClick={() => setUnindent(!unindent)}>
+          <Indent />
+        </Button>
+      </Col>
+      <Col>
+        <Button variant="flat" size="lg" onClick={() => setUnindent(!unindent)}>
+          <Check />
+        </Button>
+      </Col>
+    </Row>
+  );
 
 
   return (

@@ -5,9 +5,8 @@
     "noteSetNote": [
       {
         "noteText": "This is a test note 0",
-        "textLevel": 0,
         "noteTextId": 0,
-        "indentedFrom": null
+        "indentation": "0"
       }
     ]
   },
@@ -17,21 +16,18 @@
     "noteSetNote": [
       {
         "noteText": "This is a test note 1",
-        "textLevel": 0,
         "noteTextId": 0,
-        "indentedFrom": null
+        "indentation": "0"
       },
       {
         "noteText": "This is a test note embed level 1",
-        "textLevel": 1,
         "noteTextId": 0,
-        "indentedFrom": 0
+        "indentation": "01"
       },
       {
         "noteText": "This is a test note embed level 2",
-        "textLevel": 2,
         "noteTextId": 0,
-        "indentedFrom": 1
+        "indentation": "011"
       }
     ]
   },
@@ -41,9 +37,8 @@
     "noteSetNote": [
       {
         "noteText": "This is a test note 2",
-        "textLevel": 0,
         "noteTextId": 0,
-        "indentedFrom": null
+        "indentation": "0"
       }
     ]
   }
