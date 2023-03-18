@@ -16,6 +16,7 @@ export interface NoteContextInterface {
   numberOfNotes: number;
   currentlySelectedNoteSet: NoteSetInterface | {};
   setCurrentlySelectedNoteSet: (noteSetToSelect: NoteSetInterface) => void;
+  currentViewMode: number;
   // addNewNote: () => {};
   // removeNote: () => {};
 }

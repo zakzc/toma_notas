@@ -1,7 +1,9 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
+import React, { useContext } from "react";
+// import { useTranslation } from "react-i18next";
 ///
-import { Row, Col, Button } from "react-bootstrap";
+import { NoteAppContext } from "../store/notes_context";
+///
+import { Row, Col, Button, ButtonGroup } from "react-bootstrap";
 ///
 import ArrowLeft from "./svg/ArrowLeft";
 import ArrowRight from "./svg/ArrowRight";
@@ -12,13 +14,14 @@ interface RightPanelInterface {
 }
 
 export default function RightPanel(props: RightPanelInterface): JSX.Element {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const noteCtx = useContext(NoteAppContext);
   const myViewingOptions = [
-    "simpleView",
-    "numberedView",
-    "levelView",
-    "cornelView",
-    "flashcardsView",
+    { option: 0, name: "View notes" },
+    { option: 1, name: "View notes numbered" },
+    { option: 2, name: "View notes with levels" },
+    { option: 3, name: "View Notes as Cornel method" },
+    { option: 4, name: "View Notes as Flashcards" },
   ];
 
   const OpenCloseSideTabButton = () => (
@@ -51,21 +54,28 @@ export default function RightPanel(props: RightPanelInterface): JSX.Element {
     </Row>
   );
 
+  const ViewOptions = () => (
+    <>
+      <h3>Visualization options:</h3>
+      <ButtonGroup vertical>
+        {myViewingOptions.map((i, k) => (
+          <Button
+            variant="flat"
+            key={k}
+            style={{ display: "flex", justifyContent: "flex-end" }}
+            onClick={() => noteCtx.setCurrentViewMode(i.option)}
+          >
+            {i.name}
+          </Button>
+        ))}
+      </ButtonGroup>
+    </>
+  );
+
   return (
     <Col>
       <OpenCloseSideTabButton />
-      {props.isOpenRight ? (
-        <>
-          <h1>{t("view")}</h1>
-          <ul>
-            {myViewingOptions.map((v, i) => (
-              <li key={i}>{t(v)}</li>
-            ))}
-          </ul>
-        </>
-      ) : (
-        <></>
-      )}
+      {props.isOpenRight ? <ViewOptions /> : <></>}
     </Col>
   );
 }

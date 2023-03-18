@@ -10,15 +10,35 @@ export default function Visualise(): JSX.Element {
   const noteCtx = useContext(NoteAppContext);
   const currentNode = noteCtx.currentlySelectedNoteSet;
   const currentSet = currentNode.noteSetNote;
+  let indentationStyle = noteCtx.currentViewMode;
+  const getIndentationStyle = (indentationLevel: number) => {
+    let indent;
+    switch (indentationStyle) {
+      // simple note rendering, no levels
+      case 0:
+        indent = <></>;
+        break;
+      // numbered
+      case 1:
+        indent = parseInt(indentationLevel, 10);
+        break;
+      default:
+        indent = <></>;
+        break;
+    }
+    return indent;
+  };
   ///
   const IndentedNote = (eachNote) => {
     let indentationLevel = parseInt(eachNote.eachNote.textLevel, 10);
-    const indentationSymbol = indentationLevel
-    let indentation = `\xa0\xa0\xa0\xa0`.repeat(indentationLevel);
+    const indentationSymbol = getIndentationStyle(indentationLevel);
+    let indentation =
+      indentationStyle === 0 ? "" : `\xa0\xa0\xa0\xa0`.repeat(indentationLevel);
     return (
       <p>
         {indentation}
-        {indentationSymbol}. {eachNote.eachNote.noteText}
+        {indentationSymbol}
+        {indentationStyle === 0 ? <></> : "."} {eachNote.eachNote.noteText}
       </p>
     );
   };

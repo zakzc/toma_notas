@@ -27,7 +27,12 @@ export default function LeftPanel(props: LeftPanelInterface): JSX.Element {
       <>
         <ButtonGroup vertical>
           {noteSets.map((i, k) => (
-            <Button variant="flat" key={k} onClick={() => setNewNoteSet(i)}>
+            <Button
+              variant="flat"
+              key={k}
+              style={{ display: "flex", justifyContent: "flex-start" }}
+              onClick={() => setNewNoteSet(i)}
+            >
               {i.noteSetName}
             </Button>
           ))}
