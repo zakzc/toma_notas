@@ -15,7 +15,6 @@ const NoteAppContextProvider: React.FC = ({ children }) => {
     useState<NoteSetInterface[]>(dummyDataForTest);
   const [selectedNoteSet, setSelectedNoteSet] = useState(userNoteSet[0]);
   ///
-  console.log(selectedNoteSet);
   function changeSelectedNoteSet(noteSetToSelect: NoteSetInterface) {
     setSelectedNoteSet(noteSetToSelect);
   }

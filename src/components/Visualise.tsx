@@ -10,23 +10,38 @@ export default function Visualise(): JSX.Element {
   const noteCtx = useContext(NoteAppContext);
   const currentNode = noteCtx.currentlySelectedNoteSet;
   const currentSet = currentNode.noteSetNote;
-///
-  const ViewNotes = (): JSX.Element => {
+  ///
+  const IndentedNote = (eachNote) => {
+    let indentationLevel = parseInt(eachNote.eachNote.textLevel, 10);
+    const indentationSymbol = indentationLevel
+    let indentation = `\xa0\xa0\xa0\xa0`.repeat(indentationLevel);
+    return (
+      <p>
+        {indentation}
+        {indentationSymbol}. {eachNote.eachNote.noteText}
+      </p>
+    );
+  };
+  ///
+  const NoteViewer = (): JSX.Element => {
     return (
       <>
         {currentSet.map((i, k) => (
-          <p key={k}>{i.noteText}</p>
+          <IndentedNote eachNote={i} key={k} />
         ))}
       </>
     );
   };
+  ///
   return (
     <>
       <Row></Row>
       <Row>
         <Col>
+          <br />
           <h4> Current note set: {currentNode.noteSetName}</h4>
-          <ViewNotes />
+          <br />
+          <NoteViewer />
         </Col>
         <Col></Col>
       </Row>
