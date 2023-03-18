@@ -10,6 +10,7 @@ export default function Visualise(): JSX.Element {
   const noteCtx = useContext(NotesContext);
   const currentNode = noteCtx.currentlySelectedNoteSet;
   const currentSet = noteCtx.noteSet[1];
+  console.log(noteCtx)
 ///
   const ViewNotes = (): JSX.Element => {
     return (

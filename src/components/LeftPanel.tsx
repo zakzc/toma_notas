@@ -18,13 +18,16 @@ export default function LeftPanel(props: LeftPanelInterface): JSX.Element {
   const noteCtx = useContext(NotesContext);
   const noteSets = noteCtx.noteSet;
   // dummy value, actual values will come from DB
+  function setNewNoteSet(newNoteSet) {
+    noteCtx.setCurrentlySelectedNoteSet(newNoteSet);
+  }
 
   const MyNotes = (): JSX.Element => {
     return (
       <>
         <ButtonGroup vertical>
           {noteSets.map((i, k) => (
-            <Button variant="flat" key={k} onClick={() => console.log(i)}>
+            <Button variant="flat" key={k} onClick={() => setNewNoteSet(i)}>
               {i.noteSetName}
             </Button>
           ))}
