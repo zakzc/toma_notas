@@ -3,7 +3,7 @@ import { Inter } from "@next/font/google";
 ///
 // import styles from "@/styles/Home.module.css";
 ///
-import { NotesContextProvider } from "../store/notes_context";
+import NoteAppContextProvider from "../store/notes_context";
 ///
 import Layout from "../components/Layout";
 
@@ -18,13 +18,13 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <NotesContextProvider>
+      <NoteAppContextProvider>
         {/* <main className={styles.main}>
           <div className={styles.description}> */}
-            <Layout />
-          {/* </div>
+        <Layout />
+        {/* </div>
         </main> */}
-      </NotesContextProvider>
+      </NoteAppContextProvider>
     </>
   );
 }

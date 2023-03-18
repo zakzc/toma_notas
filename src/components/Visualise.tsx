@@ -3,19 +3,18 @@ import React, { useContext } from "react";
 ///
 import { Row, Col } from "react-bootstrap";
 ///
-import NotesContext from "../store/notes_context";
+import { NoteAppContext } from "../store/notes_context";
 
 export default function Visualise(): JSX.Element {
   // const { t } = useTranslation();
-  const noteCtx = useContext(NotesContext);
+  const noteCtx = useContext(NoteAppContext);
   const currentNode = noteCtx.currentlySelectedNoteSet;
-  const currentSet = noteCtx.noteSet[1];
-  console.log(noteCtx)
+  const currentSet = currentNode.noteSetNote;
 ///
   const ViewNotes = (): JSX.Element => {
     return (
       <>
-        {currentSet.noteSetNote.map((i, k) => (
+        {currentSet.map((i, k) => (
           <p key={k}>{i.noteText}</p>
         ))}
       </>

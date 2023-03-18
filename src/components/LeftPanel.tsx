@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { Row, Col, Button, ButtonGroup } from "react-bootstrap";
 // import { useTranslation } from "react-i18next";
 ///
-import NotesContext from "../store/notes_context";
+import { NoteAppContext } from "../store/notes_context";
 ///
 import ArrowLeft from "./svg/ArrowLeft";
 import ArrowRight from "./svg/ArrowRight";
@@ -15,7 +15,7 @@ interface LeftPanelInterface {
 
 export default function LeftPanel(props: LeftPanelInterface): JSX.Element {
   // const { t } = useTranslation();
-  const noteCtx = useContext(NotesContext);
+  const noteCtx = useContext(NoteAppContext);
   const noteSets = noteCtx.noteSet;
   // dummy value, actual values will come from DB
   function setNewNoteSet(newNoteSet) {
