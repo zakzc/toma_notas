@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 // import { useTranslation } from "react-i18next";
 ///
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Form, InputGroup } from "react-bootstrap";
 //
 import Indent from "./svg/Indent";
 import Unindent from "./svg/Unindent";
@@ -9,45 +9,56 @@ import Check from "./svg/Check";
 // import styles from "../../Styles/LogInPageStyle.css";
 
 export default function TextArea(): JSX.Element {
-  const [inputText, setInputText] = useState("");
-  // const [indent, setIndent] = useState("0");
-  // const { t } = useTranslation();
-  console.log("Input: ", inputText);
-
-  const confirmNoteEntry = () => {
-    const textToInput = inputText
-    setInputText("")
-    console.log(textToInput)
-  };
+  const [inputText, setInputText] = useState<string>("");
 
   const setIndentationLevel = (level) => {
-if (level === true) {
-  /// add indentation
-  console.log("plus")
-} else {
-  // remove indentation
-  console.log("minus")
-}
-  }
+    if (level === true) {
+      /// add indentation
+      console.log("plus");
+    } else {
+      // remove indentation
+      console.log("minus");
+    }
+  };
 
-  const IndentationArea = () => (
-    <Row>
-      <Col>
-        <Button variant="flat" size="lg" onClick={() => setIndentationLevel(true)}>
-          <Unindent />
-        </Button>
-      </Col>
-      <Col>
-        <Button variant="flat" size="lg" onClick={() => setIndentationLevel(false)}>
-          <Indent />
-        </Button>
-      </Col>
-      <Col>
-        <Button variant="flat" size="lg" onClick={() => confirmNoteEntry()}>
-          <Check />
-        </Button>
-      </Col>
-    </Row>
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log(inputText);
+    setInputText("");
+  };
+
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setInputText(event.target.value);
+  };
+
+  const ButtonsArea = () => (
+    <>
+      <Row>
+        <Col>
+          <Button
+            variant="flat"
+            size="lg"
+            onClick={() => setIndentationLevel(true)}
+          >
+            <Unindent />
+          </Button>
+        </Col>
+        <Col>
+          <Button
+            variant="flat"
+            size="lg"
+            onClick={() => setIndentationLevel(false)}
+          >
+            <Indent />
+          </Button>
+        </Col>
+        <Col>
+          <Button variant="flat" size="lg" type="submit">
+            <Check />
+          </Button>
+        </Col>
+      </Row>
+    </>
   );
 
   return (
@@ -55,16 +66,25 @@ if (level === true) {
       <br />
       <Row>
         <Col>
-          <textarea
-            name="Text Input"
-            rows={window.innerHeight * 0.03}
-            cols={window.innerWidth * 0.05}
-            onChange={(e) => setInputText(e.target.value)}
-          />
+          <Form onSubmit={handleSubmit}>
+            {/* <label>
+              <textarea value={inputText} onChange={handleChange} />
+            </label> */}
+            <InputGroup>
+              <Form.Control
+                rows={window.innerHeight * 0.03}
+                cols={window.innerWidth * 0.05}
+                as="textarea"
+                aria-label="With textarea"
+                value={inputText}
+                onChange={handleChange}
+              />
+            </InputGroup>
+            <ButtonsArea />
+          </Form>
         </Col>
       </Row>
       <br />
-      <IndentationArea />
     </Container>
   );
 }
