@@ -1,14 +1,11 @@
 import React, { useContext } from "react";
-// import { useTranslation } from "react-i18next";
 ///
 import { NoteAppContext } from "../store/notes_context";
-import { NoteSetInterface } from "../data/interfaces";
+import { NoteInterface } from "../data/interfaces";
 
 export default function ViewNotes(): JSX.Element {
-  // const { t } = useTranslation();
   const noteCtx = useContext(NoteAppContext);
-  const currentNode = noteCtx.currentlySelectedNoteSet;
-  const currentSet: NoteSetInterface[] = currentNode.noteSetNote;
+  const currentSet = noteCtx.currentlySelectedNoteSet.noteSetNote;
   ///
   const getIndentationStyle = (indent: string) => {
     let indentStyle = "";
@@ -26,8 +23,13 @@ export default function ViewNotes(): JSX.Element {
     return indentStyle;
   };
   ///
-  const IndentedNote = (eachNote) => {
-    let indent = eachNote.eachNote.indentation;
+  interface IndentNotesInterface {
+    notes: NoteInterface;
+    key: number;
+  }
+  const IndentedNote = (props: IndentNotesInterface) => {
+    let indent = props.notes.indentation;
+    console.log(props);
     const indentationStyle = getIndentationStyle(indent);
     let indentation =
       indentationStyle === "0" ? "" : `\xa0\xa0\xa0\xa0`.repeat(indent.length);
@@ -35,16 +37,20 @@ export default function ViewNotes(): JSX.Element {
       <p>
         {indentation}
         {indentationStyle}
-        {eachNote.eachNote.noteText}
+        {props.notes.noteText}
       </p>
     );
   };
   ///
   return (
     <>
-      {currentSet.map((i, k) => (
-        <IndentedNote eachNote={i} key={k} />
-      ))}
+      {currentSet ? (
+        currentSet.map((i: NoteInterface, k: number) => (
+          <IndentedNote notes={i} key={k} />
+        ))
+      ) : (
+        <h4> No notes to show </h4>
+      )}
     </>
   );
 }
