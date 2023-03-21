@@ -8,13 +8,12 @@ import { Row, Col, Button, ButtonGroup } from "react-bootstrap";
 import ArrowLeft from "./svg/ArrowLeft";
 import ArrowRight from "./svg/ArrowRight";
 
-interface RightPanelInterface {
+interface ViewModeInterface {
   isOpenRight: boolean;
   setIsOpenRight: React.Dispatch<React.SetStateAction<boolean>>;
-  appMode: boolean;
 }
 
-export default function RightPanel(props: RightPanelInterface): JSX.Element {
+export default function ViewMode(props: ViewModeInterface): JSX.Element {
   // const { t } = useTranslation();
   const noteCtx = useContext(NoteAppContext);
   const myViewingOptions = [
@@ -23,7 +22,7 @@ export default function RightPanel(props: RightPanelInterface): JSX.Element {
     { option: 2, name: "View notes with levels" },
     { option: 3, name: "View Notes as Cornel method" },
     { option: 4, name: "View Notes as Flashcards" },
-  ];
+  ]
 
   const OpenCloseSideTabButton = () => (
     <Row>
@@ -55,15 +54,14 @@ export default function RightPanel(props: RightPanelInterface): JSX.Element {
     </Row>
   );
 
-  const ViewMode = () => (
+  const ViewOptions = () => (
     <>
-      {" "}
       <h3>Visualization options:</h3>
       <ButtonGroup vertical>
         {myViewingOptions.map((i, k) => (
           <Button
             variant="flat"
-            key={k}
+            key={k} 
             style={{ display: "flex", justifyContent: "flex-end" }}
             onClick={() => noteCtx.setCurrentViewMode(i.option)}
           >
@@ -72,12 +70,6 @@ export default function RightPanel(props: RightPanelInterface): JSX.Element {
         ))}
       </ButtonGroup>
     </>
-  );
-
-  const ViewCurrentNote = () => <h3>Here goes current doc editing</h3>;
-
-  const ViewOptions = () => (
-    <>{props.appMode === true ? <ViewMode /> : <ViewCurrentNote />}</>
   );
 
   return (

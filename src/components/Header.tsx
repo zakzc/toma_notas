@@ -11,12 +11,12 @@ const Header = ({ appMode, setAppMode }) => {
   const { t, i18n } = useTranslation();
   const WriteViewSwitch = () => (
     <div className="centerPageStyle">
-      {appMode === 0 ? (
-        <Button variant="flat" onClick={() => setAppMode(1)}>
+      {appMode === false ? (
+        <Button variant="flat" onClick={() => setAppMode(true)}>
           <PenIcon />
         </Button>
       ) : (
-        <Button variant="flat"  onClick={() => setAppMode(0)}>
+        <Button variant="flat"  onClick={() => setAppMode(false)}>
           <SeeIcon />
         </Button>
       )}

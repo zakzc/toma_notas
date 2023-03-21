@@ -71,6 +71,10 @@ export default function LeftPanel(props: LeftPanelInterface): JSX.Element {
     </Row>
   );
 
+  //  const LeftSideViewOptions = () => (
+  //    <>{props.appMode === true ? <ViewMode /> : <ViewCurrentNote />}</>
+  //  );
+
   return (
     <Col>
       <OpenCloseSideTabButton />

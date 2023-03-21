@@ -13,16 +13,15 @@ import Footer from "./Footer";
 const Layout = (): JSX.Element => {
   const [isOpenLeft, setIsOpenLeft] = useState(false);
   const [isOpenRight, setIsOpenRight] = useState(false);
-  // 0 for Write Mode, 1 for visualise mode
-  const [appMode, setAppMode] = useState(0);
+  // false for Write Mode, true for visualise mode
+  const [appMode, setAppMode] = useState(false);
   // const { t, i18n } = useTranslation();
 
   // function changeLanguage(lng: string) {
   //   i18n.changeLanguage(lng);
   // }
 
-  return (
-    <>
+  return (<>
       <Container fluid>
         <Row>
           <Header appMode={appMode} setAppMode={setAppMode} />
@@ -32,12 +31,13 @@ const Layout = (): JSX.Element => {
             <LeftPanel isOpenLeft={isOpenLeft} setIsOpenLeft={setIsOpenLeft} />
           </Col>
           <Col xs={12} sm={12} md={6}>
-            {appMode ? <TextArea /> : <Visualise />}
+            {appMode===false ? <TextArea /> : <Visualise />}
           </Col>
           <Col xs={12} sm={12} md={3}>
             <RightPanel
               isOpenRight={isOpenRight}
               setIsOpenRight={setIsOpenRight}
+              appMode={appMode}
             />
           </Col>
         </Row>
