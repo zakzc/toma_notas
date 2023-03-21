@@ -4,13 +4,15 @@ import React, { useContext } from "react";
 import { Row, Col } from "react-bootstrap";
 ///
 import { NoteAppContext } from "../store/notes_context";
+import {NoteSetInterface} from "../data/interfaces"
 ///
 import ViewNotes from "./ViewNotes";
 
 export default function Visualise(): JSX.Element {
   // const { t } = useTranslation();
   const noteCtx = useContext(NoteAppContext);
-  const currentNode = noteCtx.currentlySelectedNoteSet;
+  const currentNode: NoteSetInterface =
+    noteCtx.currentlySelectedNoteSet as NoteSetInterface;
   ///
   return (
     <>
@@ -20,7 +22,7 @@ export default function Visualise(): JSX.Element {
           <br />
           <h4> Current note set: {currentNode.noteSetName}</h4>
           <br />
-          <ViewNotes/>
+          <ViewNotes />
         </Col>
         <Col></Col>
       </Row>

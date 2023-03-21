@@ -4,16 +4,21 @@ import { Row, Col, Button, ButtonGroup, ToggleButton } from "react-bootstrap";
 import PenIcon from "./svg/PenIcon";
 import SeeIcon from "./svg/SeeIcon";
 
-const Header = ({ appMode, setAppMode }) => {
+interface HeaderInterface {
+  appMode: boolean;
+  setAppMode: React.Dispatch<boolean>;
+}
+
+const Header = (props: HeaderInterface) => {
   const WriteViewSwitch = () => (
     <div className="centerPageStyle">
       <ToggleButton
         key={1}
         variant="flat"
         value="write"
-        checked={appMode === true}
+        checked={props.appMode === true}
         type="radio"
-        onClick={() => setAppMode(true)}
+        onClick={() => props.setAppMode(true)}
       >
         <SeeIcon />
       </ToggleButton>
@@ -22,9 +27,9 @@ const Header = ({ appMode, setAppMode }) => {
         variant="flat"
         value="read"
         name="radio"
-        checked={appMode === false}
+        checked={props.appMode === false}
         type="radio"
-        onClick={() => setAppMode(false)}
+        onClick={() => props.setAppMode(false)}
       >
         <PenIcon />
       </ToggleButton>

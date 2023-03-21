@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 ///
 import { NoteAppContext } from "../store/notes_context";
 ///
-import ViewNotes from "./ViewNotes"
+import ViewNotes from "./ViewNotes";
 ///
 import { Row, Col, Button, ButtonGroup } from "react-bootstrap";
 import ArrowLeft from "./svg/ArrowLeft";
@@ -11,7 +11,7 @@ import ArrowRight from "./svg/ArrowRight";
 
 interface RightPanelInterface {
   isOpenRight: boolean;
-  setIsOpenRight: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsOpenRight: React.Dispatch<boolean>;
   appMode: boolean;
 }
 

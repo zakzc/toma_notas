@@ -11,7 +11,7 @@ import Check from "./svg/Check";
 export default function TextArea(): JSX.Element {
   const [inputText, setInputText] = useState<string>("");
 
-  const setIndentationLevel = (level) => {
+  const setIndentationLevel = (level: boolean) => {
     if (level === true) {
       /// add indentation
       console.log("plus");

@@ -3,19 +3,15 @@ import React, { useContext } from "react";
 import {Button, ButtonGroup } from "react-bootstrap";
 ///
 import { NoteAppContext } from "../store/notes_context";
+import { NoteSetInterface} from "../data/interfaces"
 ///
 
-interface LeftPanelInterface {
-  isOpenLeft: boolean;
-  setIsOpenLeft: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export default function CurrentNoteSet(props: LeftPanelInterface): JSX.Element {
+export default function CurrentNoteSet(): JSX.Element {
   // const { t } = useTranslation();
   const noteCtx = useContext(NoteAppContext);
-  const noteSets = noteCtx.noteSet;
+  const noteSets: NoteSetInterface[] = noteCtx.noteSet;
   // dummy value, actual values will come from DB
-  function setNewNoteSet(newNoteSet) {
+  function setNewNoteSet(newNoteSet: NoteSetInterface) {
     noteCtx.setCurrentlySelectedNoteSet(newNoteSet);
   }
 

@@ -2,12 +2,13 @@ import React, { useContext } from "react";
 // import { useTranslation } from "react-i18next";
 ///
 import { NoteAppContext } from "../store/notes_context";
+import { NoteSetInterface } from "../data/interfaces";
 
 export default function ViewNotes(): JSX.Element {
   // const { t } = useTranslation();
   const noteCtx = useContext(NoteAppContext);
   const currentNode = noteCtx.currentlySelectedNoteSet;
-  const currentSet = currentNode.noteSetNote;
+  const currentSet: NoteSetInterface[] = currentNode.noteSetNote;
   ///
   const getIndentationStyle = (indent: string) => {
     let indentStyle = "";
