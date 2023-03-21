@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 ///
-import { Row, Col, Button, ButtonGroup } from "react-bootstrap";
-// import { useTranslation } from "react-i18next";
+import CurrentNoteSet from "./CurrentNoteSet";
 ///
 import { NoteAppContext } from "../store/notes_context";
 ///
+import { Row, Col, Button, ButtonGroup } from "react-bootstrap";
 import ArrowLeft from "./svg/ArrowLeft";
 import ArrowRight from "./svg/ArrowRight";
 
@@ -14,33 +14,6 @@ interface LeftPanelInterface {
 }
 
 export default function LeftPanel(props: LeftPanelInterface): JSX.Element {
-  // const { t } = useTranslation();
-  const noteCtx = useContext(NoteAppContext);
-  const noteSets = noteCtx.noteSet;
-  // dummy value, actual values will come from DB
-  function setNewNoteSet(newNoteSet) {
-    noteCtx.setCurrentlySelectedNoteSet(newNoteSet);
-  }
-
-  const MyNotes = (): JSX.Element => {
-    return (
-      <>
-        <ButtonGroup vertical>
-          {noteSets.map((i, k) => (
-            <Button
-              variant="flat"
-              key={k}
-              style={{ display: "flex", justifyContent: "flex-start" }}
-              onClick={() => setNewNoteSet(i)}
-            >
-              {i.noteSetName}
-            </Button>
-          ))}
-        </ButtonGroup>
-      </>
-    );
-  };
-
   const OpenCloseSideTabButton = () => (
     <Row>
       {props.isOpenLeft ? (
@@ -71,10 +44,6 @@ export default function LeftPanel(props: LeftPanelInterface): JSX.Element {
     </Row>
   );
 
-  //  const LeftSideViewOptions = () => (
-  //    <>{props.appMode === true ? <ViewMode /> : <ViewCurrentNote />}</>
-  //  );
-
   return (
     <Col>
       <OpenCloseSideTabButton />
@@ -82,7 +51,8 @@ export default function LeftPanel(props: LeftPanelInterface): JSX.Element {
         <>
           {/* <h3>{t("yourNotes")}</h3> */}
           <h3>Your notes:</h3>
-          <MyNotes />
+          {/* <MyNotes /> */}
+          <CurrentNoteSet />
           <br />
         </>
       ) : (

@@ -72,8 +72,8 @@ export default function TextArea(): JSX.Element {
             </label> */}
             <InputGroup>
               <Form.Control
-                rows={window.innerHeight * 0.03}
-                cols={window.innerWidth * 0.05}
+                rows={window ? window.innerHeight * 0.03: 25}
+                cols={window ? window.innerWidth * 0.05 : 5}
                 as="textarea"
                 aria-label="With textarea"
                 value={inputText}

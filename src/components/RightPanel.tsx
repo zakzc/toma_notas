@@ -3,8 +3,9 @@ import React, { useContext } from "react";
 ///
 import { NoteAppContext } from "../store/notes_context";
 ///
-import { Row, Col, Button, ButtonGroup } from "react-bootstrap";
+import ViewNotes from "./ViewNotes"
 ///
+import { Row, Col, Button, ButtonGroup } from "react-bootstrap";
 import ArrowLeft from "./svg/ArrowLeft";
 import ArrowRight from "./svg/ArrowRight";
 
@@ -74,10 +75,8 @@ export default function RightPanel(props: RightPanelInterface): JSX.Element {
     </>
   );
 
-  const ViewCurrentNote = () => <h3>Here goes current doc editing</h3>;
-
   const ViewOptions = () => (
-    <>{props.appMode === true ? <ViewMode /> : <ViewCurrentNote />}</>
+    <>{props.appMode === true ? <ViewMode /> : <ViewNotes />}</>
   );
 
   return (

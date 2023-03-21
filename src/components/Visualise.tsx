@@ -4,52 +4,13 @@ import React, { useContext } from "react";
 import { Row, Col } from "react-bootstrap";
 ///
 import { NoteAppContext } from "../store/notes_context";
+///
+import ViewNotes from "./ViewNotes";
 
 export default function Visualise(): JSX.Element {
   // const { t } = useTranslation();
   const noteCtx = useContext(NoteAppContext);
   const currentNode = noteCtx.currentlySelectedNoteSet;
-  const currentSet = currentNode.noteSetNote;
-///
-  const getIndentationStyle = (indent: string) => {
-    let indentStyle = "";
-    switch (noteCtx.currentViewMode) {
-      // simple note rendering, no levels
-      case 0:
-        break;
-      // numbered
-      case 1:
-        indentStyle += indent.split("").join(".") + ". ";
-        break;
-      default:
-        break;
-    }
-    return indentStyle;
-  };
-  ///
-  const IndentedNote = (eachNote) => {
-    let indent = eachNote.eachNote.indentation;
-    const indentationStyle = getIndentationStyle(indent);
-    let indentation =
-      indentationStyle === "0" ? "" : `\xa0\xa0\xa0\xa0`.repeat(indent.length);
-    return (
-      <p>
-        {indentation}
-        {indentationStyle}
-        {eachNote.eachNote.noteText}
-      </p>
-    );
-  };
-  ///
-  const NoteViewer = (): JSX.Element => {
-    return (
-      <>
-        {currentSet.map((i, k) => (
-          <IndentedNote eachNote={i} key={k} />
-        ))}
-      </>
-    );
-  };
   ///
   return (
     <>
@@ -59,7 +20,7 @@ export default function Visualise(): JSX.Element {
           <br />
           <h4> Current note set: {currentNode.noteSetName}</h4>
           <br />
-          <NoteViewer />
+          <ViewNotes/>
         </Col>
         <Col></Col>
       </Row>
