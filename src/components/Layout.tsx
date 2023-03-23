@@ -1,14 +1,12 @@
 import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
 //
 import { Container, Row, Col } from "react-bootstrap";
-//
 import TextArea from "./TextArea";
 import Visualise from "./Visualise";
 import LeftPanel from "./LeftPanel";
 import RightPanel from "./RightPanel";
 import Header from "./Header";
-import Footer from "./Footer";
+// import Footer from "./Footer";
 
 const Layout = (): JSX.Element => {
   const [isOpenLeft, setIsOpenLeft] = useState(false);
@@ -28,7 +26,7 @@ const Layout = (): JSX.Element => {
         </Row>
         <Row>
           <Col xs={12} sm={12} md={3}>
-            <LeftPanel isOpenLeft={isOpenLeft} setIsOpenLeft={setIsOpenLeft} />
+            <LeftPanel isOpenLeft={isOpenLeft} setIsOpenLeft={setIsOpenLeft} appMode={appMode}/>
           </Col>
           <Col xs={12} sm={12} md={6}>
             {appMode===false ? <TextArea /> : <Visualise />}

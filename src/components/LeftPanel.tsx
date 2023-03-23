@@ -1,19 +1,20 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 ///
+import UserNotes from "./UserNotes";
 import CurrentNoteSet from "./CurrentNoteSet";
 ///
-import { NoteAppContext } from "../store/notes_context";
-///
-import { Row, Col, Button, ButtonGroup } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 import ArrowLeft from "./svg/ArrowLeft";
 import ArrowRight from "./svg/ArrowRight";
 
 interface LeftPanelInterface {
   isOpenLeft: boolean;
   setIsOpenLeft: React.Dispatch<React.SetStateAction<boolean>>;
+  appMode: boolean;
 }
 
 export default function LeftPanel(props: LeftPanelInterface): JSX.Element {
+  ///
   const OpenCloseSideTabButton = () => (
     <Row>
       {props.isOpenLeft ? (
@@ -45,19 +46,18 @@ export default function LeftPanel(props: LeftPanelInterface): JSX.Element {
   );
 
   return (
-    <Col>
+    <>
       <OpenCloseSideTabButton />
       {props.isOpenLeft ? (
         <>
-          {/* <h3>{t("yourNotes")}</h3> */}
-          <h3>Your notes:</h3>
-          {/* <MyNotes /> */}
           <CurrentNoteSet />
           <br />
+          <br />
+          <UserNotes />
         </>
       ) : (
         <></>
       )}
-    </Col>
+    </>
   );
 }
