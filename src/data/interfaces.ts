@@ -15,6 +15,7 @@ export interface NoteContextInterface {
   numberOfNotes: number;
   currentlySelectedNoteSet: NoteSetInterface | {};
   setCurrentlySelectedNoteSet: (noteSetToSelect: NoteSetInterface) => void;
+  addUserNote: (noteName: string) => void;
   // currentViewMode: number;
   // setCurrentViewMode: React.Dispatch<number>;
   // addNewNote: () => {};

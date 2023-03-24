@@ -1,11 +1,12 @@
 import React, { useContext, useState } from "react";
-// import { NoteAppContext } from "../store/notes_context";
+//
+import { NoteAppContext } from "../store/notes_context";
 ///
 import { Button, Form } from "react-bootstrap";
 import Plus from "./svg/Plus";
 
 export default function UserNotes(): JSX.Element {
-  // const noteCtx = useContext(NoteAppContext);
+  const noteCtx = useContext(NoteAppContext);
   const [addNote, setAddNote] = useState<string>("");
   const [newNoteName, setNewNoteName] = useState<string>("");
   ///
@@ -20,9 +21,11 @@ export default function UserNotes(): JSX.Element {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setNewNoteName(addNote);
+        noteCtx.addUserNote(addNote);
     console.log("submitted: ", newNoteName);
     setAddNote("");
     // TODO Send note to context
+
   };
 
   return (

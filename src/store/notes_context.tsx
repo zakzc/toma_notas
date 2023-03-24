@@ -8,6 +8,7 @@ export const NoteAppContext = createContext<NoteContextInterface>({
   numberOfNotes: 0,
   currentlySelectedNoteSet: {},
   setCurrentlySelectedNoteSet: () => {},
+  addUserNote: () => {},
   // currentViewMode: false,
   // setCurrentViewMode: () => {},
 });
@@ -21,12 +22,19 @@ const NoteAppContextProvider: React.FC = ({ children }) => {
   function changeSelectedNoteSet(noteSetToSelect: NoteSetInterface) {
     setSelectedNoteSet(noteSetToSelect);
   }
+  function addNewUserNote(noteName: string) {
+    setUserNoteSet([
+      ...userNoteSet,
+      { noteSetId: 5, noteSetName: noteName, noteSetNote: [] },
+    ]);
+  }
   ///
   const initialContextState = {
     noteSet: userNoteSet,
     numberOfNotes: userNoteSet.length,
     currentlySelectedNoteSet: selectedNoteSet,
     setCurrentlySelectedNoteSet: changeSelectedNoteSet,
+    addUserNote: addNewUserNote,
     // currentViewMode,
     // setCurrentViewMode,
   };
