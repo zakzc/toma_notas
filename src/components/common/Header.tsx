@@ -18,6 +18,7 @@ const Header = (props: HeaderInterface) => {
         value="write"
         checked={props.appMode === true}
         type="radio"
+        size="lg"
         onClick={() => props.setAppMode(true)}
       >
         <SeeIcon />
@@ -27,6 +28,7 @@ const Header = (props: HeaderInterface) => {
         variant="flat"
         value="read"
         name="radio"
+        size="lg"
         checked={props.appMode === false}
         type="radio"
         onClick={() => props.setAppMode(false)}

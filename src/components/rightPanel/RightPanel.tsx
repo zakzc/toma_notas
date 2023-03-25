@@ -32,7 +32,8 @@ export default function RightPanel(props: RightPanelInterface): JSX.Element {
         <>
           <Col>
             <Button
-              variant="light"
+              variant="flat"
+              size="lg"
               onClick={() => props.setIsOpenRight(!props.isOpenRight)}
             >
               <ArrowRight />
@@ -46,6 +47,7 @@ export default function RightPanel(props: RightPanelInterface): JSX.Element {
           <Col>
             <Button
               variant="flat"
+              size="lg"
               onClick={() => props.setIsOpenRight(!props.isOpenRight)}
             >
               <ArrowLeft />
@@ -64,6 +66,7 @@ export default function RightPanel(props: RightPanelInterface): JSX.Element {
         {myViewingOptions.map((i, k) => (
           <Button
             variant="flat"
+            size="lg"
             key={k}
             style={{ display: "flex", justifyContent: "flex-end" }}
             onClick={() => noteCtx.setCurrentViewMode(i.option)}

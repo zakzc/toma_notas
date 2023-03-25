@@ -38,7 +38,7 @@ export default function UserNotes(): JSX.Element {
           onChange={handleInputChange}
         />
       </Form.Group>
-      <Button variant="flat" type="submit">
+      <Button variant="flat" size="lg" type="submit">
         <Plus />
       </Button>
     </Form>
