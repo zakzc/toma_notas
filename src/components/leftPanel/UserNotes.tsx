@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 //
 import { NoteAppContext } from "../../store/notes_context";
 ///
-import { Button, Form } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import Plus from "../svg/Plus";
 
 export default function UserNotes(): JSX.Element {
@@ -21,26 +21,31 @@ export default function UserNotes(): JSX.Element {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setNewNoteName(addNote);
-        noteCtx.addUserNote(addNote);
+    noteCtx.addUserNote(addNote);
     console.log("submitted: ", newNoteName);
     setAddNote("");
     // TODO Send note to context
-
   };
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="note">
-        <Form.Label>New note:</Form.Label>
-        <Form.Control
-          type="text"
-          value={addNote}
-          onChange={handleInputChange}
-        />
-      </Form.Group>
-      <Button variant="flat" size="lg" type="submit">
-        <Plus />
-      </Button>
+      <Row>
+        <Col>
+          <Form.Group controlId="note">
+            {/* <Form.Label>New note:</Form.Label> */}
+            <Form.Control
+              type="text"
+              value={addNote}
+              onChange={handleInputChange}
+            />
+          </Form.Group>
+        </Col>
+        <Col>
+          <Button variant="flat" size="lg" type="submit">
+            <Plus />
+          </Button>
+        </Col>
+      </Row>
     </Form>
   );
 }

@@ -32,7 +32,6 @@ const getFontWeight = (i) => {
         {noteSets.map((i, k) => (
           <Button
             variant="flat"
-            size="lg"
             key={k}
             style={{
               display: "flex",
