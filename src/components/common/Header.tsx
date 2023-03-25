@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 ///
 import { Row, Col, Button, ButtonGroup, ToggleButton } from "react-bootstrap";
-import PenIcon from "./svg/PenIcon";
-import SeeIcon from "./svg/SeeIcon";
+import PenIcon from "../svg/PenIcon";
+import SeeIcon from "../svg/SeeIcon";
 
 interface HeaderInterface {
   appMode: boolean;

@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
 //
-import { NoteAppContext } from "../store/notes_context";
+import { NoteAppContext } from "../../store/notes_context";
 ///
 import { Button, Form } from "react-bootstrap";
-import Plus from "./svg/Plus";
+import Plus from "../svg/Plus";
 
 export default function UserNotes(): JSX.Element {
   const noteCtx = useContext(NoteAppContext);

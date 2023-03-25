@@ -1,11 +1,11 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 ///
 import UserNotes from "./UserNotes";
 import CurrentNoteSet from "./CurrentNoteSet";
 ///
 import { Row, Col, Button } from "react-bootstrap";
-import ArrowLeft from "./svg/ArrowLeft";
-import ArrowRight from "./svg/ArrowRight";
+import ArrowLeft from "../svg/ArrowLeft";
+import ArrowRight from "../svg/ArrowRight";
 
 interface LeftPanelInterface {
   isOpenLeft: boolean;

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 //
 import { Container, Row, Col } from "react-bootstrap";
-import TextArea from "./TextArea";
-import Visualise from "./Visualise";
-import LeftPanel from "./LeftPanel";
-import RightPanel from "./RightPanel";
-import Header from "./Header";
+import TextArea from "./centralPanel/TextArea";
+import Visualise from "./centralPanel/Visualise";
+import LeftPanel from "./leftPanel/LeftPanel";
+import RightPanel from "./rightPanel/RightPanel";
+import Header from "./common/Header";
 // import Footer from "./Footer";
 
 const Layout = (): JSX.Element => {

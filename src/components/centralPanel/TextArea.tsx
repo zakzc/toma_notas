@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 // import { useTranslation } from "react-i18next";
 ///
 import { Container, Row, Col, Button, Form, InputGroup } from "react-bootstrap";
 //
-import Indent from "./svg/Indent";
-import Unindent from "./svg/Unindent";
-import Check from "./svg/Check";
+import { NoteAppContext } from "../../store/notes_context";
+///
+import Indent from "../svg/Indent";
+import Unindent from "../svg/Unindent";
+import Check from "../svg/Check";
 // import styles from "../../Styles/LogInPageStyle.css";
 
 export default function TextArea(): JSX.Element {
   const [inputText, setInputText] = useState<string>("");
+  const noteCtx = useContext(NoteAppContext);
 
   const setIndentationLevel = (level: boolean) => {
     if (level === true) {
@@ -23,8 +26,8 @@ export default function TextArea(): JSX.Element {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(inputText);
     setInputText("");
+    noteCtx.addNewNoteToCurrentSet(inputText, "001");
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {

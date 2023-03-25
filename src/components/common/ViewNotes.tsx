@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 ///
-import { NoteAppContext } from "../store/notes_context";
-import { NoteInterface } from "../data/interfaces";
+import { NoteAppContext } from "../../store/notes_context";
+import { NoteInterface } from "../../data/interfaces";
 
 export default function ViewNotes(): JSX.Element {
   const noteCtx = useContext(NoteAppContext);

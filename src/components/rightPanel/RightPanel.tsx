@@ -1,19 +1,21 @@
 import React, { useContext } from "react";
 // import { useTranslation } from "react-i18next";
 ///
-import { NoteAppContext } from "../store/notes_context";
+import { NoteAppContext } from "../../store/notes_context";
+///
+import ViewNotes from "../common/ViewNotes";
 ///
 import { Row, Col, Button, ButtonGroup } from "react-bootstrap";
-///
-import ArrowLeft from "./svg/ArrowLeft";
-import ArrowRight from "./svg/ArrowRight";
+import ArrowLeft from "../svg/ArrowLeft";
+import ArrowRight from "../svg/ArrowRight";
 
-interface ViewModeInterface {
+interface RightPanelInterface {
   isOpenRight: boolean;
-  setIsOpenRight: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsOpenRight: React.Dispatch<boolean>;
+  appMode: boolean;
 }
 
-export default function ViewMode(props: ViewModeInterface): JSX.Element {
+export default function RightPanel(props: RightPanelInterface): JSX.Element {
   // const { t } = useTranslation();
   const noteCtx = useContext(NoteAppContext);
   const myViewingOptions = [
@@ -22,7 +24,7 @@ export default function ViewMode(props: ViewModeInterface): JSX.Element {
     { option: 2, name: "View notes with levels" },
     { option: 3, name: "View Notes as Cornel method" },
     { option: 4, name: "View Notes as Flashcards" },
-  ]
+  ];
 
   const OpenCloseSideTabButton = () => (
     <Row>
@@ -54,14 +56,15 @@ export default function ViewMode(props: ViewModeInterface): JSX.Element {
     </Row>
   );
 
-  const ViewOptions = () => (
+  const ViewMode = () => (
     <>
+      {" "}
       <h3>Visualization options:</h3>
       <ButtonGroup vertical>
         {myViewingOptions.map((i, k) => (
           <Button
             variant="flat"
-            key={k} 
+            key={k}
             style={{ display: "flex", justifyContent: "flex-end" }}
             onClick={() => noteCtx.setCurrentViewMode(i.option)}
           >
@@ -70,6 +73,10 @@ export default function ViewMode(props: ViewModeInterface): JSX.Element {
         ))}
       </ButtonGroup>
     </>
+  );
+
+  const ViewOptions = () => (
+    <>{props.appMode === true ? <ViewMode /> : <ViewNotes />}</>
   );
 
   return (
