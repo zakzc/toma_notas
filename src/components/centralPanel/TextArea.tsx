@@ -12,57 +12,55 @@ import Check from "../svg/Check";
 
 export default function TextArea(): JSX.Element {
   const [inputText, setInputText] = useState<string>("");
+  const [currentIndentationLevel, setCurrentIndentationLevel] =
+    useState<string>("0.");
   const noteCtx = useContext(NoteAppContext);
 
   const setIndentationLevel = (level: boolean) => {
-    if (level === true) {
+    if (level === false) {
       /// add indentation
       console.log("plus");
+      setCurrentIndentationLevel(currentIndentationLevel + "0.");
     } else {
       // remove indentation
+      if (parseInt(currentIndentationLevel.slice(-1), 10) > 0) {
+        const lastNum = parseInt(currentIndentationLevel.slice(-2, -1));
+        setCurrentIndentationLevel(
+          `${currentIndentationLevel.slice(0, -2)}${lastNum - 1}.`
+        );
+      }
       console.log("minus");
+      return;
     }
   };
 
+  function setNewLevel() {
+    let parts = currentIndentationLevel.split(".")
+    parts = parts.slice(0, -1)
+    let lastNumber = parts[parts.length - 1]
+    let updatedLastNumber = parseInt(lastNumber, 10) + 1
+    let baseNumber = currentIndentationLevel.slice(0, -3)
+    let newLevel
+    if (baseNumber === "") {
+       newLevel = baseNumber + updatedLastNumber.toString() + ".";
+    } else {
+       newLevel = baseNumber + "." + updatedLastNumber.toString() + "."
+    }
+    console.log("parts: ", parts, "last: ", lastNumber, "base: ", baseNumber, "now is: ", newLevel)
+    setCurrentIndentationLevel(newLevel);
+  }
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    console.log("check");
+    setNewLevel();
+    noteCtx.addNewNoteToCurrentSet(inputText, currentIndentationLevel);
     setInputText("");
-    noteCtx.addNewNoteToCurrentSet(inputText, "001");
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputText(event.target.value);
   };
-
-  const ButtonsArea = () => (
-    <>
-      <Row>
-        <Col>
-          <Button
-            variant="flat"
-            size="lg"
-            onClick={() => setIndentationLevel(true)}
-          >
-            <Unindent />
-          </Button>
-        </Col>
-        <Col>
-          <Button
-            variant="flat"
-            size="lg"
-            onClick={() => setIndentationLevel(false)}
-          >
-            <Indent />
-          </Button>
-        </Col>
-        <Col>
-          <Button variant="flat" size="lg" type="submit">
-            <Check />
-          </Button>
-        </Col>
-      </Row>
-    </>
-  );
 
   return (
     <Container>
@@ -70,9 +68,6 @@ export default function TextArea(): JSX.Element {
       <Row>
         <Col>
           <Form onSubmit={handleSubmit}>
-            {/* <label>
-              <textarea value={inputText} onChange={handleChange} />
-            </label> */}
             <InputGroup>
               <Form.Control
                 rows={25}
@@ -83,7 +78,35 @@ export default function TextArea(): JSX.Element {
                 onChange={handleChange}
               />
             </InputGroup>
-            <ButtonsArea />
+            <Row>
+              <Col>
+                <Button
+                  variant="flat"
+                  size="lg"
+                  onClick={() => setIndentationLevel(true)}
+                >
+                  <Unindent />
+                </Button>
+              </Col>
+              <Col>
+                <br />
+                {currentIndentationLevel}
+              </Col>
+              <Col>
+                <Button
+                  variant="flat"
+                  size="lg"
+                  onClick={() => setIndentationLevel(false)}
+                >
+                  <Indent />
+                </Button>
+              </Col>
+              <Col>
+                <Button variant="flat" size="lg" type="submit">
+                  <Check />
+                </Button>
+              </Col>
+            </Row>
           </Form>
         </Col>
       </Row>

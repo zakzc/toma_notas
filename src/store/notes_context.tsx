@@ -18,7 +18,6 @@ const NoteAppContextProvider: React.FC = ({ children }) => {
   const [userNoteSet, setUserNoteSet] =
     useState<NoteSetInterface[]>(dummyDataForTest);
   const [selectedNoteSet, setSelectedNoteSet] = useState(userNoteSet[0]);
-  console.log(userNoteSet, selectedNoteSet);
   const [currentViewMode, setCurrentViewMode] = useState(false);
   ///
   function changeSelectedNoteSet(noteSetToSelect: NoteSetInterface) {
@@ -41,12 +40,6 @@ const NoteAppContextProvider: React.FC = ({ children }) => {
   }
 
   function addNewNoteToCurrentSet(noteToAdd) {
-    console.log(
-      "Add new note to current set",
-      noteToAdd,
-      selectedNoteSet.noteSetName,
-      userNoteSet
-    );
     // check for new, empty note
     userNoteSet.map((eachNote) => {
       if (eachNote.noteSetName === selectedNoteSet.noteSetName) {

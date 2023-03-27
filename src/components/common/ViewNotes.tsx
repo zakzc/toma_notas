@@ -29,7 +29,6 @@ export default function ViewNotes(): JSX.Element {
   }
   const IndentedNote = (props: IndentNotesInterface) => {
     let indent = props.notes.indentation;
-    console.log(props);
     const indentationStyle = getIndentationStyle(indent);
     let indentation =
       indentationStyle === "0" ? "" : `\xa0\xa0\xa0\xa0`.repeat(indent.length);
