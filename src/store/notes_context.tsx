@@ -39,7 +39,7 @@ const NoteAppContextProvider: React.FC = ({ children }) => {
     });
   }
 
-  function addNewNoteToCurrentSet(noteToAdd) {
+  function addNewNoteToCurrentSet(noteToAdd, indentationlevel) {
     // check for new, empty note
     userNoteSet.map((eachNote) => {
       if (eachNote.noteSetName === selectedNoteSet.noteSetName) {
@@ -52,12 +52,13 @@ const NoteAppContextProvider: React.FC = ({ children }) => {
       }
     });
     // add new note
-    userNoteSet.map((eachNote, indentationLevel) => {
+    userNoteSet.map((eachNote) => {
+      console.log("Received: ", eachNote, indentationlevel);
       if (eachNote.noteSetName === selectedNoteSet.noteSetName) {
         eachNote.noteSetNote.push({
           noteText: noteToAdd,
           noteTextId: 7,
-          indentation: indentationLevel,
+          indentation: indentationlevel,
         });
         /// also update the selected one
         setSelectedNoteSet({

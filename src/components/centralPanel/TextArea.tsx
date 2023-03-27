@@ -57,8 +57,8 @@ export default function TextArea(): JSX.Element {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log("check");
-    setNewLevel();
     noteCtx.addNewNoteToCurrentSet(inputText, currentIndentationLevel);
+    setNewLevel();
     setInputText("");
   };
 
