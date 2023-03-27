@@ -19,34 +19,38 @@ export default function TextArea(): JSX.Element {
   const setIndentationLevel = (level: boolean) => {
     if (level === false) {
       /// add indentation
-      console.log("plus");
       setCurrentIndentationLevel(currentIndentationLevel + "0.");
     } else {
       // remove indentation
-      if (parseInt(currentIndentationLevel.slice(-1), 10) > 0) {
-        const lastNum = parseInt(currentIndentationLevel.slice(-2, -1));
-        setCurrentIndentationLevel(
-          `${currentIndentationLevel.slice(0, -2)}${lastNum - 1}.`
-        );
-      }
       console.log("minus");
-      return;
+      if (currentIndentationLevel.slice(-2) === "0.") {
+        setCurrentIndentationLevel(currentIndentationLevel.slice(0, -2));
+      } else {
+        let parts = currentIndentationLevel.split(".");
+        parts = parts.slice(0, -1);
+        let lastNumber = parts[parts.length - 1];
+        let updatedLastNumber = parseInt(lastNumber, 10) - 1;
+        let baseNumber = currentIndentationLevel.slice(0, -3);
+        let newLevel;
+        newLevel = baseNumber + "." + updatedLastNumber.toString() + ".";
+        console.log("minus ", parts, lastNumber, baseNumber, newLevel)
+        setCurrentIndentationLevel(newLevel)
+      }
     }
   };
 
   function setNewLevel() {
-    let parts = currentIndentationLevel.split(".")
-    parts = parts.slice(0, -1)
-    let lastNumber = parts[parts.length - 1]
-    let updatedLastNumber = parseInt(lastNumber, 10) + 1
-    let baseNumber = currentIndentationLevel.slice(0, -3)
-    let newLevel
+    let parts = currentIndentationLevel.split(".");
+    parts = parts.slice(0, -1);
+    let lastNumber = parts[parts.length - 1];
+    let updatedLastNumber = parseInt(lastNumber, 10) + 1;
+    let baseNumber = currentIndentationLevel.slice(0, -3);
+    let newLevel;
     if (baseNumber === "") {
-       newLevel = baseNumber + updatedLastNumber.toString() + ".";
+      newLevel = baseNumber + updatedLastNumber.toString() + ".";
     } else {
-       newLevel = baseNumber + "." + updatedLastNumber.toString() + "."
+      newLevel = baseNumber + "." + updatedLastNumber.toString() + ".";
     }
-    console.log("parts: ", parts, "last: ", lastNumber, "base: ", baseNumber, "now is: ", newLevel)
     setCurrentIndentationLevel(newLevel);
   }
 
