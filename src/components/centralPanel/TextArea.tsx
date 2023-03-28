@@ -22,7 +22,11 @@ export default function TextArea(): JSX.Element {
     } else {
       // remove indentation
       console.log("minus");
-      if (currentIndentationLevel.slice(-2) === "0.") {
+      if (currentIndentationLevel.slice(-2) === "0." && currentIndentationLevel.length === 2) {
+        setCurrentIndentationLevel("0.");
+      } else if (
+        currentIndentationLevel.slice(-2) === "0."
+      ) {
         setCurrentIndentationLevel(currentIndentationLevel.slice(0, -2));
       } else {
         let parts = currentIndentationLevel.split(".");
