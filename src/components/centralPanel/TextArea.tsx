@@ -1,9 +1,8 @@
 import React, { useState, useContext } from "react";
-// import { useTranslation } from "react-i18next";
-///
-import { Container, Row, Col, Button, Form, InputGroup } from "react-bootstrap";
 //
 import { NoteAppContext } from "../../store/notes_context";
+///
+import { Container, Row, Col, Button, Form, InputGroup } from "react-bootstrap";
 ///
 import Indent from "../svg/Indent";
 import Unindent from "../svg/Unindent";

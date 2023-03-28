@@ -1,4 +1,5 @@
 import React, { createContext, useState } from "react";
+import { uuid } from "uuidv4";
 ///
 import dummyDataForTest from "../data/dummyDataForTest.json";
 import { NoteContextInterface, NoteSetInterface } from "../data/interfaces";
@@ -28,13 +29,13 @@ const NoteAppContextProvider: React.FC = ({ children }) => {
     setUserNoteSet([
       ...userNoteSet,
       {
-        noteSetId: 5,
+        noteSetId: uuid(),
         noteSetName: noteName,
-        noteSetNote: [{ noteText: "", noteTextId: "0", indentation: "0" }],
+        noteSetNote: [{ noteText: "", noteTextId: "0", indentation: "0." }],
       },
     ]);
     setSelectedNoteSet({
-      noteSetId: 5,
+      noteSetId: 1,
       noteSetName: noteName,
       noteSetNote: [],
     });
@@ -58,7 +59,7 @@ const NoteAppContextProvider: React.FC = ({ children }) => {
       if (eachNote.noteSetName === selectedNoteSet.noteSetName) {
         eachNote.noteSetNote.push({
           noteText: noteToAdd,
-          noteTextId: 7,
+          noteTextId: uuid(),
           indentation: indentationlevel,
         });
         /// also update the selected one

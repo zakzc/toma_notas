@@ -2,8 +2,17 @@ import React, { useContext } from "react";
 ///
 import { NoteAppContext } from "../../store/notes_context";
 import { NoteInterface } from "../../data/interfaces";
+//
+import { Button } from "react-bootstrap";
+//
+import Garbage from "../svg/Garbage";
+import Eraser from "../svg/Eraser";
 
-export default function ViewNotes(): JSX.Element {
+interface ViewNotesInterface {
+  viewIndent: boolean;
+}
+
+export default function ViewNotes(props: ViewNotesInterface): JSX.Element {
   const noteCtx = useContext(NoteAppContext);
   const currentSet = noteCtx.currentlySelectedNoteSet.noteSetNote;
   ///
@@ -15,7 +24,7 @@ export default function ViewNotes(): JSX.Element {
         break;
       // numbered
       case 1:
-        indentStyle += indent.split("").join(".") + ". ";
+        indentStyle += indent;
         break;
       default:
         break;
@@ -23,6 +32,12 @@ export default function ViewNotes(): JSX.Element {
     return indentStyle;
   };
   ///
+  interface FlatNotesInterface {
+    notes: NoteInterface;
+    key: number;
+  }
+  const FlatNote = (props: FlatNotesInterface) => <p>{props.notes.noteText}</p>;
+  //
   interface IndentNotesInterface {
     notes: NoteInterface;
     key: number;
@@ -45,7 +60,33 @@ export default function ViewNotes(): JSX.Element {
     <>
       {currentSet ? (
         currentSet.map((i: NoteInterface, k: number) => (
-          <IndentedNote notes={i} key={k} />
+          <>
+            {props.viewIndent === false ? (
+              <FlatNote notes={i} key={k} />
+            ) : (
+              <IndentedNote notes={i} key={k} />
+            )}
+            {props.viewIndent === false ? (
+              <>
+                <Button
+                  variant="flat"
+                  size="sm"
+                  onClick={() => console.log("erase")}
+                >
+                  <Garbage />
+                </Button>
+                <Button
+                  variant="flat"
+                  size="sm"
+                  onClick={() => console.log("edit")}
+                >
+                  <Eraser />
+                </Button>
+              </>
+            ) : (
+              <></>
+            )}
+          </>
         ))
       ) : (
         <h4> No notes to show </h4>

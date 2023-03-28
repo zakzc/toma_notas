@@ -22,7 +22,7 @@ export default function Visualise(): JSX.Element {
           <br />
           <h4> Current note set: {currentNode.noteSetName}</h4>
           <br />
-          <ViewNotes />
+          <ViewNotes viewIndent={true} />
         </Col>
         <Col></Col>
       </Row>

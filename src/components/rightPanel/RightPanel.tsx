@@ -79,7 +79,7 @@ export default function RightPanel(props: RightPanelInterface): JSX.Element {
   );
 
   const ViewOptions = () => (
-    <>{props.appMode === true ? <ViewMode /> : <ViewNotes />}</>
+    <>{props.appMode === true ? <ViewMode /> : <ViewNotes viewIndent={false}/>}</>
   );
 
   return (
