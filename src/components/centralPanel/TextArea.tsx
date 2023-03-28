@@ -12,10 +12,9 @@ import Check from "../svg/Check";
 
 export default function TextArea(): JSX.Element {
   const [inputText, setInputText] = useState<string>("");
-  const [currentIndentationLevel, setCurrentIndentationLevel] =
-    useState<string>("0.");
   const noteCtx = useContext(NoteAppContext);
-
+  const [currentIndentationLevel, setCurrentIndentationLevel] =
+    useState<string>(noteCtx.getCurrentIndentationLevel());
   const setIndentationLevel = (level: boolean) => {
     if (level === false) {
       /// add indentation
@@ -33,12 +32,11 @@ export default function TextArea(): JSX.Element {
         let baseNumber = currentIndentationLevel.slice(0, -3);
         let newLevel;
         newLevel = baseNumber + "." + updatedLastNumber.toString() + ".";
-        console.log("minus ", parts, lastNumber, baseNumber, newLevel)
-        setCurrentIndentationLevel(newLevel)
+        setCurrentIndentationLevel(newLevel);
       }
     }
   };
-
+  console.log("local: ", currentIndentationLevel);
   function setNewLevel() {
     let parts = currentIndentationLevel.split(".");
     parts = parts.slice(0, -1);
@@ -56,10 +54,11 @@ export default function TextArea(): JSX.Element {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("check");
-    noteCtx.addNewNoteToCurrentSet(inputText, currentIndentationLevel);
-    setNewLevel();
-    setInputText("");
+    if (inputText !== "") {
+      setNewLevel();
+      noteCtx.addNewNoteToCurrentSet(inputText, currentIndentationLevel);
+      setInputText("");
+    }
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -94,7 +93,8 @@ export default function TextArea(): JSX.Element {
               </Col>
               <Col>
                 <br />
-                {currentIndentationLevel}
+                Current: {noteCtx.getCurrentIndentationLevel()}<br/>
+                Next: {currentIndentationLevel}
               </Col>
               <Col>
                 <Button

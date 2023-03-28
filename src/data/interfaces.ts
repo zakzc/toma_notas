@@ -13,7 +13,7 @@ export interface NoteSetInterface {
 export interface NoteContextInterface {
   noteSet: NoteSetInterface[];
   numberOfNotes: number;
-  currentlySelectedNoteSet: NoteSetInterface | {};
+  currentlySelectedNoteSet: NoteSetInterface[];
   setCurrentlySelectedNoteSet: (noteSetToSelect: NoteSetInterface) => void;
   addUserNote: (noteName: string) => void;
   currentViewMode: number;
@@ -22,6 +22,7 @@ export interface NoteContextInterface {
     noteToAdd: NoteSetInterface,
     indentationLevel: string
   ) => void;
+  getCurrentIndentationLevel: () => string,
   // addNewNote: () => {};
   // removeNote: () => {};
 }

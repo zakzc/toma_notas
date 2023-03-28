@@ -12,6 +12,7 @@ export const NoteAppContext = createContext<NoteContextInterface>({
   currentViewMode: 0,
   setCurrentViewMode: () => {},
   AddNewNoteToCurrentSet: () => {},
+  getCurrentIndentationLevel: () => {},
 });
 
 const NoteAppContextProvider: React.FC = ({ children }) => {
@@ -70,6 +71,10 @@ const NoteAppContextProvider: React.FC = ({ children }) => {
     });
     // update selected note set
   }
+  function getCurrentIndentationLevel() {
+    const highIndent = selectedNoteSet.noteSetNote.map(i => i.indentation)
+    return highIndent[highIndent.length-1]
+  }
   ///
   const initialContextState = {
     noteSet: userNoteSet,
@@ -80,6 +85,7 @@ const NoteAppContextProvider: React.FC = ({ children }) => {
     currentViewMode,
     setCurrentViewMode,
     addNewNoteToCurrentSet,
+    getCurrentIndentationLevel,
   };
   ///
   return (
