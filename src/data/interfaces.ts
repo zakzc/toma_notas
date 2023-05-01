@@ -1,11 +1,13 @@
+import React from "react";
+
 export interface NoteInterface {
   noteText: string;
-  noteTextId: number;
+  noteTextId: string;
   indentation: string;
 }
 
 export interface NoteSetInterface {
-  noteSetId: number;
+  noteSetId: string;
   noteSetName: string;
   noteSetNote: NoteInterface[];
 }
@@ -13,16 +15,13 @@ export interface NoteSetInterface {
 export interface NoteContextInterface {
   noteSet: NoteSetInterface[];
   numberOfNotes: number;
-  currentlySelectedNoteSet: NoteSetInterface[];
+  currentlySelectedNoteSet: NoteSetInterface;
   setCurrentlySelectedNoteSet: (noteSetToSelect: NoteSetInterface) => void;
   addUserNote: (noteName: string) => void;
-  currentViewMode: number;
-  setCurrentViewMode: React.Dispatch<number>;
-  addNewNoteToCurrentSet: (
-    noteToAdd: NoteSetInterface,
-    indentationLevel: string
-  ) => void;
-  getCurrentIndentationLevel: () => string,
-  // addNewNote: () => {};
-  // removeNote: () => {};
+  currentViewMode: boolean;
+  setCurrentViewMode: React.Dispatch<React.SetStateAction<boolean>>;
+  addNewNoteToCurrentSet: (noteToAdd: string, indentationLevel: string) => void;
+  getCurrentIndentationLevel: () => string;
+  userIsLoggedIn: boolean;
+  setUserIsLoggedIn: (isLoggedIn: boolean) => void;
 }

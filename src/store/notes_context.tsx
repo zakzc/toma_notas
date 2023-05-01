@@ -1,31 +1,49 @@
 import React, { createContext, useState } from "react";
-import { uuid } from "uuidv4";
-///
+import { v4 as uuid } from "uuid";
+
 import dummyDataForTest from "../data/dummyDataForTest.json";
-import { NoteContextInterface, NoteSetInterface } from "../data/interfaces";
+import {
+  NoteContextInterface,
+  NoteSetInterface,
+  NoteInterface,
+} from "../data/interfaces";
+
+interface Props {
+  children: React.ReactNode;
+}
+
+interface AddNewNoteToCurrentSetArgs {
+  noteToAdd: string;
+  indentationlevel: string;
+}
 
 export const NoteAppContext = createContext<NoteContextInterface>({
   noteSet: [],
   numberOfNotes: 0,
-  currentlySelectedNoteSet: {},
+  currentlySelectedNoteSet: {} as NoteSetInterface,
   setCurrentlySelectedNoteSet: () => {},
   addUserNote: () => {},
-  currentViewMode: 0,
+  currentViewMode: false,
   setCurrentViewMode: () => {},
-  AddNewNoteToCurrentSet: () => {},
+  addNewNoteToCurrentSet: () => {},
   getCurrentIndentationLevel: () => {},
+  userIsLoggedIn: false,
 });
 
-const NoteAppContextProvider: React.FC = ({ children }) => {
+const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
   const [userNoteSet, setUserNoteSet] =
     useState<NoteSetInterface[]>(dummyDataForTest);
-  const [selectedNoteSet, setSelectedNoteSet] = useState(userNoteSet[0]);
-  const [currentViewMode, setCurrentViewMode] = useState(false);
-  ///
-  function changeSelectedNoteSet(noteSetToSelect: NoteSetInterface) {
+  const [selectedNoteSet, setSelectedNoteSet] = useState<NoteSetInterface>(
+    userNoteSet[0]
+  );
+  const [currentViewMode, setCurrentViewMode] = useState<boolean>(false);
+  const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(false);
+
+  function changeSelectedNoteSet(noteSetToSelect: NoteSetInterface): void {
     setSelectedNoteSet(noteSetToSelect);
   }
-  function addNewUserNote(noteName: string) {
+
+  function addNewUserNote(noteName: string): void {
     setUserNoteSet([
       ...userNoteSet,
       {
@@ -35,49 +53,47 @@ const NoteAppContextProvider: React.FC = ({ children }) => {
       },
     ]);
     setSelectedNoteSet({
-      noteSetId: 1,
+      noteSetId: uuid(),
       noteSetName: noteName,
       noteSetNote: [],
     });
   }
 
-  function addNewNoteToCurrentSet(noteToAdd, indentationlevel) {
-    // check for new, empty note
-    userNoteSet.map((eachNote) => {
+  function addNewNoteToCurrentSet({
+    noteToAdd,
+    indentationlevel,
+  }: AddNewNoteToCurrentSetArgs): void {
+    const updatedNoteSet = userNoteSet.map((eachNote) => {
       if (eachNote.noteSetName === selectedNoteSet.noteSetName) {
-        if (
-          eachNote.noteSetNote.length === 1 &&
-          eachNote.noteSetNote[0].noteText === ""
-        ) {
-          eachNote.noteSetNote.splice(0, 1);
-        }
-      }
-    });
-    // add new note
-    userNoteSet.map((eachNote) => {
-      console.log("Received: ", eachNote, indentationlevel);
-      if (eachNote.noteSetName === selectedNoteSet.noteSetName) {
-        eachNote.noteSetNote.push({
+        const newNote: NoteInterface = {
           noteText: noteToAdd,
           noteTextId: uuid(),
           indentation: indentationlevel,
-        });
-        /// also update the selected one
-        setSelectedNoteSet({
-          noteSetId: eachNote.noteSetId,
-          noteSetName: eachNote.noteSetName,
-          noteSetNote: eachNote.noteSetNote,
-        });
+        };
+        const updatedNoteSetNote = [...eachNote.noteSetNote, newNote];
+        return {
+          ...eachNote,
+          noteSetNote: updatedNoteSetNote,
+        };
+      } else {
+        return eachNote;
       }
     });
-    // update selected note set
+
+    setUserNoteSet(updatedNoteSet);
+    setSelectedNoteSet(
+      updatedNoteSet.find(
+        (noteSet) => noteSet.noteSetName === selectedNoteSet.noteSetName
+      )!
+    );
   }
-  function getCurrentIndentationLevel() {
-    const highIndent = selectedNoteSet.noteSetNote.map(i => i.indentation)
-    return highIndent[highIndent.length-1]
+
+  function getCurrentIndentationLevel(): string {
+    const highIndent = selectedNoteSet.noteSetNote.map((i) => i.indentation);
+    return highIndent[highIndent.length - 1];
   }
-  ///
-  const initialContextState = {
+
+  const initialContextState: NoteContextInterface = {
     noteSet: userNoteSet,
     numberOfNotes: userNoteSet.length,
     currentlySelectedNoteSet: selectedNoteSet,
@@ -87,8 +103,10 @@ const NoteAppContextProvider: React.FC = ({ children }) => {
     setCurrentViewMode,
     addNewNoteToCurrentSet,
     getCurrentIndentationLevel,
+    userIsLoggedIn,
+    setUserIsLoggedIn,
   };
-  ///
+
   return (
     <NoteAppContext.Provider value={initialContextState}>
       {children}

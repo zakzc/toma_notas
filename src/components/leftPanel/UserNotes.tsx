@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
-//
-import { NoteAppContext } from "../../store/notes_context";
+import { useRouter } from "next/router";
 ///
+import { NoteAppContext } from "../../store/notes_context";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import Plus from "../svg/Plus";
 
@@ -9,7 +9,7 @@ export default function UserNotes(): JSX.Element {
   const noteCtx = useContext(NoteAppContext);
   const [addNote, setAddNote] = useState<string>("");
   const [newNoteName, setNewNoteName] = useState<string>("");
-  ///
+  const router = useRouter();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
@@ -20,11 +20,15 @@ export default function UserNotes(): JSX.Element {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setNewNoteName(addNote);
-    noteCtx.addUserNote(addNote);
-    console.log("submitted: ", newNoteName);
-    setAddNote("");
-    // TODO Send note to context
+    if (noteCtx.userIsLoggedIn) {
+      setNewNoteName(addNote);
+      noteCtx.addUserNote(addNote);
+      console.log("submitted: ", newNoteName);
+      setAddNote("");
+      // TODO Send note to context
+    } else {
+      router.push("/logInSignUp");
+    }
   };
 
   return (

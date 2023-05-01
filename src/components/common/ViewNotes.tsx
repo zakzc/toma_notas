@@ -55,7 +55,7 @@ export default function ViewNotes(props: ViewNotesInterface): JSX.Element {
       </p>
     );
   };
-  ///
+ ///
   return (
     <>
       {currentSet ? (
