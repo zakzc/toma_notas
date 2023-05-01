@@ -41,7 +41,7 @@ const LogInSignUpPage: React.FC<Props> = () => {
           (result.process === "user is logged in" ||
             result.process === "user registered")
         ) {
-          noteCtx.setLoggedInUser();
+          noteCtx.setUserIsLoggedIn(true);
           router.push("/");
         } else if (result.data === false) {
           setErrorOnCredentials("Error on user credentials, please try again.");

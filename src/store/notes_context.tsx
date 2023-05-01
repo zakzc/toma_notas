@@ -14,7 +14,7 @@ interface Props {
 
 interface AddNewNoteToCurrentSetArgs {
   noteToAdd: string;
-  indentationlevel: string;
+  indentationLevel: string;
 }
 
 export const NoteAppContext = createContext<NoteContextInterface>({
@@ -27,9 +27,8 @@ export const NoteAppContext = createContext<NoteContextInterface>({
   setCurrentViewMode: () => {},
   addNewNoteToCurrentSet: () => {},
   getCurrentIndentationLevel: () => {},
-  setLoggedInUser: () => {},
-  setUserIsLoggedOut: () => {},
-  getUserIsLoggedIn: () => false,
+  userIsLoggedIn: false,
+  setUserIsLoggedIn: () => {},
 });
 
 const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
@@ -63,14 +62,14 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
 
   function addNewNoteToCurrentSet({
     noteToAdd,
-    indentationlevel,
+    indentationLevel: indentationLevel,
   }: AddNewNoteToCurrentSetArgs): void {
     const updatedNoteSet = userNoteSet.map((eachNote) => {
       if (eachNote.noteSetName === selectedNoteSet.noteSetName) {
         const newNote: NoteInterface = {
           noteText: noteToAdd,
           noteTextId: uuid(),
-          indentation: indentationlevel,
+          indentation: indentationLevel,
         };
         const updatedNoteSetNote = [...eachNote.noteSetNote, newNote];
         return {
@@ -95,18 +94,6 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
     return highIndent[highIndent.length - 1];
   }
 
-  const setLoggedInUser = () => {
-    setUserIsLoggedIn(true);
-  };
-
-  const setUserIsLoggedOut = () => {
-    setUserIsLoggedIn(false);
-  };
-
-  const getUserIsLoggedIn = () => {
-    return userIsLoggedIn;
-  };
-
   const initialContextState: NoteContextInterface = {
     noteSet: userNoteSet,
     numberOfNotes: userNoteSet.length,
@@ -118,9 +105,7 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
     addNewNoteToCurrentSet,
     getCurrentIndentationLevel,
     userIsLoggedIn,
-    setLoggedInUser,
-    setUserIsLoggedOut,
-    getUserIsLoggedIn,
+    setUserIsLoggedIn,
   };
 
   return (

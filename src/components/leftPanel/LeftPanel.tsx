@@ -94,11 +94,7 @@ export default function LeftPanel(props: LeftPanelInterface): JSX.Element {
           <UserNotes />
           <br />
           <br />
-          {noteCtx.getUserIsLoggedIn() === true ? (
-            <ExitButton />
-          ) : (
-            <EnterButton />
-          )}
+          {noteCtx.userIsLoggedIn === true ? <ExitButton /> : <EnterButton />}
         </>
       ) : (
         <></>
