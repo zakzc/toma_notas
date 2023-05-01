@@ -20,7 +20,7 @@ export default function UserNotes(): JSX.Element {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (noteCtx.userIsLoggedIn) {
+    if (noteCtx.getUserIsLoggedIn() === true) {
       setNewNoteName(addNote);
       noteCtx.addUserNote(addNote);
       console.log("submitted: ", newNoteName);
@@ -36,7 +36,6 @@ export default function UserNotes(): JSX.Element {
       <Row>
         <Col>
           <Form.Group controlId="note">
-            {/* <Form.Label>New note:</Form.Label> */}
             <Form.Control
               type="text"
               value={addNote}

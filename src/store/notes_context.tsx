@@ -27,7 +27,9 @@ export const NoteAppContext = createContext<NoteContextInterface>({
   setCurrentViewMode: () => {},
   addNewNoteToCurrentSet: () => {},
   getCurrentIndentationLevel: () => {},
-  userIsLoggedIn: false,
+  setLoggedInUser: () => {},
+  setUserIsLoggedOut: () => {},
+  getUserIsLoggedIn: () => false,
 });
 
 const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
@@ -93,6 +95,18 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
     return highIndent[highIndent.length - 1];
   }
 
+  const setLoggedInUser = () => {
+    setUserIsLoggedIn(true);
+  };
+
+  const setUserIsLoggedOut = () => {
+    setUserIsLoggedIn(false);
+  };
+
+  const getUserIsLoggedIn = () => {
+    return userIsLoggedIn;
+  };
+
   const initialContextState: NoteContextInterface = {
     noteSet: userNoteSet,
     numberOfNotes: userNoteSet.length,
@@ -104,7 +118,9 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
     addNewNoteToCurrentSet,
     getCurrentIndentationLevel,
     userIsLoggedIn,
-    setUserIsLoggedIn,
+    setLoggedInUser,
+    setUserIsLoggedOut,
+    getUserIsLoggedIn,
   };
 
   return (

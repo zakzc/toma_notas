@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useRouter } from "next/router";
+import { NoteAppContext } from "../../store/notes_context";
 ///
 import { Form, Button } from "react-bootstrap";
 
@@ -13,6 +14,7 @@ const LogInSignUpPage: React.FC<Props> = () => {
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [errorOnCredentials, setErrorOnCredentials] = useState("");
   const router = useRouter();
+  const noteCtx = useContext(NoteAppContext);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -35,10 +37,11 @@ const LogInSignUpPage: React.FC<Props> = () => {
 
         const result = await res.json();
         if (
-          (result.result === "success" &&
-            result.process === "user is logged in") ||
-          result.process === "user registered"
+          result.result === "success" &&
+          (result.process === "user is logged in" ||
+            result.process === "user registered")
         ) {
+          noteCtx.setLoggedInUser();
           router.push("/");
         } else if (result.data === false) {
           setErrorOnCredentials("Error on user credentials, please try again.");
