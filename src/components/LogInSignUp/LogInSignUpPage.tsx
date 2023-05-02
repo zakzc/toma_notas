@@ -32,7 +32,6 @@ const LogInSignUpPage: React.FC<Props> = () => {
       const data = { email, password, requestType: isSignUp };
 
       try {
-        console.log("Will send: ", email, password, isSignUp);
         const res = await fetch("api/user", {
           method: "POST",
           headers: {
@@ -49,7 +48,6 @@ const LogInSignUpPage: React.FC<Props> = () => {
         } else if (result.data === false) {
           setErrorOnCredentials("Error on user credentials, please try again.");
         }
-        console.log("Return is: ", result);
       } catch (err) {
         console.error("Error:", err);
       }

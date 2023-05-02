@@ -23,7 +23,6 @@ export default function UserNotes(): JSX.Element {
     if (noteCtx.userIsLoggedIn === true) {
       setNewNoteName(addNote);
       noteCtx.addUserNote(addNote);
-      console.log("submitted: ", newNoteName);
       setAddNote("");
       // TODO Send note to context
     } else {

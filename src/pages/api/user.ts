@@ -4,7 +4,6 @@ import type { NextApiRequest, NextApiResponse } from "next";
 // const url = process.env.MONGODB_URI || "";
 const url =
   `mongodb+srv://${process.env.mongodb_user}:${process.env.mongodb_password}@cluster0.mwat6y1.mongodb.net/${process.env.mondodb_collection}?retryWrites=true&w=majority`;
-  console.log("data: ", url);
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -42,7 +41,6 @@ export default async function handler(
 
     client.close();
   } catch (err) {
-    console.log(err);
     res.json({
       success: false,
       data: "Error on request sent by backend: " + err,
