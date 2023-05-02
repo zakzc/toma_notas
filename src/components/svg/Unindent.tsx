@@ -4,8 +4,8 @@ export default function Unindent(): JSX.Element {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="32"
-      height="32"
+      width="64"
+      height="64"
       fill="currentColor"
       className="bi bi-arrow-90deg-left"
       viewBox="0 0 16 16"

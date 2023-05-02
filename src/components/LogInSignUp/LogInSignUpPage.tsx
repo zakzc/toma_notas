@@ -17,7 +17,7 @@ const LogInSignUpPage: React.FC<Props> = () => {
   const router = useRouter();
   const noteCtx = useContext(NoteAppContext);
   const [loggedInUser, setLoggedInUser] = useState(noteCtx.userIsLoggedIn);
-  const [dataReturnedFromFetch, setDataReturnedFromFetch] = useState(false)
+  const [dataReturnedFromFetch, setDataReturnedFromFetch] = useState(false);
   if (loggedInUser === true && dataReturnedFromFetch === true) {
     noteCtx.setUserIsLoggedIn(true);
   }
@@ -32,7 +32,7 @@ const LogInSignUpPage: React.FC<Props> = () => {
       const data = { email, password, requestType: isSignUp };
 
       try {
-        console.log("Will send: ", email, password);
+        console.log("Will send: ", email, password, isSignUp);
         const res = await fetch("api/user", {
           method: "POST",
           headers: {
@@ -42,13 +42,8 @@ const LogInSignUpPage: React.FC<Props> = () => {
         });
 
         const result = await res.json();
-        if (
-          result.result === "success" &&
-          (result.process === "user is logged in" ||
-            result.process === "user registered")
-        ) {
-          // noteCtx.setUserIsLoggedIn(true);
-          setDataReturnedFromFetch(true)
+        if (result.success === true && result.data === email) {
+          setDataReturnedFromFetch(true);
           setLoggedInUser(true);
           router.push("/");
         } else if (result.data === false) {

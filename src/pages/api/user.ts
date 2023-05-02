@@ -1,70 +1,51 @@
-import { v4 as uuid } from "uuid";
-import fs from "fs";
-import path from "path";
-import { NextApiRequest, NextApiResponse } from "next";
+import { MongoClient, MongoClientOptions } from "mongodb";
+import type { NextApiRequest, NextApiResponse } from "next";
 
-interface RegisterUser {
-  id: string;
-  email: string;
-  password: string;
-}
+// const url = process.env.MONGODB_URI || "";
+const url =
+  `mongodb+srv://${process.env.mongodb_user}:${process.env.mongodb_password}@cluster0.mwat6y1.mongodb.net/${process.env.mondodb_collection}?retryWrites=true&w=majority`;
+  console.log("data: ", url);
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  const { email, password, requestType } = req.body;
 
-function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === "GET") {
-    const email = req.body.email;
-    const user = req.body.user;
+  if (!email || !password || requestType === undefined) {
     res
-      .status(200)
-      .json({ result: "success", data: "API is operational and working" });
+      .status(400)
+      .json({ success: false, data: "Error on request sent by frontend" });
+    return;
   }
-  const email = req.body.email;
-  const password = req.body.password;
-  console.log("USER - Log in for: ", email, password);
-  if (req.method === "POST") {
-    // Sign up request
-    if (req.body.requestType === true) {
-      const registerUser: RegisterUser = {
-        id: new Date().toISOString() + "-" + uuid(),
-        email,
-        password,
-      };
-      // store data locally
-      const filePath = path.join(process.cwd(), "src/data", "users.json");
-      const fileData = fs.readFileSync(filePath);
-      const data = JSON.parse(fileData);
-      data.push(registerUser);
-      fs.writeFileSync(filePath, JSON.stringify(data));
-      // response
-      res
-        .status(201)
-        .json({
-          result: "success",
-          process: "user registered",
-          data: registerUser,
-        });
-    } else {
-      // Log in request
-      // store data locally
-      const filePath = path.join(process.cwd(), "src/data", "users.json");
-      const fileData = fs.readFileSync(filePath);
-      const data = JSON.parse(fileData);
-      const user = data.find(
-        (u) => u.email === email && u.password === password
-      );
 
+  try {
+    const client = await MongoClient.connect(url, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    } as MongoClientOptions);
+
+    const users = client.db().collection("users");
+
+    if (requestType) {
+      // sign up
+      await users.insertOne({ email, password });
+      res.json({ success: true, data: email});
+    } else {
+      // log in
+      const user = await users.findOne({ email, password });
       if (user) {
-        res.status(200).json({
-          result: "success",
-          process: "user is logged in",
-          data: true,
-        });
+        res.json({ success: true, data: email});
       } else {
-        res
-          .status(401)
-          .json({ success: true, process: "User is not logged in", data: false });
+        res.json({ success: false, data: "Log in unsuccessful" });
       }
     }
+
+    client.close();
+  } catch (err) {
+    console.log(err);
+    res.json({
+      success: false,
+      data: "Error on request sent by backend: " + err,
+    });
   }
 }
-
-export default handler;

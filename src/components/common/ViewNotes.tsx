@@ -64,7 +64,7 @@ export default function ViewNotes(props: ViewNotesInterface): JSX.Element {
             {props.viewIndent === false ? (
               <FlatNote notes={i} key={k} />
             ) : (
-              <IndentedNote notes={i} key={k} />
+              <IndentedNote notes={i} key={k + 10} />
             )}
             {props.viewIndent === false ? (
               <>
