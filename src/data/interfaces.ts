@@ -12,10 +12,17 @@ export interface NoteSetInterface {
   noteSetNote: NoteInterface[];
 }
 
-interface AddNewNoteToCurrentSetArgs {
+export interface AddNewNoteToCurrentSetArgs {
   noteToAdd: string;
   indentationLevel: string;
 }
+
+interface EditNoteInCurrentSetArgs {
+  noteId: string;
+  newNoteText: string;
+  newIndentation: string;
+}
+
 
 export interface NoteContextInterface {
   noteSets: NoteSetInterface[];
@@ -32,4 +39,6 @@ export interface NoteContextInterface {
   getCurrentIndentationLevel: () => string;
   userIsLoggedIn: boolean;
   setUserIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+  editNoteInCurrentSet: (args: EditNoteInCurrentSetArgs) => void;
+  deleteNoteFromCurrentSet: (noteTextId: string) => void;
 }

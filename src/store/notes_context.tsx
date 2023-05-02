@@ -29,6 +29,8 @@ export const NoteAppContext = createContext<NoteContextInterface>({
   getCurrentIndentationLevel: () => "",
   userIsLoggedIn: false,
   setUserIsLoggedIn: () => {},
+  editNoteInCurrentSet: () => {},
+  deleteNoteFromCurrentSet: () => {},
 });
 
 const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
@@ -94,6 +96,54 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
     return highIndent[highIndent.length - 1];
   }
 
+function deleteNoteFromCurrentSet(noteToDelete: string): void {
+  const updatedNoteSet = userNoteSet.map((eachNote) => {
+    if (eachNote.noteSetName === selectedNoteSet.noteSetName) {
+      const updatedNoteSetNote = eachNote.noteSetNote.filter(
+        (note) => note.noteTextId !== noteToDelete
+      );
+      return {
+        ...eachNote,
+        noteSetNote: updatedNoteSetNote,
+      };
+    } else {
+      return eachNote;
+    }
+  });
+  setUserNoteSet(updatedNoteSet);
+}
+
+function editNoteInCurrentSet(
+  noteId: string,
+  newNoteText: string,
+  newIndentation: string
+): void {
+  const updatedNoteSet = userNoteSet.map((eachNote) => {
+    if (eachNote.noteSetName === selectedNoteSet.noteSetName) {
+      const updatedNoteSetNote = eachNote.noteSetNote.map((note) => {
+        if (note.noteTextId === noteId) {
+          return {
+            ...note,
+            noteText: newNoteText,
+            indentation: newIndentation,
+          };
+        } else {
+          return note;
+        }
+      });
+      return {
+        ...eachNote,
+        noteSetNote: updatedNoteSetNote,
+      };
+    } else {
+      return eachNote;
+    }
+  });
+  setUserNoteSet(updatedNoteSet);
+}
+
+
+
   const initialContextState: NoteContextInterface = {
     noteSets: userNoteSet,
     numberOfNotes: userNoteSet.length,
@@ -106,6 +156,8 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
     getCurrentIndentationLevel,
     userIsLoggedIn,
     setUserIsLoggedIn,
+    editNoteInCurrentSet,
+    deleteNoteFromCurrentSet,
   };
 
   return (
