@@ -12,16 +12,24 @@ export interface NoteSetInterface {
   noteSetNote: NoteInterface[];
 }
 
+interface AddNewNoteToCurrentSetArgs {
+  noteToAdd: string;
+  indentationLevel: string;
+}
+
 export interface NoteContextInterface {
-  noteSet: NoteSetInterface[];
+  noteSets: NoteSetInterface[];
   numberOfNotes: number;
   currentlySelectedNoteSet: NoteSetInterface;
   setCurrentlySelectedNoteSet: (noteSetToSelect: NoteSetInterface) => void;
   addUserNote: (noteName: string) => void;
-  currentViewMode: boolean;
+  currentViewMode: number;
   setCurrentViewMode: React.Dispatch<React.SetStateAction<number>>;
-  addNewNoteToCurrentSet: (noteToAdd: string, indentationLevel: string) => void;
-  getCurrentIndentationLevel: () => void;
+  addNewNoteToCurrentSet: ({
+    noteToAdd,
+    indentationLevel,
+  }: AddNewNoteToCurrentSetArgs) => void;
+  getCurrentIndentationLevel: () => string;
   userIsLoggedIn: boolean;
   setUserIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }

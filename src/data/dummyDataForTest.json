@@ -1,43 +1,43 @@
 [
   {
-    "noteSetId": 0,
+    "noteSetId": "0",
     "noteSetName": "Aramis",
     "noteSetNote": [
       {
         "noteText": "This is a test note 0",
-        "noteTextId": 0,
+        "noteTextId": "0",
         "indentation": "0."
       }
     ]
   },
   {
-    "noteSetId": 1,
+    "noteSetId": "1",
     "noteSetName": "Athos",
     "noteSetNote": [
       {
         "noteText": "This is a test note 1",
-        "noteTextId": 0,
+        "noteTextId": "0",
         "indentation": "0."
       },
       {
         "noteText": "This is a test note embed level 1",
-        "noteTextId": 0,
+        "noteTextId": "0",
         "indentation": "0.1."
       },
       {
         "noteText": "This is a test note embed level 2",
-        "noteTextId": 0,
+        "noteTextId": "0",
         "indentation": "0.1.1."
       }
     ]
   },
   {
-    "noteSetId": 2,
+    "noteSetId": "2",
     "noteSetName": "Porthos",
     "noteSetNote": [
       {
         "noteText": "This is a test note 2",
-        "noteTextId": 0,
+        "noteTextId": "0",
         "indentation": "0."
       }
     ]

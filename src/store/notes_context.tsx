@@ -18,15 +18,15 @@ interface AddNewNoteToCurrentSetArgs {
 }
 
 export const NoteAppContext = createContext<NoteContextInterface>({
-  noteSet: [],
+  noteSets: [],
   numberOfNotes: 0,
   currentlySelectedNoteSet: {} as NoteSetInterface,
   setCurrentlySelectedNoteSet: () => {},
   addUserNote: () => {},
-  currentViewMode: false,
+  currentViewMode: 0,
   setCurrentViewMode: () => {},
   addNewNoteToCurrentSet: () => {},
-  getCurrentIndentationLevel: () => {},
+  getCurrentIndentationLevel: () => "",
   userIsLoggedIn: false,
   setUserIsLoggedIn: () => {},
 });
@@ -37,7 +37,7 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
   const [selectedNoteSet, setSelectedNoteSet] = useState<NoteSetInterface>(
     userNoteSet[0]
   );
-  const [currentViewMode, setCurrentViewMode] = useState<boolean>(false);
+  const [currentViewMode, setCurrentViewMode] = useState<number>(0);
   const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(true);
 
   function changeSelectedNoteSet(noteSetToSelect: NoteSetInterface): void {
@@ -95,7 +95,7 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
   }
 
   const initialContextState: NoteContextInterface = {
-    noteSet: userNoteSet,
+    noteSets: userNoteSet,
     numberOfNotes: userNoteSet.length,
     currentlySelectedNoteSet: selectedNoteSet,
     setCurrentlySelectedNoteSet: changeSelectedNoteSet,
