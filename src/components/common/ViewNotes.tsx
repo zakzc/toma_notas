@@ -20,10 +20,10 @@ export default function ViewNotes(props: ViewNotesInterface): JSX.Element {
     let indentStyle = "";
     switch (noteCtx.currentViewMode) {
       // simple note rendering, no levels
-      case false:
+      case 0:
         break;
       // numbered
-      case true:
+      case 1:
         indentStyle += indent;
         break;
       default:

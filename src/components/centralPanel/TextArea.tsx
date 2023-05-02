@@ -13,7 +13,7 @@ export default function TextArea(): JSX.Element {
   const [inputText, setInputText] = useState<string>("");
   const noteCtx = useContext(NoteAppContext);
   const [currentIndentationLevel, setCurrentIndentationLevel] =
-    useState(noteCtx.getCurrentIndentationLevel());
+    useState<string>(noteCtx.getCurrentIndentationLevel());
   const setIndentationLevel = (level: boolean) => {
     if (level === false) {
       /// add indentation
@@ -57,6 +57,7 @@ export default function TextArea(): JSX.Element {
     event.preventDefault();
     if (inputText !== "") {
       setNewLevel();
+      // @ts-ignore
       noteCtx.addNewNoteToCurrentSet(inputText, currentIndentationLevel);
       setInputText("");
     }
