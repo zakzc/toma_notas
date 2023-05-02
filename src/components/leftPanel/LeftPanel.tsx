@@ -60,7 +60,10 @@ export default function LeftPanel(props: LeftPanelInterface): JSX.Element {
         <Button
           variant="flat"
           size="lg"
-          onClick={() => noteCtx.setUserIsLoggedIn(false)}
+          onClick={() => {
+            noteCtx.setUserIsLoggedIn(false);
+            router.push("/logInSignUp");
+          }}
         >
           <Exit />
         </Button>
