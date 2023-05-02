@@ -13,14 +13,13 @@ export default function TextArea(): JSX.Element {
   const [inputText, setInputText] = useState<string>("");
   const noteCtx = useContext(NoteAppContext);
   const [currentIndentationLevel, setCurrentIndentationLevel] =
-    useState<string>(noteCtx.getCurrentIndentationLevel());
+    useState(noteCtx.getCurrentIndentationLevel());
   const setIndentationLevel = (level: boolean) => {
     if (level === false) {
       /// add indentation
       setCurrentIndentationLevel(currentIndentationLevel + "0.");
     } else {
       // remove indentation
-      console.log("minus");
       if (currentIndentationLevel.slice(-2) === "0." && currentIndentationLevel.length === 2) {
         setCurrentIndentationLevel("0.");
       } else if (
@@ -39,7 +38,6 @@ export default function TextArea(): JSX.Element {
       }
     }
   };
-  console.log("local: ", currentIndentationLevel);
   function setNewLevel() {
     let parts = currentIndentationLevel.split(".");
     parts = parts.slice(0, -1);

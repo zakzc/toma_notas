@@ -19,9 +19,9 @@ export interface NoteContextInterface {
   setCurrentlySelectedNoteSet: (noteSetToSelect: NoteSetInterface) => void;
   addUserNote: (noteName: string) => void;
   currentViewMode: boolean;
-  setCurrentViewMode: React.Dispatch<React.SetStateAction<boolean>>;
+  setCurrentViewMode: React.Dispatch<React.SetStateAction<number>>;
   addNewNoteToCurrentSet: (noteToAdd: string, indentationLevel: string) => void;
-  getCurrentIndentationLevel: () => string;
+  getCurrentIndentationLevel: () => void;
   userIsLoggedIn: boolean;
   setUserIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }

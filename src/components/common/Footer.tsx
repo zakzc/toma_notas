@@ -1,23 +1,24 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Row, Col, Button } from "react-bootstrap";
+import React from "react";
+// import { useTranslation } from "react-i18next";
+import { Row, Col } from "react-bootstrap";
 
-const Footer = ({ changeLanguage }): JSX.Element => {
+const Footer = (): JSX.Element => {
+  // const Footer = ({ changeLanguage }): JSX.Element => {
   ///
-  const ChangeLanguageSwitch = () => (
-    <>
-      <Button onClick={() => changeLanguage("en")}> EN </Button>
-      <span> - </span>
-      <Button onClick={() => changeLanguage("pt")}> PT </Button>
-    </>
-  );
+  // const ChangeLanguageSwitch = () => (
+  //   <>
+  //     <Button onClick={() => changeLanguage("en")}> EN </Button>
+  //     <span> - </span>
+  //     <Button onClick={() => changeLanguage("pt")}> PT </Button>
+  //   </>
+  // );
 
   return (
     <Row>
       <Col></Col>
       <Col>
         <h1>Footer</h1>
-        <ChangeLanguageSwitch />
+        {/* <ChangeLanguageSwitch /> */}
       </Col>
       <Col></Col>
     </Row>

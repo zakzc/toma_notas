@@ -19,12 +19,13 @@ export default function CurrentNoteSet(): JSX.Element {
 
 
   
-const getFontWeight = (i) => {
+const getFontWeight = (i: NoteSetInterface) => {
   if (noteCtx.currentlySelectedNoteSet &&  noteCtx.currentlySelectedNoteSet.noteSetName && i.noteSetName === noteCtx.currentlySelectedNoteSet.noteSetName) {
     return 800
   } 
   return "normal"
 }
+
   ///
   return (
     <>
