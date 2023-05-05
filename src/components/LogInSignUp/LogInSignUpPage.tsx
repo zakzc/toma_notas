@@ -1,4 +1,4 @@
-import { useState, useContext, useRef } from "react";
+import { useState, useContext } from "react";
 import { useRouter } from "next/router";
 import { NoteAppContext } from "../../store/notes_context";
 ///
@@ -16,10 +16,9 @@ const LogInSignUpPage: React.FC<Props> = () => {
 
   const router = useRouter();
   const noteCtx = useContext(NoteAppContext);
-  const loggedInUser = noteCtx.userIsLoggedIn;
-  const setLoggedInUser = noteCtx.setUserIsLoggedIn;
+  const loggedInUser  = useRef(noteCtx.userIsLoggedIn);
   const [dataReturnedFromFetch, setDataReturnedFromFetch] = useState(false);
-  if (loggedInUser.current === true && dataReturnedFromFetch === true) {
+  if (loggedInUser === true && dataReturnedFromFetch === true) {
     noteCtx.setUserIsLoggedIn(true);
   }
 
@@ -43,7 +42,6 @@ const LogInSignUpPage: React.FC<Props> = () => {
 
         const result = await res.json();
         if (result.success === true && result.data === email) {
-          // TODO: make a useEffect to deal with the async call to context.
           setDataReturnedFromFetch(true);
           setLoggedInUser(true);
           router.push("/");

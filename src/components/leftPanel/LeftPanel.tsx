@@ -19,7 +19,7 @@ interface LeftPanelInterface {
 }
 
 export default function LeftPanel(props: LeftPanelInterface): JSX.Element {
-  const noteCtx = useContext(NoteAppContext);
+  const { userIsLoggedIn, setUserIsLoggedIn } = useContext(NoteAppContext);
   const router = useRouter();
   ///
   const OpenCloseSideTabButton = () => (
@@ -61,7 +61,7 @@ export default function LeftPanel(props: LeftPanelInterface): JSX.Element {
           variant="flat"
           size="lg"
           onClick={() => {
-            noteCtx.setUserIsLoggedIn(false);
+            setUserIsLoggedIn(false);
             router.push("/logInSignUp");
           }}
         >
@@ -96,7 +96,7 @@ export default function LeftPanel(props: LeftPanelInterface): JSX.Element {
           <UserNotes />
           <br />
           <br />
-          {noteCtx.userIsLoggedIn === true ? <ExitButton /> : <EnterButton />}
+          {userIsLoggedIn === true ? <ExitButton /> : <EnterButton />}
         </>
       ) : (
         <></>

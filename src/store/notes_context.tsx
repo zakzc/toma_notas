@@ -40,7 +40,7 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
     userNoteSet[0]
   );
   const [currentViewMode, setCurrentViewMode] = useState<number>(0);
-  const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(false);
+  const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(true);
 
   function changeSelectedNoteSet(noteSetToSelect: NoteSetInterface): void {
     setSelectedNoteSet(noteSetToSelect);

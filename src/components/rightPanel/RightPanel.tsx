@@ -18,6 +18,7 @@ interface RightPanelInterface {
 export default function RightPanel(props: RightPanelInterface): JSX.Element {
   // const { t } = useTranslation();
   const noteCtx = useContext(NoteAppContext);
+    const { userIsLoggedIn } = useContext(NoteAppContext);
   const myViewingOptions = [
     { option: 0, name: "View notes" },
     { option: 1, name: "View notes numbered" },
