@@ -15,11 +15,10 @@ const LogInSignUpPage: React.FC<Props> = () => {
   const [errorOnCredentials, setErrorOnCredentials] = useState("");
 
   const router = useRouter();
-  const noteCtx = useContext(NoteAppContext);
-  const loggedInUser  = useRef(noteCtx.userIsLoggedIn);
+  const { userIsLoggedIn, setUserIsLoggedIn } = useContext(NoteAppContext);
   const [dataReturnedFromFetch, setDataReturnedFromFetch] = useState(false);
-  if (loggedInUser === true && dataReturnedFromFetch === true) {
-    noteCtx.setUserIsLoggedIn(true);
+  if (userIsLoggedIn === true && dataReturnedFromFetch === true) {
+    setUserIsLoggedIn(true);
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -43,7 +42,7 @@ const LogInSignUpPage: React.FC<Props> = () => {
         const result = await res.json();
         if (result.success === true && result.data === email) {
           setDataReturnedFromFetch(true);
-          setLoggedInUser(true);
+          setUserIsLoggedIn(true);
           router.push("/");
         } else if (result.data === false) {
           setErrorOnCredentials("Error on user credentials, please try again.");

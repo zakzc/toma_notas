@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { useRouter } from "next/router";
 ///
-import { Row, Col, Button, ButtonGroup, ToggleButton } from "react-bootstrap";
+import { NoteAppContext } from "../../store/notes_context";
+///
+import { Row, Col, ToggleButton } from "react-bootstrap";
 import PenIcon from "../svg/PenIcon";
 import SeeIcon from "../svg/SeeIcon";
+import Sync from "../svg/Sync";
 
 interface HeaderInterface {
   appMode: boolean;
@@ -10,6 +14,16 @@ interface HeaderInterface {
 }
 
 const Header = (props: HeaderInterface) => {
+  const { userIsLoggedIn } = useContext(NoteAppContext);
+  const router = useRouter();
+  ///
+  function syncDataWithDB() {
+    console.log("Sync me", userIsLoggedIn);
+    if (userIsLoggedIn === false) {
+      router.push("/logInSignUp");
+    }
+  }
+
   const WriteViewSwitch = () => (
     <div className="centerPageStyle">
       <ToggleButton
@@ -38,6 +52,23 @@ const Header = (props: HeaderInterface) => {
     </div>
   );
 
+  const SyncDataBase = () => (
+    <div className="centerPageStyle">
+      <br />
+      <ToggleButton
+        key={1}
+        variant="flat"
+        value="write"
+        checked={props.appMode === true}
+        type="radio"
+        size="lg"
+        onClick={syncDataWithDB}
+      >
+        <Sync />
+      </ToggleButton>
+    </div>
+  );
+
   return (
     <Row>
       <Col></Col>
@@ -45,7 +76,9 @@ const Header = (props: HeaderInterface) => {
         <br />
         <WriteViewSwitch />
       </Col>
-      <Col></Col>
+      <Col>
+        <SyncDataBase />
+      </Col>
     </Row>
   );
 };
