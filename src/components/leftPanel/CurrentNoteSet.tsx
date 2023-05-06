@@ -8,8 +8,8 @@ import { NoteSetInterface } from "../../data/interfaces";
 
 export default function CurrentNoteSet(): JSX.Element {
   // const { t } = useTranslation();
-  const noteCtx = useContext(NoteAppContext);
-  const noteSets: NoteSetInterface[] = noteCtx.noteSets;
+  const { noteSets, currentlySelectedNoteSet } = useContext(NoteAppContext);
+  // const noteSets: NoteSetInterface[] = noteCtx.noteSets;
   // dummy value, actual values will come from DB
   function setNewNoteSet(newNoteSet: NoteSetInterface) {
     noteCtx.setCurrentlySelectedNoteSet(newNoteSet);
@@ -20,7 +20,7 @@ export default function CurrentNoteSet(): JSX.Element {
 
   
 const getFontWeight = (i: NoteSetInterface) => {
-  if (noteCtx.currentlySelectedNoteSet &&  noteCtx.currentlySelectedNoteSet.noteSetName && i.noteSetName === noteCtx.currentlySelectedNoteSet.noteSetName) {
+  if (currentlySelectedNoteSet &&  currentlySelectedNoteSet.noteSetName && i.noteSetName === currentlySelectedNoteSet.noteSetName) {
     return 800
   } 
   return "normal"

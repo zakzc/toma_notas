@@ -46,5 +46,5 @@ export interface NoteContextInterface {
   ) => void;
   deleteNoteFromCurrentSet: (noteTextId: string) => void;
   errorMessage: string;
-  setErrorMessage: () => void;
+  setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
 }
