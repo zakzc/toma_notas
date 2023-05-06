@@ -15,7 +15,8 @@ const LogInSignUpPage: React.FC<Props> = () => {
   const [errorOnCredentials, setErrorOnCredentials] = useState("");
 
   const router = useRouter();
-  const { userIsLoggedIn, setUserIsLoggedIn } = useContext(NoteAppContext);
+  const { userIsLoggedIn, setUserIsLoggedIn, noteSets, setUserNoteSet } =
+    useContext(NoteAppContext);
   const [dataReturnedFromFetch, setDataReturnedFromFetch] = useState(false);
   if (userIsLoggedIn === true && dataReturnedFromFetch === true) {
     setUserIsLoggedIn(true);
@@ -28,7 +29,12 @@ const LogInSignUpPage: React.FC<Props> = () => {
       setPasswordsMatch(false);
       return;
     } else {
-      const data = { email, password, requestType: isSignUp };
+      const data = {
+        email,
+        password,
+        requestType: isSignUp ? "signUp" : "logIn",
+        userData: noteSets,
+      };
 
       try {
         const res = await fetch("api/user", {
@@ -43,6 +49,7 @@ const LogInSignUpPage: React.FC<Props> = () => {
         if (result.success === true && result.data === email) {
           setDataReturnedFromFetch(true);
           setUserIsLoggedIn(true);
+          setUserNoteSet(result.data)
           router.push("/");
         } else if (result.data === false) {
           setErrorOnCredentials("Error on user credentials, please try again.");

@@ -23,7 +23,6 @@ export interface AddNewNoteToCurrentSetArgs {
 //   newIndentation: string;
 // }
 
-
 export interface NoteContextInterface {
   noteSets: NoteSetInterface[];
   numberOfNotes: number;
@@ -37,6 +36,7 @@ export interface NoteContextInterface {
     indentationLevel,
   }: AddNewNoteToCurrentSetArgs) => void;
   getCurrentIndentationLevel: () => string;
+  setUserNoteSet: (userData: NoteSetInterface) => void;
   userIsLoggedIn: boolean;
   setUserIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
   editNoteInCurrentSet: (
@@ -45,4 +45,6 @@ export interface NoteContextInterface {
     newIndentation: string
   ) => void;
   deleteNoteFromCurrentSet: (noteTextId: string) => void;
+  errorMessage: string;
+  setErrorMessage: () => void;
 }

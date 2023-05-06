@@ -1,27 +1,21 @@
-import React from "react";
-// import { useTranslation } from "react-i18next";
+import React, { useContext } from "react";
+///
+import { NoteAppContext } from "../../store/notes_context";
+///
 import { Row, Col } from "react-bootstrap";
 
 const Footer = (): JSX.Element => {
-  // const Footer = ({ changeLanguage }): JSX.Element => {
-  ///
-  // const ChangeLanguageSwitch = () => (
-  //   <>
-  //     <Button onClick={() => changeLanguage("en")}> EN </Button>
-  //     <span> - </span>
-  //     <Button onClick={() => changeLanguage("pt")}> PT </Button>
-  //   </>
-  // );
+  const { errorMessage } = useContext(NoteAppContext);
 
   return (
-    <Row>
-      <Col></Col>
-      <Col>
-        <h1>Footer</h1>
-        {/* <ChangeLanguageSwitch /> */}
-      </Col>
-      <Col></Col>
-    </Row>
+    <>
+      <Row></Row>
+      <Row>
+        <Col></Col>
+        <Col></Col>
+        <Col>{errorMessage === "" ? <></> : errorMessage }</Col>
+      </Row>
+    </>
   );
 };
 

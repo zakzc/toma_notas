@@ -6,6 +6,7 @@ import Visualise from "./centralPanel/Visualise";
 import LeftPanel from "./leftPanel/LeftPanel";
 import RightPanel from "./rightPanel/RightPanel";
 import Header from "./common/Header";
+import Footer from "./common/Footer";
 
 const Layout = (): JSX.Element => {
   const [isOpenLeft, setIsOpenLeft] = useState(false);
@@ -38,7 +39,7 @@ const Layout = (): JSX.Element => {
             />
           </Col>
         </Row>
-        {/* <Footer changeLanguage={changeLanguage} /> */}
+        <Footer />
       </Container>
     </>
   );

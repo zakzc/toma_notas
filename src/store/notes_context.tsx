@@ -27,10 +27,13 @@ export const NoteAppContext = createContext<NoteContextInterface>({
   setCurrentViewMode: () => {},
   addNewNoteToCurrentSet: () => {},
   getCurrentIndentationLevel: () => "",
+  setUserNoteSet: () => {},
   userIsLoggedIn: false,
   setUserIsLoggedIn: () => {},
   editNoteInCurrentSet: () => {},
   deleteNoteFromCurrentSet: () => {},
+  errorMessage: "", 
+  setErrorMessage: () => {},
 });
 
 const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
@@ -41,6 +44,7 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
   );
   const [currentViewMode, setCurrentViewMode] = useState<number>(0);
   const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
   function changeSelectedNoteSet(noteSetToSelect: NoteSetInterface): void {
     setSelectedNoteSet(noteSetToSelect);
@@ -142,6 +146,22 @@ function editNoteInCurrentSet(
   setUserNoteSet(updatedNoteSet);
 }
 
+// function syncDataWithDB() {
+//  try {
+//    // Call MongoDB API to update data with currentData
+//    await fetch("/api/syncData", {
+//      method: "PUT",
+//      body: JSON.stringify(currentData),
+//      headers: {
+//        "Content-Type": "application/json",
+//      },
+//    });
+//    // Update data with currentData after successful API call
+//    setData(currentData);
+//  } catch (error) {
+//    console.error("Error on data sync: ", error);
+//  }
+// }
 
 
   const initialContextState: NoteContextInterface = {
@@ -151,6 +171,7 @@ function editNoteInCurrentSet(
     setCurrentlySelectedNoteSet: changeSelectedNoteSet,
     addUserNote: addNewUserNote,
     currentViewMode,
+    setUserNoteSet,
     setCurrentViewMode,
     addNewNoteToCurrentSet,
     getCurrentIndentationLevel,
@@ -158,6 +179,8 @@ function editNoteInCurrentSet(
     setUserIsLoggedIn,
     editNoteInCurrentSet,
     deleteNoteFromCurrentSet,
+    errorMessage,
+    setErrorMessage
   };
 
   return (

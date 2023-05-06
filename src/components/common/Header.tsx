@@ -14,11 +14,11 @@ interface HeaderInterface {
 }
 
 const Header = (props: HeaderInterface) => {
-  const { userIsLoggedIn } = useContext(NoteAppContext);
+  const { userIsLoggedIn, noteSets } = useContext(NoteAppContext);
   const router = useRouter();
   ///
   function syncDataWithDB() {
-    console.log("Sync me", userIsLoggedIn);
+    console.log("Sync me", userIsLoggedIn, noteSets);
     if (userIsLoggedIn === false) {
       router.push("/logInSignUp");
     }
