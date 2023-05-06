@@ -8,11 +8,12 @@ import { NoteSetInterface } from "../../data/interfaces";
 
 export default function CurrentNoteSet(): JSX.Element {
   // const { t } = useTranslation();
-  const { noteSets, currentlySelectedNoteSet } = useContext(NoteAppContext);
+  const { noteSets, currentlySelectedNoteSet, setCurrentlySelectedNoteSet } =
+    useContext(NoteAppContext);
   // const noteSets: NoteSetInterface[] = noteCtx.noteSets;
   // dummy value, actual values will come from DB
   function setNewNoteSet(newNoteSet: NoteSetInterface) {
-    noteCtx.setCurrentlySelectedNoteSet(newNoteSet);
+    setCurrentlySelectedNoteSet(newNoteSet);
   }
   // TODO this here:
   // function handleSelectNewNoteSet

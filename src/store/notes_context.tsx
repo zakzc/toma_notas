@@ -101,20 +101,21 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
   }
 
 function deleteNoteFromCurrentSet(noteToDelete: string): void {
-  const updatedNoteSet = userNoteSet.map((eachNote) => {
-    if (eachNote.noteSetName === selectedNoteSet.noteSetName) {
-      const updatedNoteSetNote = eachNote.noteSetNote.filter(
-        (note) => note.noteTextId !== noteToDelete
-      );
-      return {
-        ...eachNote,
-        noteSetNote: updatedNoteSetNote,
-      };
-    } else {
-      return eachNote;
-    }
-  });
-  setUserNoteSet(updatedNoteSet);
+  console.log("Request to delete: ", noteToDelete)
+  // const updatedNoteSet = selectedNoteSet.map((eachNote) => {
+  //   if (eachNote.noteTextId === noteToDelete) {
+  //     const updatedNoteSetNote = eachNote.noteSetNote.filter(
+  //       (note) => note.noteTextId !== noteToDelete
+  //     );
+  //     return {
+  //       ...eachNote,
+  //       noteSetNote: updatedNoteSetNote,
+  //     };
+  //   } else {
+  //     return eachNote;
+  //   }
+  // });
+  // setUserNoteSet(updatedNoteSet);
 }
 
 function editNoteInCurrentSet(

@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { NoteAppContext } from "../../store/notes_context";
 import { NoteInterface } from "../../data/interfaces";
 //
-import { Button } from "react-bootstrap";
+import { Button, Row, Col } from "react-bootstrap";
 //
 import Garbage from "../svg/Garbage";
 import Eraser from "../svg/Eraser";
@@ -12,13 +12,19 @@ interface ViewNotesInterface {
   viewIndent: boolean;
 }
 
-export default function ViewNotes(props: ViewNotesInterface): JSX.Element {
-  const noteCtx = useContext(NoteAppContext);
-  const currentSet = noteCtx.currentlySelectedNoteSet.noteSetNote;
+export default function ViewNotesAsList(
+  props: ViewNotesInterface
+): JSX.Element {
+  const {
+    currentViewMode,
+    currentlySelectedNoteSet,
+    deleteNoteFromCurrentSet,
+  } = useContext(NoteAppContext);
+  const currentSet = currentlySelectedNoteSet.noteSetNote;
   ///
   const getIndentationStyle = (indent: string) => {
     let indentStyle = "";
-    switch (noteCtx.currentViewMode) {
+    switch (currentViewMode) {
       // simple note rendering, no levels
       case 0:
         break;
@@ -55,36 +61,38 @@ export default function ViewNotes(props: ViewNotesInterface): JSX.Element {
       </p>
     );
   };
- ///
+  ///
+  function eraseNote(id) {
+    deleteNoteFromCurrentSet(id)
+    console.log("Erase note ", id);
+  }
+
+  function editNote() {
+    console.log("Edit this note");
+  }
+  ///
   return (
     <>
       {currentSet ? (
         currentSet.map((i: NoteInterface, k: number) => (
           <>
             {props.viewIndent === false ? (
-              <FlatNote notes={i} key={k} />
+              <Row>
+                <Col md="auto">
+                  <FlatNote notes={i} key={k} />
+                </Col>
+                <Col></Col>
+                <Col>
+                  <Button variant="flat" size="sm" onClick={() => eraseNote(i.noteTextId)}>
+                    <Garbage />
+                  </Button>
+                  <Button variant="flat" size="sm" onClick={editNote}>
+                    <Eraser />
+                  </Button>
+                </Col>
+              </Row>
             ) : (
               <IndentedNote notes={i} key={k + 10} />
-            )}
-            {props.viewIndent === false ? (
-              <>
-                <Button
-                  variant="flat"
-                  size="sm"
-                  onClick={() => console.log("erase")}
-                >
-                  <Garbage />
-                </Button>
-                <Button
-                  variant="flat"
-                  size="sm"
-                  onClick={() => console.log("edit")}
-                >
-                  <Eraser />
-                </Button>
-              </>
-            ) : (
-              <></>
             )}
           </>
         ))

@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 ///
 import { NoteAppContext } from "../../store/notes_context";
 ///
-import ViewNotes from "../common/ViewNotes";
+import ViewNotes from "../common/ViewNotesAsList";
 ///
 import { Row, Col, Button, ButtonGroup } from "react-bootstrap";
 import ArrowLeft from "../svg/ArrowLeft";

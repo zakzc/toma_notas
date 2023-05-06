@@ -6,7 +6,7 @@ import { Row, Col } from "react-bootstrap";
 import { NoteAppContext } from "../../store/notes_context";
 import {NoteSetInterface} from "../../data/interfaces"
 ///
-import ViewNotes from "../common/ViewNotes";
+import ViewNotes from "../common/ViewNotesAsList";
 
 export default function Visualise(): JSX.Element {
   // const { t } = useTranslation();

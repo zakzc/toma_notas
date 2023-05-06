@@ -16,17 +16,17 @@
     "noteSetNote": [
       {
         "noteText": "This is a test note 1",
-        "noteTextId": "0",
+        "noteTextId": "1",
         "indentation": "0."
       },
       {
         "noteText": "This is a test note embed level 1",
-        "noteTextId": "0",
+        "noteTextId": "2",
         "indentation": "0.1."
       },
       {
         "noteText": "This is a test note embed level 2",
-        "noteTextId": "0",
+        "noteTextId": "3",
         "indentation": "0.1.1."
       }
     ]
@@ -37,7 +37,7 @@
     "noteSetNote": [
       {
         "noteText": "This is a test note 2",
-        "noteTextId": "0",
+        "noteTextId": "4",
         "indentation": "0."
       }
     ]
