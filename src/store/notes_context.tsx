@@ -131,7 +131,6 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
     });
     setUserNoteSet(newValueForNoteSet);
   }
-  console.log("here : ", selectedNoteSet);
 
   function editNoteInCurrentSet(
     newNoteText: string,

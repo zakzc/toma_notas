@@ -18,9 +18,9 @@ export default function RightPanel(props: RightPanelInterface): JSX.Element {
   const { currentVisualizationMode,  setCurrentViewMode } = useContext(NoteAppContext);
   const myViewingOptions = [
     { option: 0, name: "View notes" },
-    { option: 1, name: "View notes numbered" },
-    { option: 2, name: "View notes with levels" },
-    { option: 3, name: "View Notes as Cornel method" },
+    { option: 1, name: "View notes with indent" },
+    { option: 2, name: "View notes numbered" },
+    { option: 3, name: "View notes with levels" },
     { option: 4, name: "View Notes as Flashcards" },
   ];
 

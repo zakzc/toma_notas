@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-// import { useTranslation } from "react-i18next";
 ///
 import { NoteAppContext } from "../../store/notes_context";
 ///
@@ -14,15 +13,14 @@ interface ViewModeInterface {
 }
 
 export default function ViewMode(props: ViewModeInterface): JSX.Element {
-  // const { t } = useTranslation();
-  const noteCtx = useContext(NoteAppContext);
+  const { setCurrentViewMode } = useContext(NoteAppContext);
   const myViewingOptions = [
     { option: 0, name: "View notes" },
-    { option: 1, name: "View notes numbered" },
-    { option: 2, name: "View notes with levels" },
-    { option: 3, name: "View Notes as Cornel method" },
+    { option: 1, name: "View notes with indent" },
+    { option: 2, name: "View notes numbered" },
+    { option: 3, name: "View notes with levels" },
     { option: 4, name: "View Notes as Flashcards" },
-  ]
+  ];
 
   const OpenCloseSideTabButton = () => (
     <Row>
@@ -63,7 +61,7 @@ export default function ViewMode(props: ViewModeInterface): JSX.Element {
             variant="flat"
             key={k} 
             style={{ display: "flex", justifyContent: "flex-end" }}
-            onClick={() => noteCtx.setCurrentViewMode(i.option)}
+            onClick={() => setCurrentViewMode(i.option)}
           >
             {i.name}
           </Button>
