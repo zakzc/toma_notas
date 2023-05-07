@@ -6,11 +6,12 @@ import { NoteAppContext } from "../../store/notes_context";
 import { Row, Col, ToggleButton } from "react-bootstrap";
 import PenIcon from "../svg/PenIcon";
 import SeeIcon from "../svg/SeeIcon";
+import BigEraser from "../svg/BigEraser"
 import Sync from "../svg/Sync";
 
 interface HeaderInterface {
-  appMode: boolean;
-  setAppMode: React.Dispatch<boolean>;
+  appMode: number;
+  setAppMode: React.Dispatch<number>;
 }
 
 const Header = (props: HeaderInterface) => {
@@ -30,10 +31,10 @@ const Header = (props: HeaderInterface) => {
         key={1}
         variant="flat"
         value="write"
-        checked={props.appMode === true}
+        checked={props.appMode === 2}
         type="radio"
         size="lg"
-        onClick={() => props.setAppMode(true)}
+        onClick={() => props.setAppMode(2)}
       >
         <SeeIcon />
       </ToggleButton>
@@ -43,11 +44,23 @@ const Header = (props: HeaderInterface) => {
         value="read"
         name="radio"
         size="lg"
-        checked={props.appMode === false}
+        checked={props.appMode === 1}
         type="radio"
-        onClick={() => props.setAppMode(false)}
+        onClick={() => props.setAppMode(1)}
       >
         <PenIcon />
+      </ToggleButton>
+      <ToggleButton
+        key={2}
+        variant="flat"
+        value="read"
+        name="radio"
+        size="lg"
+        checked={props.appMode === 3}
+        type="radio"
+        onClick={() => props.setAppMode(3)}
+      >
+        <BigEraser />
       </ToggleButton>
     </div>
   );
@@ -59,7 +72,6 @@ const Header = (props: HeaderInterface) => {
         key={1}
         variant="flat"
         value="write"
-        checked={props.appMode === true}
         type="radio"
         size="lg"
         onClick={syncDataWithDB}
@@ -71,7 +83,6 @@ const Header = (props: HeaderInterface) => {
 
   return (
     <Row>
-      <Col></Col>
       <Col>
         <br />
         <WriteViewSwitch />

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Eraser(): JSX.Element {
+export default function SmallEraser(): JSX.Element {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

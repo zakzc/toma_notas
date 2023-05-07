@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 ///
 import { NoteAppContext } from "../../store/notes_context";
 ///
-import ViewNotes from "../common/ViewNotesAsList";
+import ViewNotesAsList from "../common/ViewNotesAsList";
 ///
 import { Row, Col, Button, ButtonGroup } from "react-bootstrap";
 import ArrowLeft from "../svg/ArrowLeft";
@@ -12,13 +12,14 @@ import ArrowRight from "../svg/ArrowRight";
 interface RightPanelInterface {
   isOpenRight: boolean;
   setIsOpenRight: React.Dispatch<boolean>;
-  appMode: boolean;
+  appMode: number;
+  setAppMode: React.Dispatch<number>;
 }
 
 export default function RightPanel(props: RightPanelInterface): JSX.Element {
   // const { t } = useTranslation();
   const noteCtx = useContext(NoteAppContext);
-    const { userIsLoggedIn } = useContext(NoteAppContext);
+    // const { userIsLoggedIn } = useContext(NoteAppContext);
   const myViewingOptions = [
     { option: 0, name: "View notes" },
     { option: 1, name: "View notes numbered" },
@@ -80,7 +81,7 @@ export default function RightPanel(props: RightPanelInterface): JSX.Element {
   );
 
   const ViewOptions = () => (
-    <>{props.appMode === true ? <ViewMode /> : <ViewNotes viewIndent={false}/>}</>
+    <>{props.appMode === 2 ? <ViewMode /> : <ViewNotesAsList viewIndent={false} setAppMode={props.setAppMode} />}</>
   );
 
   return (

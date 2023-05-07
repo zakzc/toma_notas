@@ -34,6 +34,8 @@ export const NoteAppContext = createContext<NoteContextInterface>({
   deleteNoteFromCurrentSet: () => {},
   errorMessage: "",
   setErrorMessage: () => {},
+  noteToEdit: undefined,
+  setNoteToEdit: () => {}
 });
 
 const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
@@ -45,6 +47,7 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
   const [currentViewMode, setCurrentViewMode] = useState<number>(0);
   const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [noteToEdit, setNoteToEdit] = useState(selectedNoteSet.noteSetNote[0])
 
   function changeSelectedNoteSet(noteSetToSelect: NoteSetInterface): void {
     setSelectedNoteSet(noteSetToSelect);
@@ -128,28 +131,29 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
     newNoteText: string,
     newIndentation: string
   ): void {
-    const updatedNoteSet = userNoteSet.map((eachNote) => {
-      if (eachNote.noteSetName === selectedNoteSet.noteSetName) {
-        const updatedNoteSetNote = eachNote.noteSetNote.map((note) => {
-          if (note.noteTextId === noteId) {
-            return {
-              ...note,
-              noteText: newNoteText,
-              indentation: newIndentation,
-            };
-          } else {
-            return note;
-          }
-        });
-        return {
-          ...eachNote,
-          noteSetNote: updatedNoteSetNote,
-        };
-      } else {
-        return eachNote;
-      }
-    });
-    setUserNoteSet(updatedNoteSet);
+    console.log("Received call to edit: ", noteId, newNoteText, newIndentation)
+    // const updatedNoteSet = userNoteSet.map((eachNote) => {
+    //   if (eachNote.noteSetName === selectedNoteSet.noteSetName) {
+    //     const updatedNoteSetNote = eachNote.noteSetNote.map((note) => {
+    //       if (note.noteTextId === noteId) {
+    //         return {
+    //           ...note,
+    //           noteText: newNoteText,
+    //           indentation: newIndentation,
+    //         };
+    //       } else {
+    //         return note;
+    //       }
+    //     });
+    //     return {
+    //       ...eachNote,
+    //       noteSetNote: updatedNoteSetNote,
+    //     };
+    //   } else {
+    //     return eachNote;
+    //   }
+    // });
+    // setUserNoteSet(updatedNoteSet);
   }
 
   // function syncDataWithDB() {
@@ -186,6 +190,8 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
     deleteNoteFromCurrentSet,
     errorMessage,
     setErrorMessage,
+    noteToEdit,
+    setNoteToEdit,
   };
 
   return (

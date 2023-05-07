@@ -9,9 +9,15 @@ import Unindent from "../svg/Unindent";
 import Check from "../svg/Check";
 // import styles from "../../Styles/LogInPageStyle.css";
 
-export default function TextArea(): JSX.Element {
+interface TextAreaProps {
+  visualizationMode?: number;
+}
+
+export default function TextArea(props: TextAreaProps): JSX.Element {
   const [inputText, setInputText] = useState<string>("");
   const noteCtx = useContext(NoteAppContext);
+  console.log("Text ", props.visualizationMode);
+  ///
   const [currentIndentationLevel, setCurrentIndentationLevel] =
     useState<string>(noteCtx.getCurrentIndentationLevel());
   const setIndentationLevel = (level: boolean) => {
@@ -20,11 +26,12 @@ export default function TextArea(): JSX.Element {
       setCurrentIndentationLevel(currentIndentationLevel + "0.");
     } else {
       // remove indentation
-      if (currentIndentationLevel.slice(-2) === "0." && currentIndentationLevel.length === 2) {
-        setCurrentIndentationLevel("0.");
-      } else if (
-        currentIndentationLevel.slice(-2) === "0."
+      if (
+        currentIndentationLevel.slice(-2) === "0." &&
+        currentIndentationLevel.length === 2
       ) {
+        setCurrentIndentationLevel("0.");
+      } else if (currentIndentationLevel.slice(-2) === "0.") {
         setCurrentIndentationLevel(currentIndentationLevel.slice(0, -2));
       } else {
         let parts = currentIndentationLevel.split(".");
@@ -55,11 +62,15 @@ export default function TextArea(): JSX.Element {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (inputText !== "") {
-      setNewLevel();
-      // @ts-ignore
-      noteCtx.addNewNoteToCurrentSet(inputText, currentIndentationLevel);
-      setInputText("");
+    if (props.visualizationMode === 1) {
+      if (inputText !== "") {
+        setNewLevel();
+        // @ts-ignore
+        noteCtx.addNewNoteToCurrentSet(inputText, currentIndentationLevel);
+        setInputText("");
+      }
+    } else if (props.visualizationMode === 3) {
+      console.log("Send to Edit function");
     }
   };
 
@@ -75,8 +86,8 @@ export default function TextArea(): JSX.Element {
           <Form onSubmit={handleSubmit}>
             <InputGroup>
               <Form.Control
-                rows={40}
-                cols={5}
+                rows={props.visualizationMode === 1 ? 40 : 10}
+                cols={props.visualizationMode === 1 ? 5 : 3}
                 as="textarea"
                 aria-label="With textarea"
                 value={inputText}
@@ -95,7 +106,8 @@ export default function TextArea(): JSX.Element {
               </Col>
               <Col>
                 <br />
-                Current: {noteCtx.getCurrentIndentationLevel()}<br/>
+                Current: {noteCtx.getCurrentIndentationLevel()}
+                <br />
                 Next: {currentIndentationLevel}
               </Col>
               <Col>
