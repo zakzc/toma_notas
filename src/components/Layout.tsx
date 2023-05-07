@@ -6,7 +6,6 @@ import Visualise from "./centralPanel/Visualise";
 import LeftPanel from "./leftPanel/LeftPanel";
 import RightPanel from "./rightPanel/RightPanel";
 import Header from "./common/Header";
-import Footer from "./common/Footer";
 
 const Layout = (): JSX.Element => {
   const [isOpenLeft, setIsOpenLeft] = useState(false);
@@ -17,9 +16,9 @@ const Layout = (): JSX.Element => {
   const BaseLayout = () => (
     <>
       <Container fluid>
-        <Row>
+        {/* <Row>
           <Header appMode={appMode} setAppMode={setAppMode} />
-        </Row>
+        </Row> */}
         <Row>
           <Col xs={12} sm={12} md={3}>
             <LeftPanel
@@ -29,6 +28,7 @@ const Layout = (): JSX.Element => {
             />
           </Col>
           <Col xs={12} sm={12} md={6}>
+            <Header appMode={appMode} setAppMode={setAppMode} />
             {appMode === false ? <TextArea /> : <Visualise />}
           </Col>
           <Col xs={12} sm={12} md={3}>
@@ -39,7 +39,6 @@ const Layout = (): JSX.Element => {
             />
           </Col>
         </Row>
-        <Footer />
       </Container>
     </>
   );

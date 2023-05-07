@@ -14,7 +14,7 @@ interface HeaderInterface {
 }
 
 const Header = (props: HeaderInterface) => {
-  const { userIsLoggedIn, noteSets } = useContext(NoteAppContext);
+  const { userIsLoggedIn, noteSets, errorMessage } = useContext(NoteAppContext);
   const router = useRouter();
   ///
   function syncDataWithDB() {
@@ -75,6 +75,10 @@ const Header = (props: HeaderInterface) => {
       <Col>
         <br />
         <WriteViewSwitch />
+      </Col>
+      <Col>
+        <br />
+        {errorMessage === "" ? <></> : errorMessage}
       </Col>
       <Col>
         <SyncDataBase />

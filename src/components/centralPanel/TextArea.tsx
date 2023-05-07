@@ -75,7 +75,7 @@ export default function TextArea(): JSX.Element {
           <Form onSubmit={handleSubmit}>
             <InputGroup>
               <Form.Control
-                rows={25}
+                rows={40}
                 cols={5}
                 as="textarea"
                 aria-label="With textarea"

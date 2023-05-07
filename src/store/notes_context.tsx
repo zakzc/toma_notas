@@ -32,7 +32,7 @@ export const NoteAppContext = createContext<NoteContextInterface>({
   setUserIsLoggedIn: () => {},
   editNoteInCurrentSet: () => {},
   deleteNoteFromCurrentSet: () => {},
-  errorMessage: "", 
+  errorMessage: "",
   setErrorMessage: () => {},
 });
 
@@ -44,7 +44,7 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
   );
   const [currentViewMode, setCurrentViewMode] = useState<number>(0);
   const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(false);
-    const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   function changeSelectedNoteSet(noteSetToSelect: NoteSetInterface): void {
     setSelectedNoteSet(noteSetToSelect);
@@ -100,70 +100,74 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
     return highIndent[highIndent.length - 1];
   }
 
-function deleteNoteFromCurrentSet(noteToDelete: string): void {
-  console.log("Request to delete: ", noteToDelete)
-  // const updatedNoteSet = selectedNoteSet.map((eachNote) => {
-  //   if (eachNote.noteTextId === noteToDelete) {
-  //     const updatedNoteSetNote = eachNote.noteSetNote.filter(
-  //       (note) => note.noteTextId !== noteToDelete
-  //     );
-  //     return {
-  //       ...eachNote,
-  //       noteSetNote: updatedNoteSetNote,
-  //     };
-  //   } else {
-  //     return eachNote;
-  //   }
-  // });
-  // setUserNoteSet(updatedNoteSet);
-}
+  function deleteNoteFromCurrentSet(noteToDelete: string): void {
+    const noteSetWithNoteDeleted = selectedNoteSet.noteSetNote.filter(
+      (n) => n.noteTextId !== noteToDelete
+    );
+    // make new note set with note deleted
+    const newNoteSet = {
+      noteSetId: selectedNoteSet.noteSetId,
+      noteSetName: selectedNoteSet.noteSetName,
+      noteSetNote: noteSetWithNoteDeleted,
+    };
+    setSelectedNoteSet(newNoteSet);
+    // update the whole user note set
+    const newValueForNoteSet = userNoteSet.map((m) => {
+      if (m.noteSetId === selectedNoteSet.noteSetId) {
+        return newNoteSet;
+      } else {
+        return m;
+      }
+    });
+    setUserNoteSet(newValueForNoteSet);
+    console.log("del: ", newValueForNoteSet);
+  }
 
-function editNoteInCurrentSet(
-  noteId: string,
-  newNoteText: string,
-  newIndentation: string
-): void {
-  const updatedNoteSet = userNoteSet.map((eachNote) => {
-    if (eachNote.noteSetName === selectedNoteSet.noteSetName) {
-      const updatedNoteSetNote = eachNote.noteSetNote.map((note) => {
-        if (note.noteTextId === noteId) {
-          return {
-            ...note,
-            noteText: newNoteText,
-            indentation: newIndentation,
-          };
-        } else {
-          return note;
-        }
-      });
-      return {
-        ...eachNote,
-        noteSetNote: updatedNoteSetNote,
-      };
-    } else {
-      return eachNote;
-    }
-  });
-  setUserNoteSet(updatedNoteSet);
-}
+  function editNoteInCurrentSet(
+    noteId: string,
+    newNoteText: string,
+    newIndentation: string
+  ): void {
+    const updatedNoteSet = userNoteSet.map((eachNote) => {
+      if (eachNote.noteSetName === selectedNoteSet.noteSetName) {
+        const updatedNoteSetNote = eachNote.noteSetNote.map((note) => {
+          if (note.noteTextId === noteId) {
+            return {
+              ...note,
+              noteText: newNoteText,
+              indentation: newIndentation,
+            };
+          } else {
+            return note;
+          }
+        });
+        return {
+          ...eachNote,
+          noteSetNote: updatedNoteSetNote,
+        };
+      } else {
+        return eachNote;
+      }
+    });
+    setUserNoteSet(updatedNoteSet);
+  }
 
-// function syncDataWithDB() {
-//  try {
-//    // Call MongoDB API to update data with currentData
-//    await fetch("/api/syncData", {
-//      method: "PUT",
-//      body: JSON.stringify(currentData),
-//      headers: {
-//        "Content-Type": "application/json",
-//      },
-//    });
-//    // Update data with currentData after successful API call
-//    setData(currentData);
-//  } catch (error) {
-//    console.error("Error on data sync: ", error);
-//  }
-// }
-
+  // function syncDataWithDB() {
+  //  try {
+  //    // Call MongoDB API to update data with currentData
+  //    await fetch("/api/syncData", {
+  //      method: "PUT",
+  //      body: JSON.stringify(currentData),
+  //      headers: {
+  //        "Content-Type": "application/json",
+  //      },
+  //    });
+  //    // Update data with currentData after successful API call
+  //    setData(currentData);
+  //  } catch (error) {
+  //    console.error("Error on data sync: ", error);
+  //  }
+  // }
 
   const initialContextState: NoteContextInterface = {
     noteSets: userNoteSet,
@@ -181,7 +185,7 @@ function editNoteInCurrentSet(
     editNoteInCurrentSet,
     deleteNoteFromCurrentSet,
     errorMessage,
-    setErrorMessage
+    setErrorMessage,
   };
 
   return (
