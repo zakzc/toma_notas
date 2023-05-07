@@ -37,7 +37,7 @@ export const NoteAppContext = createContext<NoteContextInterface>({
   noteToEdit: undefined,
   setNoteToEdit: () => {},
   currentVisualizationMode: 0,
-  setCurrentVisualizationMode: () => {}
+  setCurrentVisualizationMode: () => {},
 });
 
 const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
@@ -49,8 +49,9 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
   const [currentViewMode, setCurrentViewMode] = useState<number>(0);
   const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const [noteToEdit, setNoteToEdit] = useState(selectedNoteSet.noteSetNote[0])
-  const [currentVisualizationMode, setCurrentVisualizationMode] = useState<number>(0)
+  const [noteToEdit, setNoteToEdit] = useState(selectedNoteSet.noteSetNote[0]);
+  const [currentVisualizationMode, setCurrentVisualizationMode] =
+    useState<number>(0);
 
   function changeSelectedNoteSet(noteSetToSelect: NoteSetInterface): void {
     setSelectedNoteSet(noteSetToSelect);
@@ -104,9 +105,9 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
   function getCurrentIndentationLevel(): string {
     const highIndent = selectedNoteSet.noteSetNote.map((i) => i.indentation);
     if (highIndent !== undefined) {
-      return highIndent[highIndent.length - 1]; 
+      return highIndent[highIndent.length - 1];
     }
-    return "0."
+    return "0.";
   }
 
   function deleteNoteFromCurrentSet(noteToDelete: string): void {
@@ -130,38 +131,37 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
     });
     setUserNoteSet(newValueForNoteSet);
   }
+  console.log("here : ", selectedNoteSet);
 
-  // TODO: edit note
   function editNoteInCurrentSet(
     newNoteText: string,
     newIndentation: string
   ): void {
     console.log("Received call to edit: ", newNoteText, newIndentation);
-    // const updatedNoteSet = userNoteSet.map((eachNote) => {
-    //   if (eachNote.noteSetName === selectedNoteSet.noteSetName) {
-    //     const updatedNoteSetNote = eachNote.noteSetNote.map((note) => {
-    //       if (note.noteTextId === noteId) {
-    //         return {
-    //           ...note,
-    //           noteText: newNoteText,
-    //           indentation: newIndentation,
-    //         };
-    //       } else {
-    //         return note;
-    //       }
-    //     });
-    //     return {
-    //       ...eachNote,
-    //       noteSetNote: updatedNoteSetNote,
-    //     };
-    //   } else {
-    //     return eachNote;
-    //   }
-    // });
-    // setUserNoteSet(updatedNoteSet);
+    const updatedNote = {
+      noteText: newNoteText,
+      noteTextId: noteToEdit.noteTextId,
+      indentation: newIndentation,
+    };
+
+    const individualNoteUpdated = selectedNoteSet.noteSetNote.map((o) => {
+      if (o.noteTextId === selectedNoteSet.noteSetId) {
+        return updatedNote;
+      } else return o;
+    });
+
+    const newSelectedNoteSet = {
+      noteSetId: selectedNoteSet.noteSetId,
+      noteSetName: selectedNoteSet.noteSetName,
+      noteSetNote: individualNoteUpdated,
+    };
+    // update note set being visualized
+    setSelectedNoteSet(newSelectedNoteSet);
+    setUserNoteSet(newSelectedNoteSet);
   }
 
-  // TODO: function syncDataWithDB() {
+  // TODO: 
+  // function syncDataWithDB() {
   //  try {
   //    // Call MongoDB API to update data with currentData
   //    await fetch("/api/syncData", {

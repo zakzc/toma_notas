@@ -19,7 +19,8 @@ export default function ViewNotesAsList(
     currentViewMode,
     currentlySelectedNoteSet,
     deleteNoteFromCurrentSet,
-    setNoteToEdit, setCurrentVisualizationMode
+    setNoteToEdit,
+    setCurrentVisualizationMode,
   } = useContext(NoteAppContext);
   const currentSet = currentlySelectedNoteSet.noteSetNote;
   ///
@@ -64,7 +65,7 @@ export default function ViewNotesAsList(
   };
   ///
   function eraseNote(id: string) {
-    deleteNoteFromCurrentSet(id)
+    deleteNoteFromCurrentSet(id);
     setNoteToEdit(undefined);
   }
 
@@ -86,7 +87,11 @@ export default function ViewNotesAsList(
                 </Col>
                 <Col></Col>
                 <Col>
-                  <Button variant="flat" size="sm" onClick={() => eraseNote(i.noteTextId)}>
+                  <Button
+                    variant="flat"
+                    size="sm"
+                    onClick={() => eraseNote(i.noteTextId)}
+                  >
                     <Garbage />
                   </Button>
                   <Button variant="flat" size="sm" onClick={() => editNote(i)}>

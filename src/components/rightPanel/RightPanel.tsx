@@ -15,7 +15,7 @@ interface RightPanelInterface {
 }
 
 export default function RightPanel(props: RightPanelInterface): JSX.Element {
-  const { currentVisualizationMode,  setCurrentVisualizationMode } = useContext(NoteAppContext);
+  const { currentVisualizationMode,  setCurrentViewMode } = useContext(NoteAppContext);
   const myViewingOptions = [
     { option: 0, name: "View notes" },
     { option: 1, name: "View notes numbered" },
@@ -67,7 +67,7 @@ export default function RightPanel(props: RightPanelInterface): JSX.Element {
             size="lg"
             key={k}
             style={{ display: "flex", justifyContent: "flex-end" }}
-            onClick={() => setCurrentVisualizationMode(i.option)}
+            onClick={() => setCurrentViewMode(i.option)}
           >
             {i.name}
           </Button>
