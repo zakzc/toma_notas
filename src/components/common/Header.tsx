@@ -9,17 +9,13 @@ import SeeIcon from "../svg/SeeIcon";
 import BigEraser from "../svg/BigEraser"
 import Sync from "../svg/Sync";
 
-interface HeaderInterface {
-  appMode: number;
-  setAppMode: React.Dispatch<number>;
-}
 
-const Header = (props: HeaderInterface) => {
-  const { userIsLoggedIn, noteSets, errorMessage } = useContext(NoteAppContext);
+const Header = () => {
+  const { userIsLoggedIn, errorMessage, currentVisualizationMode, setCurrentVisualizationMode } = useContext(NoteAppContext);
   const router = useRouter();
   ///
   function syncDataWithDB() {
-    console.log("Sync me", userIsLoggedIn, noteSets);
+    // console.log("Sync me", userIsLoggedIn, noteSets);
     if (userIsLoggedIn === false) {
       router.push("/logInSignUp");
     }
@@ -31,10 +27,10 @@ const Header = (props: HeaderInterface) => {
         key={1}
         variant="flat"
         value="write"
-        checked={props.appMode === 2}
+        checked={currentVisualizationMode === 2}
         type="radio"
         size="lg"
-        onClick={() => props.setAppMode(2)}
+        onClick={() => setCurrentVisualizationMode(2)}
       >
         <SeeIcon />
       </ToggleButton>
@@ -44,21 +40,21 @@ const Header = (props: HeaderInterface) => {
         value="read"
         name="radio"
         size="lg"
-        checked={props.appMode === 1}
+        checked={currentVisualizationMode === 1}
         type="radio"
-        onClick={() => props.setAppMode(1)}
+        onClick={() => setCurrentVisualizationMode(1)}
       >
         <PenIcon />
       </ToggleButton>
       <ToggleButton
-        key={2}
+        key={3}
         variant="flat"
         value="read"
         name="radio"
         size="lg"
-        checked={props.appMode === 3}
+        checked={currentVisualizationMode === 3}
         type="radio"
-        onClick={() => props.setAppMode(3)}
+        onClick={() => setCurrentVisualizationMode(3)}
       >
         <BigEraser />
       </ToggleButton>

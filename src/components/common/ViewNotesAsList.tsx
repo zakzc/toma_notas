@@ -10,8 +10,6 @@ import Eraser from "../svg/SmallEraser";
 
 interface ViewNotesInterface {
   viewIndent: boolean;
-  setAppMode?: React.Dispatch<number>;
-  setNoteToEdit?: React.Dispatch<NoteInterface>;
 }
 
 export default function ViewNotesAsList(
@@ -21,7 +19,7 @@ export default function ViewNotesAsList(
     currentViewMode,
     currentlySelectedNoteSet,
     deleteNoteFromCurrentSet,
-    setNoteToEdit,
+    setNoteToEdit, setCurrentVisualizationMode
   } = useContext(NoteAppContext);
   const currentSet = currentlySelectedNoteSet.noteSetNote;
   ///
@@ -68,11 +66,10 @@ export default function ViewNotesAsList(
   function eraseNote(id: string) {
     deleteNoteFromCurrentSet(id)
     setNoteToEdit(undefined);
-    console.log("Erase note ", id);
   }
 
   function editNote(thisNoteToEdit: NoteInterface) {
-    props.setAppMode(3);
+    setCurrentVisualizationMode(3);
     setNoteToEdit(thisNoteToEdit);
     console.log("Edit this note", thisNoteToEdit);
   }

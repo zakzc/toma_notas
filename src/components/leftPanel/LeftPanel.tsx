@@ -15,7 +15,6 @@ import Enter from "../svg/Enter";
 interface LeftPanelInterface {
   isOpenLeft: boolean;
   setIsOpenLeft: React.Dispatch<React.SetStateAction<boolean>>;
-  appMode: number;
 }
 
 export default function LeftPanel(props: LeftPanelInterface): JSX.Element {

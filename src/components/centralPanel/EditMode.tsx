@@ -8,11 +8,19 @@ import TextArea from "./TextArea";
 
 export default function EditMode(): JSX.Element {
   const { noteToEdit } = useContext(NoteAppContext);
-  console.log("got ", noteToEdit);
   ///
   const EditNote = () => (
     <>
-      {(noteToEdit && noteToEdit.noteText) ? noteToEdit.noteText: "No note to edit"}
+      <div
+        style={{
+          border: "2px solid",
+          backgroundColor: "#d3d3d3", // light gray
+        }}
+      >
+        {noteToEdit && noteToEdit.noteText
+          ? noteToEdit.noteText
+          : "No note to edit"}
+      </div>
       <TextArea />
     </>
   );

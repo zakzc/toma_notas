@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+//
+import { NoteAppContext } from "../store/notes_context";
 //
 import { Container, Row, Col } from "react-bootstrap";
 import TextArea from "./centralPanel/TextArea";
@@ -11,18 +13,18 @@ import Header from "./common/Header";
 const Layout = (): JSX.Element => {
   const [isOpenLeft, setIsOpenLeft] = useState(false);
   const [isOpenRight, setIsOpenRight] = useState(false);
-  // false for Write Mode, true for visualize mode
-  const [appMode, setAppMode] = useState(1);
+    const {
+      currentVisualizationMode
+    } = useContext(NoteAppContext);
+
 
   const CurrentViewMode = () => {
-    if (appMode === 1) {
-      return <TextArea visualizationMode={appMode} />;
-    } else if (appMode === 2) {
+    if (currentVisualizationMode === 1) {
+      return <TextArea />;
+    } else if (currentVisualizationMode === 2) {
       return <Visualize />;
     } else {
-      return (
-       <EditMode/>
-      );
+      return <EditMode />;
     }
   };
 
@@ -34,19 +36,16 @@ const Layout = (): JSX.Element => {
             <LeftPanel
               isOpenLeft={isOpenLeft}
               setIsOpenLeft={setIsOpenLeft}
-              appMode={appMode}
             />
           </Col>
           <Col xs={12} sm={12} md={6}>
-            <Header appMode={appMode} setAppMode={setAppMode} />
+            <Header />
             <CurrentViewMode/>
           </Col>
           <Col xs={12} sm={12} md={3}>
             <RightPanel
               isOpenRight={isOpenRight}
               setIsOpenRight={setIsOpenRight}
-              appMode={appMode}
-              setAppMode={setAppMode}
             />
           </Col>
         </Row>

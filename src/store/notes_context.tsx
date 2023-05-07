@@ -35,7 +35,9 @@ export const NoteAppContext = createContext<NoteContextInterface>({
   errorMessage: "",
   setErrorMessage: () => {},
   noteToEdit: undefined,
-  setNoteToEdit: () => {}
+  setNoteToEdit: () => {},
+  currentVisualizationMode: 0,
+  setCurrentVisualizationMode: () => {}
 });
 
 const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
@@ -46,8 +48,9 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
   );
   const [currentViewMode, setCurrentViewMode] = useState<number>(0);
   const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const [noteToEdit, setNoteToEdit] = useState(selectedNoteSet.noteSetNote[0])
+  const [currentVisualizationMode, setCurrentVisualizationMode] = useState<number>(0)
 
   function changeSelectedNoteSet(noteSetToSelect: NoteSetInterface): void {
     setSelectedNoteSet(noteSetToSelect);
@@ -100,7 +103,10 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
 
   function getCurrentIndentationLevel(): string {
     const highIndent = selectedNoteSet.noteSetNote.map((i) => i.indentation);
-    return highIndent[highIndent.length - 1];
+    if (highIndent !== undefined) {
+      return highIndent[highIndent.length - 1]; 
+    }
+    return "0."
   }
 
   function deleteNoteFromCurrentSet(noteToDelete: string): void {
@@ -123,15 +129,14 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
       }
     });
     setUserNoteSet(newValueForNoteSet);
-    console.log("del: ", newValueForNoteSet);
   }
 
+  // TODO: edit note
   function editNoteInCurrentSet(
-    noteId: string,
     newNoteText: string,
     newIndentation: string
   ): void {
-    console.log("Received call to edit: ", noteId, newNoteText, newIndentation)
+    console.log("Received call to edit: ", newNoteText, newIndentation);
     // const updatedNoteSet = userNoteSet.map((eachNote) => {
     //   if (eachNote.noteSetName === selectedNoteSet.noteSetName) {
     //     const updatedNoteSetNote = eachNote.noteSetNote.map((note) => {
@@ -156,7 +161,7 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
     // setUserNoteSet(updatedNoteSet);
   }
 
-  // function syncDataWithDB() {
+  // TODO: function syncDataWithDB() {
   //  try {
   //    // Call MongoDB API to update data with currentData
   //    await fetch("/api/syncData", {
@@ -192,6 +197,8 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
     setErrorMessage,
     noteToEdit,
     setNoteToEdit,
+    currentVisualizationMode,
+    setCurrentVisualizationMode,
   };
 
   return (

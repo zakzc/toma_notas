@@ -39,11 +39,7 @@ export interface NoteContextInterface {
   setUserNoteSet: React.Dispatch<React.SetStateAction<NoteSetInterface[]>>;
   userIsLoggedIn: boolean;
   setUserIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
-  editNoteInCurrentSet: (
-    noteId: string,
-    newNoteText: string,
-    newIndentation: string
-  ) => void;
+  editNoteInCurrentSet: (newNoteText: string, newIndentation: string) => void;
   deleteNoteFromCurrentSet: (noteTextId: string) => void;
   errorMessage: string;
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
@@ -51,4 +47,6 @@ export interface NoteContextInterface {
   setNoteToEdit: React.Dispatch<
     React.SetStateAction<NoteInterface | undefined>
   >;
+  currentVisualizationMode: number;
+  setCurrentVisualizationMode: React.Dispatch<React.SetStateAction<number>>;
 }

@@ -12,14 +12,10 @@ import ArrowRight from "../svg/ArrowRight";
 interface RightPanelInterface {
   isOpenRight: boolean;
   setIsOpenRight: React.Dispatch<boolean>;
-  appMode: number;
-  setAppMode: React.Dispatch<number>;
 }
 
 export default function RightPanel(props: RightPanelInterface): JSX.Element {
-  // const { t } = useTranslation();
-  const noteCtx = useContext(NoteAppContext);
-    // const { userIsLoggedIn } = useContext(NoteAppContext);
+  const { currentVisualizationMode,  setCurrentVisualizationMode } = useContext(NoteAppContext);
   const myViewingOptions = [
     { option: 0, name: "View notes" },
     { option: 1, name: "View notes numbered" },
@@ -71,7 +67,7 @@ export default function RightPanel(props: RightPanelInterface): JSX.Element {
             size="lg"
             key={k}
             style={{ display: "flex", justifyContent: "flex-end" }}
-            onClick={() => noteCtx.setCurrentViewMode(i.option)}
+            onClick={() => setCurrentVisualizationMode(i.option)}
           >
             {i.name}
           </Button>
@@ -81,7 +77,13 @@ export default function RightPanel(props: RightPanelInterface): JSX.Element {
   );
 
   const ViewOptions = () => (
-    <>{props.appMode === 2 ? <ViewMode /> : <ViewNotesAsList viewIndent={false} setAppMode={props.setAppMode} />}</>
+    <>
+      {currentVisualizationMode === 2 ? (
+        <ViewMode />
+      ) : (
+        <ViewNotesAsList viewIndent={false} />
+      )}
+    </>
   );
 
   return (
