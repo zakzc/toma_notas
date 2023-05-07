@@ -7,6 +7,7 @@ import { Button, Row, Col } from "react-bootstrap";
 //
 import Garbage from "../svg/Garbage";
 import Eraser from "../svg/SmallEraser";
+import Flip from "../svg/Flip";
 
 interface ViewNotesInterface {
   viewIndent: boolean;
@@ -39,32 +40,32 @@ export default function ViewNotesAsList(
 
     // Define arrays of letters and roman numerals to use
     const letters = [
-      "A",
-      "B",
-      "C",
-      "D",
-      "E",
-      "F",
-      "G",
-      "H",
-      "I",
-      "J",
-      "K",
-      "L",
-      "M",
-      "N",
-      "O",
-      "P",
-      "Q",
-      "R",
-      "S",
-      "T",
-      "U",
-      "V",
-      "W",
-      "X",
-      "Y",
-      "Z",
+      "a",
+      "b",
+      "c",
+      "d",
+      "e",
+      "f",
+      "g",
+      "h",
+      "i",
+      "j",
+      "k",
+      "l",
+      "m",
+      "n",
+      "o",
+      "p",
+      "q",
+      "r",
+      "s",
+      "t",
+      "u",
+      "v",
+      "w",
+      "x",
+      "y",
+      "z",
     ];
     const romanNumerals = [
       "i",
@@ -132,7 +133,7 @@ export default function ViewNotesAsList(
         indentStyle = getLeveledIndentationStyle(indent);
         break;
       case 4:
-        setSeeNotesAsFlashcards(true)
+        setSeeNotesAsFlashcards(true);
         indentStyle = flashCards(indent);
         break;
       default:
@@ -156,18 +157,67 @@ export default function ViewNotesAsList(
     const indentationStyle = getIndentationStyle(indent);
     let indentation =
       showIndentation === true ? "" : `\xa0\xa0\xa0\xa0`.repeat(indent.length);
+    ///
+    interface FlashCardVisualizationProps {
+      indentationStyle: string;
+      text: string;
+    }
+    const FlashcardVisualization = (props: FlashCardVisualizationProps) => {
+      const [showText, setShowText] = useState(false);
+
+      const handleClick = () => {
+        setShowText(!showText);
+      };
+
+      const textArr = props.text.split("\n");
+      const textToShow = textArr.filter(
+        (text) => text.startsWith("1.") || !text.startsWith(".")
+      );
+
+      return (
+        <>
+          {props.indentationStyle === "0." ? props.text : ""}
+          <br />
+          {props.indentationStyle === "1." ? (
+            <>
+              <Button variant="flat" size="sm" onClick={handleClick}>
+                <Flip/>
+              </Button>
+              <br />
+              {showText && textToShow.join("\n")}
+            </>
+          ) : (
+            ""
+          )}
+        </>
+      );
+    };
+    ///
     return (
-      <p>
-        {indentation}
-        {indentationStyle}
-        {"  "}
-        {props.notes.noteText}
-      </p>
+      <>
+        {seeNotesAsFlashcards === true ? (
+          <FlashcardVisualization
+            indentationStyle={indentationStyle}
+            text={props.notes.noteText}
+          />
+        ) : (
+          <>
+            {" "}
+            <p>
+              {indentation}
+              {indentationStyle}
+              {"  "}
+              {props.notes.noteText}
+            </p>
+          </>
+        )}
+      </>
     );
   };
   ///
   function eraseNote(id: string) {
     deleteNoteFromCurrentSet(id);
+    // TODO: makes this bellow only if id = noteToEdit.id
     setNoteToEdit(undefined);
   }
 
