@@ -77,29 +77,34 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
     noteToAdd,
     indentationLevel: indentationLevel,
   }: AddNewNoteToCurrentSetArgs): void {
-    const updatedNoteSet = userNoteSet.map((eachNote) => {
-      if (eachNote.noteSetName === selectedNoteSet.noteSetName) {
-        const newNote: NoteInterface = {
-          noteText: noteToAdd,
-          noteTextId: uuid(),
-          indentation: indentationLevel,
-        };
-        const updatedNoteSetNote = [...eachNote.noteSetNote, newNote];
-        return {
-          ...eachNote,
-          noteSetNote: updatedNoteSetNote,
-        };
-      } else {
-        return eachNote;
-      }
-    });
+    console.log("Add note ", noteToAdd, indentationLevel);
+    if (noteToAdd) {
+      const updatedNoteSet = userNoteSet.map((eachNote) => {
+        if (eachNote.noteSetName === selectedNoteSet.noteSetName) {
+          const newNote: NoteInterface = {
+            noteText: noteToAdd,
+            noteTextId: uuid(),
+            indentation: indentationLevel,
+          };
+          const updatedNoteSetNote = [...eachNote.noteSetNote, newNote];
+          return {
+            ...eachNote,
+            noteSetNote: updatedNoteSetNote,
+          };
+        } else {
+          return eachNote;
+        }
+      });
 
-    setUserNoteSet(updatedNoteSet);
-    setSelectedNoteSet(
-      updatedNoteSet.find(
-        (noteSet) => noteSet.noteSetName === selectedNoteSet.noteSetName
-      )!
-    );
+      setUserNoteSet(updatedNoteSet);
+      setSelectedNoteSet(
+        updatedNoteSet.find(
+          (noteSet) => noteSet.noteSetName === selectedNoteSet.noteSetName
+        )!
+      );
+    } else {
+      setErrorMessage("Error adding note to current set.");
+    }
   }
 
   function getCurrentIndentationLevel(): string {
@@ -159,23 +164,21 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
     setUserNoteSet(newSelectedNoteSet);
   }
 
-  // TODO: 
-  // function syncDataWithDB() {
-  //  try {
-  //    // Call MongoDB API to update data with currentData
-  //    await fetch("/api/syncData", {
-  //      method: "PUT",
-  //      body: JSON.stringify(currentData),
-  //      headers: {
-  //        "Content-Type": "application/json",
-  //      },
-  //    });
-  //    // Update data with currentData after successful API call
-  //    setData(currentData);
-  //  } catch (error) {
-  //    console.error("Error on data sync: ", error);
-  //  }
-  // }
+  async function syncDataWithDB() {
+   try {
+     // Call MongoDB API to update data with currentData
+     await fetch("/api/syncData", {
+       method: "PUT",
+       body: JSON.stringify(userNoteSet),
+       headers: {
+         "Content-Type": "application/json",
+       },
+     });
+
+   } catch (error) {
+     console.error("Error on data sync: ", error);
+   }
+  }
 
   const initialContextState: NoteContextInterface = {
     noteSets: userNoteSet,
@@ -198,6 +201,7 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
     setNoteToEdit,
     currentVisualizationMode,
     setCurrentVisualizationMode,
+    syncDataWithDB,
   };
 
   return (

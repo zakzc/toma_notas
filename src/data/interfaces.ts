@@ -49,4 +49,5 @@ export interface NoteContextInterface {
   >;
   currentVisualizationMode: number;
   setCurrentVisualizationMode: React.Dispatch<React.SetStateAction<number>>;
+  syncDataWithDB: () => void
 }

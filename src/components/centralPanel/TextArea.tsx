@@ -9,13 +9,13 @@ import Unindent from "../svg/Unindent";
 import Check from "../svg/Check";
 // import styles from "../../Styles/LogInPageStyle.css";
 
-
 export default function TextArea(): JSX.Element {
   const [inputText, setInputText] = useState<string>("");
   const {
     editNoteInCurrentSet,
     getCurrentIndentationLevel,
-    addNewNoteToCurrentSet, currentVisualizationMode
+    addNewNoteToCurrentSet,
+    currentVisualizationMode,
   } = useContext(NoteAppContext);
   ///
   const [currentIndentationLevel, setCurrentIndentationLevel] =
@@ -47,14 +47,15 @@ export default function TextArea(): JSX.Element {
   };
 
   function setNewLevel() {
-    let parts = currentIndentationLevel ? currentIndentationLevel.split("."): "0.";
+    let parts = currentIndentationLevel
+      ? currentIndentationLevel.split(".")
+      : "0.";
     parts = parts.slice(0, -1);
     let lastNumber = parts[parts.length - 1];
     let updatedLastNumber = parseInt(lastNumber, 10) + 1;
-    let baseNumber = currentIndentationLevel ? currentIndentationLevel.slice(
-      0,
-      -3
-    ): "";
+    let baseNumber = currentIndentationLevel
+      ? currentIndentationLevel.slice(0, -3)
+      : "";
     let newLevel;
     if (baseNumber === "") {
       newLevel = baseNumber + updatedLastNumber.toString() + ".";
@@ -67,19 +68,21 @@ export default function TextArea(): JSX.Element {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (currentVisualizationMode === 1) {
-      console.log("Submit");
       // Text area in creation mode
       if (inputText !== "") {
         setNewLevel();
+        const valueToSend = {
+          noteToAdd: inputText,
+          indentationLevel: currentIndentationLevel,
+        };
         // @ts-ignore
-        addNewNoteToCurrentSet(inputText, currentIndentationLevel);
+        addNewNoteToCurrentSet(valueToSend);
+        console.log("Calls: ", inputText);
         setInputText("");
       }
     } else if (currentVisualizationMode === 3) {
       // Text are in Edit more
-      console.log("Will send ", inputText, currentIndentationLevel);
       editNoteInCurrentSet(inputText, currentIndentationLevel);
-      console.log("Send to Edit function");
     }
   };
 
