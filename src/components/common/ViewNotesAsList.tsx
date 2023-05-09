@@ -218,7 +218,7 @@ export default function ViewNotesAsList(
   function eraseNote(id: string) {
     deleteNoteFromCurrentSet(id);
     // TODO: makes this bellow only if id = noteToEdit.id
-    setNoteToEdit(undefined);
+    // setNoteToEdit('');
   }
 
   function editNote(thisNoteToEdit: NoteInterface) {

@@ -38,6 +38,7 @@ export const NoteAppContext = createContext<NoteContextInterface>({
   setNoteToEdit: () => {},
   currentVisualizationMode: 0,
   setCurrentVisualizationMode: () => {},
+  syncDataWithDB: () => {}
 });
 
 const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
@@ -161,7 +162,7 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
     };
     // update note set being visualized
     setSelectedNoteSet(newSelectedNoteSet);
-    setUserNoteSet(newSelectedNoteSet);
+    setUserNoteSet([newSelectedNoteSet]);
   }
 
   async function syncDataWithDB() {

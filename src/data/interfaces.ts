@@ -45,7 +45,7 @@ export interface NoteContextInterface {
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
   noteToEdit: NoteInterface | undefined;
   setNoteToEdit: React.Dispatch<
-    React.SetStateAction<NoteInterface | undefined>
+    React.SetStateAction<NoteInterface>
   >;
   currentVisualizationMode: number;
   setCurrentVisualizationMode: React.Dispatch<React.SetStateAction<number>>;
