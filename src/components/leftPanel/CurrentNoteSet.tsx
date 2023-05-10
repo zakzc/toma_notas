@@ -26,7 +26,6 @@ const getFontWeight = (i: NoteSetInterface) => {
   } 
   return "normal"
 }
-
   ///
   return (
     <>

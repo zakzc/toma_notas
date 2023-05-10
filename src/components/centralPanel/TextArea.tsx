@@ -77,7 +77,6 @@ export default function TextArea(): JSX.Element {
         };
         // @ts-ignore
         addNewNoteToCurrentSet(valueToSend);
-        console.log("Calls: ", inputText);
         setInputText("");
       }
     } else if (currentVisualizationMode === 3) {

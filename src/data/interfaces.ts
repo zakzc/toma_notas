@@ -44,10 +44,10 @@ export interface NoteContextInterface {
   errorMessage: string;
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
   noteToEdit: NoteInterface | undefined;
-  setNoteToEdit: React.Dispatch<
-    React.SetStateAction<NoteInterface>
-  >;
+  setNoteToEdit: React.Dispatch<React.SetStateAction<NoteInterface>>;
   currentVisualizationMode: number;
   setCurrentVisualizationMode: React.Dispatch<React.SetStateAction<number>>;
-  syncDataWithDB: () => void
+  userEmail: string;
+  setUserEmail: React.Dispatch<React.SetStateAction<string>>;
+  syncDataWithDB: () => void;
 }

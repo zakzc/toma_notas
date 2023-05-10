@@ -38,6 +38,8 @@ export const NoteAppContext = createContext<NoteContextInterface>({
   setNoteToEdit: () => {},
   currentVisualizationMode: 0,
   setCurrentVisualizationMode: () => {},
+  userEmail: "", 
+  setUserEmail: () => {},
   syncDataWithDB: () => {}
 });
 
@@ -53,6 +55,7 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
   const [noteToEdit, setNoteToEdit] = useState(selectedNoteSet.noteSetNote[0]);
   const [currentVisualizationMode, setCurrentVisualizationMode] =
     useState<number>(0);
+    const [userEmail, setUserEmail] = useState("");
 
   function changeSelectedNoteSet(noteSetToSelect: NoteSetInterface): void {
     setSelectedNoteSet(noteSetToSelect);
@@ -78,7 +81,6 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
     noteToAdd,
     indentationLevel: indentationLevel,
   }: AddNewNoteToCurrentSetArgs): void {
-    console.log("Add note ", noteToAdd, indentationLevel);
     if (noteToAdd) {
       const updatedNoteSet = userNoteSet.map((eachNote) => {
         if (eachNote.noteSetName === selectedNoteSet.noteSetName) {
@@ -142,7 +144,6 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
     newNoteText: string,
     newIndentation: string
   ): void {
-    console.log("Received call to edit: ", newNoteText, newIndentation);
     const updatedNote = {
       noteText: newNoteText,
       noteTextId: noteToEdit.noteTextId,
@@ -202,6 +203,8 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
     setNoteToEdit,
     currentVisualizationMode,
     setCurrentVisualizationMode,
+    userEmail,
+    setUserEmail,
     syncDataWithDB,
   };
 

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useRouter } from "next/router";
 ///
 import { NoteAppContext } from "../../store/notes_context";
@@ -6,18 +6,56 @@ import { NoteAppContext } from "../../store/notes_context";
 import { Row, Col, ToggleButton } from "react-bootstrap";
 import PenIcon from "../svg/PenIcon";
 import SeeIcon from "../svg/SeeIcon";
-import BigEraser from "../svg/BigEraser"
+import BigEraser from "../svg/BigEraser";
 import Sync from "../svg/Sync";
 
-
 const Header = () => {
-  const { userIsLoggedIn, errorMessage, currentVisualizationMode, setCurrentVisualizationMode } = useContext(NoteAppContext);
+  const {
+    userIsLoggedIn,
+    errorMessage,
+    setErrorMessage,
+    currentVisualizationMode,
+    setCurrentVisualizationMode,
+    noteSets,
+    userEmail,
+  } = useContext(NoteAppContext);
   const router = useRouter();
+  const [userMessage, setUserMessage] = useState(errorMessage);
   ///
-  function syncDataWithDB() {
-    // console.log("Sync me", userIsLoggedIn, noteSets);
+  async function syncDataWithDB() {
     if (userIsLoggedIn === false) {
       router.push("/logInSignUp");
+    } else {
+      try {
+        const response = await fetch("/api/user", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            body: JSON.stringify({
+              email: userEmail,
+              password: "",
+              requestType: "SyncData",
+              userData: noteSets,
+            }),
+          },
+        });
+        const data = await response.json();
+        if (
+          data.success &&
+          data.success === true &&
+          data.processed &&
+          data.processed === true
+        ) {
+          setUserMessage("Success on sync");
+        } else {
+          setUserMessage("Error on sync process");
+          router.push("/logInSignUp");
+        }
+      } catch (error) {
+        console.error(error);
+        setErrorMessage("Error occurred while syncing data.");
+        router.push("/logInSignUp");
+      }
     }
   }
 
@@ -85,7 +123,7 @@ const Header = () => {
       </Col>
       <Col>
         <br />
-        {errorMessage === "" ? <></> : errorMessage}
+        {userMessage === "" ? <></> : userMessage}
       </Col>
       <Col>
         <SyncDataBase />

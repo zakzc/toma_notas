@@ -15,7 +15,7 @@ const LogInSignUpPage: React.FC<Props> = () => {
   const [errorOnCredentials, setErrorOnCredentials] = useState("");
 
   const router = useRouter();
-  const { userIsLoggedIn, setUserIsLoggedIn, noteSets, setUserNoteSet } =
+  const { userIsLoggedIn, setUserIsLoggedIn, noteSets, setUserNoteSet, setUserEmail } =
     useContext(NoteAppContext);
   const [dataReturnedFromFetch, setDataReturnedFromFetch] = useState(false);
   if (userIsLoggedIn === true && dataReturnedFromFetch === true) {
@@ -46,13 +46,16 @@ const LogInSignUpPage: React.FC<Props> = () => {
         });
 
         const result = await res.json();
-        if (result.success === true && result.data === email) {
+        if (result.success === true && result.processed === true) {
           setDataReturnedFromFetch(true);
           setUserIsLoggedIn(true);
-          setUserNoteSet(result.data)
+          setUserEmail(email)
+          setUserNoteSet(result.data);
           router.push("/");
-        } else if (result.data === false) {
+        } else if (result.processed === false) {
           setErrorOnCredentials("Error on user credentials, please try again.");
+        } else if (result.success === false) {
+          setErrorOnCredentials("Request unsuccessful.");
         }
       } catch (err) {
         console.error("Error:", err);

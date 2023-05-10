@@ -224,7 +224,6 @@ export default function ViewNotesAsList(
   function editNote(thisNoteToEdit: NoteInterface) {
     setCurrentVisualizationMode(3);
     setNoteToEdit(thisNoteToEdit);
-    console.log("Edit this note", thisNoteToEdit);
   }
   ///
   return (
