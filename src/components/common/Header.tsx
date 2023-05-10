@@ -26,18 +26,19 @@ const Header = () => {
     if (userIsLoggedIn === false) {
       router.push("/logInSignUp");
     } else {
+      const requestData = {
+        email: userEmail,
+        password: "",
+        requestType: "SyncData",
+        userData: noteSets,
+      };
       try {
         const response = await fetch("/api/user", {
-          method: "GET",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
-            body: JSON.stringify({
-              email: userEmail,
-              password: "",
-              requestType: "SyncData",
-              userData: noteSets,
-            }),
           },
+          body: JSON.stringify(requestData),
         });
         const data = await response.json();
         if (
@@ -49,12 +50,10 @@ const Header = () => {
           setUserMessage("Success on sync");
         } else {
           setUserMessage("Error on sync process");
-          router.push("/logInSignUp");
         }
       } catch (error) {
         console.error(error);
         setErrorMessage("Error occurred while syncing data.");
-        router.push("/logInSignUp");
       }
     }
   }

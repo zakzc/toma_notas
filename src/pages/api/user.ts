@@ -11,7 +11,7 @@ export default async function handler(
 ) {
   const { email, password, requestType, userData } = req.body;
 
-  if (!email || !password || requestType === undefined) {
+  if (!email || requestType === undefined) {
     res.status(400).json({
       success: true,
       processed: false,
@@ -64,7 +64,7 @@ export default async function handler(
               return res.json({
                 success: true,
                 processed: true,
-                data: user.userData
+                data: user.userData,
               });
             } else {
               // Passwords do not match
@@ -93,10 +93,22 @@ export default async function handler(
           data: "No user data provided",
         });
       }
-
+      const currentUser = await users.findOne({ email });
+      let updatedUserData; 
+      if (currentUser) {
+        console.log("users ", currentUser.userData);
+        updatedUserData = currentUser.userData.map((i) => {
+          if ((i.name = userData.name)) {
+            return userData;
+          } else {
+            return i;
+          }
+        });
+      }
+console.log("updated is; ", updatedUserData)
       const updatedUser = await users.findOneAndUpdate(
         { email },
-        { $set: { userData } }
+        { $set: { updatedUserData } }
       );
 
       if (!updatedUser.value) {
