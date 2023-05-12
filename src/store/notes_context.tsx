@@ -49,18 +49,17 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
   const [selectedNoteSet, setSelectedNoteSet] = useState<NoteSetInterface>(
     userNoteSet[0]
   );
-  const [currentViewMode, setCurrentViewMode] = useState<number>(2);
+  const [currentViewMode, setCurrentViewMode] = useState<number>(1);
   const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [noteToEdit, setNoteToEdit] = useState(selectedNoteSet.noteSetNote[0]);
   const [currentVisualizationMode, setCurrentVisualizationMode] =
-    useState<number>(0);
+    useState<number>(2);
   const [userEmail, setUserEmail] = useState("");
 
   function changeSelectedNoteSet(noteSetToSelect: NoteSetInterface): void {
     setSelectedNoteSet(noteSetToSelect);
   }
-
   function addNewUserNote(noteName: string): void {
     setUserNoteSet([
       ...userNoteSet,
@@ -192,17 +191,6 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
         return 0;
       }
     };
-
-    // TODO finish this.
-
-    console.log(
-      "update note set: ",
-      updatedUserNoteSet,
-      "updated note is ",
-      updatedNote,
-      "index is ",
-      currentlySelectedNoteSetArrayIndex()
-    );
     setSelectedNoteSet(
       updatedUserNoteSet[currentlySelectedNoteSetArrayIndex()]
     );

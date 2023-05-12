@@ -27,6 +27,7 @@ export default function ViewNotesAsList(
   const [showIndentation, setShowIndentation] = useState(false);
   const [seeNotesAsFlashcards, setSeeNotesAsFlashcards] = useState(false);
   ///
+
   function flashCards(indent: string) {
     if (indent.length <= 2) {
       return "0.";

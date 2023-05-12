@@ -96,7 +96,6 @@ export default async function handler(
       const currentUser = await users.findOne({ email });
       let updatedUserData; 
       if (currentUser) {
-        console.log("users ", currentUser.userData);
         updatedUserData = currentUser.userData.map((i) => {
           if ((i.name = userData.name)) {
             return userData;
@@ -105,7 +104,6 @@ export default async function handler(
           }
         });
       }
-console.log("updated is; ", updatedUserData)
       const updatedUser = await users.findOneAndUpdate(
         { email },
         { $set: { userData } }

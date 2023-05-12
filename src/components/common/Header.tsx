@@ -22,7 +22,7 @@ const Header = () => {
   const router = useRouter();
   const [userMessage, setUserMessage] = useState(errorMessage);
   ///
-  console.log("Note: ", noteSets);
+
   async function syncDataWithDB() {
     if (userIsLoggedIn === false) {
       router.push("/logInSignUp");
