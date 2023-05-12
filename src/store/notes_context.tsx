@@ -38,9 +38,9 @@ export const NoteAppContext = createContext<NoteContextInterface>({
   setNoteToEdit: () => {},
   currentVisualizationMode: 0,
   setCurrentVisualizationMode: () => {},
-  userEmail: "", 
+  userEmail: "",
   setUserEmail: () => {},
-  syncDataWithDB: () => {}
+  syncDataWithDB: () => {},
 });
 
 const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
@@ -49,13 +49,13 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
   const [selectedNoteSet, setSelectedNoteSet] = useState<NoteSetInterface>(
     userNoteSet[0]
   );
-  const [currentViewMode, setCurrentViewMode] = useState<number>(0);
+  const [currentViewMode, setCurrentViewMode] = useState<number>(2);
   const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [noteToEdit, setNoteToEdit] = useState(selectedNoteSet.noteSetNote[0]);
   const [currentVisualizationMode, setCurrentVisualizationMode] =
     useState<number>(0);
-    const [userEmail, setUserEmail] = useState("");
+  const [userEmail, setUserEmail] = useState("");
 
   function changeSelectedNoteSet(noteSetToSelect: NoteSetInterface): void {
     setSelectedNoteSet(noteSetToSelect);
@@ -140,46 +140,89 @@ const NoteAppContextProvider: React.FC<Props> = ({ children }) => {
     setUserNoteSet(newValueForNoteSet);
   }
 
+  function getUpdatedUserNoteSet(
+    userNoteSet: NoteSetInterface[],
+    noteSetId: string,
+    noteTextId: string,
+    newNote: NoteInterface
+  ): NoteSetInterface[] {
+    const updatedNoteSet = userNoteSet.map((noteSetItem) => {
+      if (noteSetItem.noteSetId === noteSetId) {
+        const updatedNoteSetNote = noteSetItem.noteSetNote.map((note) => {
+          if (note.noteTextId === noteTextId) {
+            return { ...newNote };
+          }
+          return note;
+        });
+        return {
+          ...noteSetItem,
+          noteSetNote: updatedNoteSetNote,
+        };
+      }
+      return noteSetItem;
+    });
+
+    return updatedNoteSet;
+  }
+
   function editNoteInCurrentSet(
     newNoteText: string,
     newIndentation: string
   ): void {
-    const updatedNote = {
+    const updatedNote: NoteInterface = {
       noteText: newNoteText,
       noteTextId: noteToEdit.noteTextId,
       indentation: newIndentation,
     };
 
-    const individualNoteUpdated = selectedNoteSet.noteSetNote.map((o) => {
-      if (o.noteTextId === selectedNoteSet.noteSetId) {
-        return updatedNote;
-      } else return o;
-    });
+    const updatedUserNoteSet = getUpdatedUserNoteSet(
+      userNoteSet,
+      selectedNoteSet.noteSetId,
+      noteToEdit.noteTextId,
+      updatedNote
+    );
 
-    const newSelectedNoteSet = {
-      noteSetId: selectedNoteSet.noteSetId,
-      noteSetName: selectedNoteSet.noteSetName,
-      noteSetNote: individualNoteUpdated,
+    const currentlySelectedNoteSetArrayIndex = (): number => {
+      const arrayIndex = updatedUserNoteSet.findIndex(
+        (j) => j.noteSetId === selectedNoteSet.noteSetId
+      );
+      if (arrayIndex !== -1) {
+        return arrayIndex;
+      } else {
+        return 0;
+      }
     };
-    // update note set being visualized
-    setSelectedNoteSet(newSelectedNoteSet);
-    setUserNoteSet([newSelectedNoteSet]);
+
+    // TODO finish this.
+
+    console.log(
+      "update note set: ",
+      updatedUserNoteSet,
+      "updated note is ",
+      updatedNote,
+      "index is ",
+      currentlySelectedNoteSetArrayIndex()
+    );
+    setSelectedNoteSet(
+      updatedUserNoteSet[currentlySelectedNoteSetArrayIndex()]
+    );
+    setUserNoteSet(updatedUserNoteSet);
+    setNoteToEdit(updatedNote);
   }
 
   async function syncDataWithDB() {
-   try {
-     // Call MongoDB API to update data with currentData
-     await fetch("/api/syncData", {
-       method: "PUT",
-       body: JSON.stringify(userNoteSet),
-       headers: {
-         "Content-Type": "application/json",
-       },
-     });
-
-   } catch (error) {
-     console.error("Error on data sync: ", error);
-   }
+    try {
+      // Call MongoDB API to update data with currentData
+      await fetch("/api/syncData", {
+        method: "PUT",
+        body: JSON.stringify(userNoteSet),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    } catch (error) {
+      console.error("Error on data sync: ", error);
+    }
   }
 
   const initialContextState: NoteContextInterface = {

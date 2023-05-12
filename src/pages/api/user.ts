@@ -108,7 +108,7 @@ export default async function handler(
 console.log("updated is; ", updatedUserData)
       const updatedUser = await users.findOneAndUpdate(
         { email },
-        { $set: { updatedUserData } }
+        { $set: { userData } }
       );
 
       if (!updatedUser.value) {
