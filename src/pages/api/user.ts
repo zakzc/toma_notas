@@ -94,9 +94,9 @@ export default async function handler(
         });
       }
       const currentUser = await users.findOne({ email });
-      let updatedUserData; 
+      // let updatedUserData; 
       if (currentUser) {
-        updatedUserData = currentUser.userData.map((i) => {
+        currentUser.userData.map((i: any) => {
           if ((i.name = userData.name)) {
             return userData;
           } else {

@@ -103,11 +103,11 @@ export default function ViewNotesAsList(
 
       // If this is the second number, use the corresponding letter from the array
       if (index === 1) {
-        return letters[num - 1];
+         return letters[Number(num) - 1];
       }
 
       // Otherwise, use the corresponding roman numeral from the array
-      return romanNumerals[num - 1];
+      return romanNumerals[Number(num) - 1];
     });
 
     // Join the transformed array back into a string
