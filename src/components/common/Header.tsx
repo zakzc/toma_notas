@@ -8,6 +8,7 @@ import PenIcon from "../svg/PenIcon";
 import SeeIcon from "../svg/SeeIcon";
 import BigEraser from "../svg/BigEraser";
 import Sync from "../svg/Sync";
+import Download from "../svg/Download";
 
 const Header = () => {
   const {
@@ -59,7 +60,7 @@ const Header = () => {
     }
   }
 
-  const WriteViewSwitch = () => (
+  const DocumentVisualizationTools = () => (
     <div className="centerPageStyle">
       <ToggleButton
         key={1}
@@ -99,9 +100,19 @@ const Header = () => {
     </div>
   );
 
-  const SyncDataBase = () => (
+  const DocumentManagementTools = () => (
     <div className="centerPageStyle">
       <br />
+      <ToggleButton
+        key={1}
+        variant="flat"
+        value="write"
+        type="radio"
+        size="lg"
+        onClick={() => console.log("Clicked")}
+      >
+        <Download />
+      </ToggleButton>
       <ToggleButton
         key={1}
         variant="flat"
@@ -119,14 +130,14 @@ const Header = () => {
     <Row>
       <Col>
         <br />
-        <WriteViewSwitch />
+        <DocumentVisualizationTools />
       </Col>
       <Col>
         <br />
         {userMessage === "" ? <></> : userMessage}
       </Col>
       <Col>
-        <SyncDataBase />
+        <DocumentManagementTools />
       </Col>
     </Row>
   );
