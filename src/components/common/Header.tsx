@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 ///
 import { NoteAppContext } from "../../store/notes_context";
 ///
-import { Row, Col, ToggleButton } from "react-bootstrap";
+import { Container, Row, Col, ToggleButton } from "react-bootstrap";
 import PenIcon from "../svg/PenIcon";
 import SeeIcon from "../svg/SeeIcon";
 import BigEraser from "../svg/BigEraser";
@@ -60,6 +60,19 @@ const Header = () => {
     }
   }
 
+   const handleDownload = () => {
+     const jsonDataStr = JSON.stringify(noteSets, null, 2);
+     const blob = new Blob([jsonDataStr], { type: "application/json" });
+     const url = URL.createObjectURL(blob);
+     const link = document.createElement("a");
+     link.href = url;
+     link.download = "data.json";
+     document.body.appendChild(link);
+     link.click();
+     document.body.removeChild(link);
+     URL.revokeObjectURL(url);
+   };
+
   const DocumentVisualizationTools = () => (
     <div className="centerPageStyle">
       <ToggleButton
@@ -109,7 +122,7 @@ const Header = () => {
         value="write"
         type="radio"
         size="lg"
-        onClick={() => console.log("Clicked")}
+        onClick={handleDownload}
       >
         <Download />
       </ToggleButton>
@@ -127,6 +140,7 @@ const Header = () => {
   );
 
   return (
+    <Container fluid>
     <Row>
       <Col>
         <br />
@@ -140,6 +154,7 @@ const Header = () => {
         <DocumentManagementTools />
       </Col>
     </Row>
+    </Container>
   );
 };
 
