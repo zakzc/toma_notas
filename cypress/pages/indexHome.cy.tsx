@@ -1,6 +1,6 @@
 import React from "react";
-import Home from "./index";
-import MockRouter from "../../cypress/utils/mockRouter";
+import Home from "../../src/pages/index";
+import MockRouter from "../utils/mockRouter";
 
 describe("<Home />", () => {
   it("renders", () => {

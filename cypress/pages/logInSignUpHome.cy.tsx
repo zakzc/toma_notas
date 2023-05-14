@@ -1,6 +1,6 @@
 import React from 'react'
-import Home from './logInSignUp'
-import MockRouter from "../../cypress/utils/mockRouter"
+import Home from '../../src/pages/logInSignUp'
+import MockRouter from "../utils/mockRouter"
 
 describe('<Home />', () => {
   it('renders', () => {
