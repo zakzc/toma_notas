@@ -234,7 +234,6 @@ export default function ViewNotesAsList(
   const CornelVisualization = () => {
     const currentNoteSet = currentlySelectedNoteSet.noteSetNote;
     const [isDataVisible, setIsDataVisible] = useState(false)
-    console.log("current is: ", currentlySelectedNoteSet);
     const tableData = currentNoteSet.filter(
       (item) => item.indentation.length === 2
     );
@@ -245,10 +244,10 @@ export default function ViewNotesAsList(
   };
 ///
     return (
-      <Table variant="flat">
+      <Table variant="flat" striped="columns" responsive>
         <thead>
           <tr>
-            <th>Clue</th>
+            <th style={{ width: "30%" }}>Clue</th>
             <th>Text</th>
           </tr>
         </thead>
