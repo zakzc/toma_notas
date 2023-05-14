@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 //
 import { NoteAppContext } from "../../store/notes_context";
 ///
@@ -11,15 +11,46 @@ import Check from "../svg/Check";
 
 export default function TextArea(): JSX.Element {
   const [inputText, setInputText] = useState<string>("");
+  const [cols, setCols] = useState(0);
+  const [rows, setRows] = useState(0);
   const {
     editNoteInCurrentSet,
     getCurrentIndentationLevel,
     addNewNoteToCurrentSet,
     currentVisualizationMode,
   } = useContext(NoteAppContext);
-  ///
   const [currentIndentationLevel, setCurrentIndentationLevel] =
     useState<string>(getCurrentIndentationLevel);
+  ///
+  useEffect(() => {
+    const updateDimensions = () => {
+      const viewportWidth = Math.max(
+        document.documentElement.clientWidth || 0,
+        window.innerWidth || 0
+      );
+      const viewportHeight = Math.max(
+        document.documentElement.clientHeight || 0,
+        window.innerHeight || 0
+      );
+
+      const colsPercentage = 100; // Adjust as needed
+      const rowsPercentage = 3; // Adjust as needed
+
+      const colsValue = Math.floor((viewportWidth * colsPercentage) / 100);
+      const rowsValue = Math.floor((viewportHeight * rowsPercentage) / 100);
+
+      setCols(colsValue);
+      setRows(rowsValue);
+    };
+
+    window.addEventListener("resize", updateDimensions);
+    updateDimensions();
+
+    return () => {
+      window.removeEventListener("resize", updateDimensions);
+    };
+  }, []);
+  ///
   const setIndentationLevel = (level: boolean) => {
     if (level === false) {
       /// add indentation
@@ -75,7 +106,6 @@ export default function TextArea(): JSX.Element {
           noteToAdd: inputText,
           indentationLevel: currentIndentationLevel,
         };
-        // @ts-ignore
         addNewNoteToCurrentSet(valueToSend);
         setInputText("");
       }
@@ -97,8 +127,8 @@ export default function TextArea(): JSX.Element {
           <Form onSubmit={handleSubmit}>
             <InputGroup>
               <Form.Control
-                rows={currentVisualizationMode === 1 ? 40 : 10}
-                cols={currentVisualizationMode === 1 ? 5 : 3}
+                rows={rows}
+                cols={cols}
                 as="textarea"
                 aria-label="With textarea"
                 value={inputText}

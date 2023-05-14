@@ -117,7 +117,7 @@ const Header = () => {
     <div className="centerPageStyle">
       <br />
       <ToggleButton
-        key={1}
+        key={10}
         variant="flat"
         value="write"
         type="radio"
@@ -127,7 +127,7 @@ const Header = () => {
         <Download />
       </ToggleButton>
       <ToggleButton
-        key={1}
+        key={11}
         variant="flat"
         value="write"
         type="radio"
