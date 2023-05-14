@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 import { NoteAppContext } from "../../store/notes_context";
 import { NoteInterface } from "../../data/interfaces";
 //
-import { Button, Row, Col } from "react-bootstrap";
+import { Button, Row, Col, Table } from "react-bootstrap";
 //
 import Garbage from "../svg/Garbage";
 import Eraser from "../svg/SmallEraser";
@@ -26,6 +26,7 @@ export default function ViewNotesAsList(
   const currentSet = currentlySelectedNoteSet.noteSetNote;
   const [showIndentation, setShowIndentation] = useState(false);
   const [seeNotesAsFlashcards, setSeeNotesAsFlashcards] = useState(false);
+  const [seeNotesAsCornel, setSeeNotesAsCornel] = useState(false);
   ///
 
   function flashCards(indent: string) {
@@ -103,7 +104,7 @@ export default function ViewNotesAsList(
 
       // If this is the second number, use the corresponding letter from the array
       if (index === 1) {
-         return letters[Number(num) - 1];
+        return letters[Number(num) - 1];
       }
 
       // Otherwise, use the corresponding roman numeral from the array
@@ -134,8 +135,13 @@ export default function ViewNotesAsList(
         indentStyle = getLeveledIndentationStyle(indent);
         break;
       case 4:
+        // note as flashcards
         setSeeNotesAsFlashcards(true);
         indentStyle = flashCards(indent);
+        break;
+      case 5:
+        // note as Cornel
+        setSeeNotesAsCornel(true);
         break;
       default:
         break;
@@ -166,7 +172,7 @@ export default function ViewNotesAsList(
     const FlashcardVisualization = (props: FlashCardVisualizationProps) => {
       const [showText, setShowText] = useState(false);
 
-      const handleClick = () => {
+      const handleClickFlashcard = () => {
         setShowText(!showText);
       };
 
@@ -181,8 +187,8 @@ export default function ViewNotesAsList(
           <br />
           {props.indentationStyle === "1." ? (
             <>
-              <Button variant="flat" size="sm" onClick={handleClick}>
-                <Flip/>
+              <Button variant="flat" size="sm" onClick={handleClickFlashcard}>
+                <Flip />
               </Button>
               <br />
               {showText && textToShow.join("\n")}
@@ -194,25 +200,83 @@ export default function ViewNotesAsList(
       );
     };
     ///
-    return (
-      <>
-        {seeNotesAsFlashcards === true ? (
+    const NoteVisualizationStyle = () => {
+      // Flashcard visualization
+      if (seeNotesAsFlashcards === true) {
+        return (
           <FlashcardVisualization
             indentationStyle={indentationStyle}
             text={props.notes.noteText}
           />
-        ) : (
-          <>
-            {" "}
-            <p>
-              {indentation}
-              {indentationStyle}
-              {"  "}
-              {props.notes.noteText}
-            </p>
-          </>
-        )}
+        );
+      }
+      // Other visualizations (flat, numbered, leveled)
+      return (
+        <>
+          {" "}
+          <p>
+            {indentation}
+            {indentationStyle}
+            {"  "}
+            {props.notes.noteText}
+          </p>
+        </>
+      );
+    };
+    ///
+    return (
+      <>
+        <NoteVisualizationStyle />
       </>
+    );
+  };
+  ///
+  const CornelVisualization = () => {
+    const currentNoteSet = currentlySelectedNoteSet.noteSetNote;
+    const [isDataVisible, setIsDataVisible] = useState(false)
+    console.log("current is: ", currentlySelectedNoteSet);
+    const tableData = currentNoteSet.filter(
+      (item) => item.indentation.length === 2
+    );
+///
+  const handleClick = () => {
+    // toggle between note visible and not visible
+    setIsDataVisible(!isDataVisible)
+  };
+///
+    return (
+      <Table variant="flat">
+        <thead>
+          <tr>
+            <th>Clue</th>
+            <th>Text</th>
+          </tr>
+        </thead>
+        <tbody>
+          {tableData.map((item) => (
+            <tr key={item.indentation}>
+              <td>
+                {" "}
+                <Button variant="flat" onClick={handleClick}>
+                  {item.noteText}
+                </Button>
+              </td>
+              <td></td>
+            </tr>
+          ))}
+          {currentNoteSet.map((item) => {
+            if (item.indentation.length !== 2) {
+              return (
+                <tr key={item.indentation}>
+                  <td></td>
+                  <td>{isDataVisible ? item.noteText : ""}</td>
+                </tr>
+              );
+            }
+            return null;
+          })}
+        </tbody>
+      </Table>
     );
   };
   ///
@@ -226,8 +290,8 @@ export default function ViewNotesAsList(
     setCurrentVisualizationMode(3);
     setNoteToEdit(thisNoteToEdit);
   }
-  ///
-  return (
+
+  const NoteSetVisualizationModes = () => (
     <>
       {currentSet ? (
         currentSet.map((i: NoteInterface, k: number) => (
@@ -261,4 +325,13 @@ export default function ViewNotesAsList(
       )}
     </>
   );
+  const NoteVisualization = () => {
+    if (seeNotesAsCornel === true) {
+      return <CornelVisualization />;
+    } else {
+      return <NoteSetVisualizationModes />;
+    }
+  };
+  ///
+  return <NoteVisualization />;
 }

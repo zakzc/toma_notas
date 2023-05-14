@@ -22,6 +22,7 @@ export default function RightPanel(props: RightPanelInterface): JSX.Element {
     { option: 2, name: "View notes numbered" },
     { option: 3, name: "View notes with levels" },
     { option: 4, name: "View Notes as Flashcards" },
+    { option: 5, name: "View Notes in Cornel" },
   ];
 
   const OpenCloseSideTabButton = () => (

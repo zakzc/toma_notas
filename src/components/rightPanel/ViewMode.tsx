@@ -60,7 +60,7 @@ export default function ViewMode(props: ViewModeInterface): JSX.Element {
           <Button
             variant="flat"
             key={k} 
-            style={{ display: "flex", justifyContent: "flex-end" }}
+            style={{ display: "flex", justifyContent: "flex-end"}}
             onClick={() => setCurrentViewMode(i.option)}
           >
             {i.name}
