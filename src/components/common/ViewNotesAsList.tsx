@@ -298,7 +298,7 @@ export default function ViewNotesAsList(
             {props.viewIndent === false ? (
               <Row>
                 <Col md="auto">
-                  <FlatNote notes={i} key={k} />
+                  <FlatNote notes={i} key={k*200} />
                 </Col>
                 <Col></Col>
                 <Col>

@@ -1,44 +1,170 @@
 [
   {
     "noteSetId": "0",
-    "noteSetName": "Aramis",
+    "noteSetName": "React",
     "noteSetNote": [
       {
-        "noteText": "This is a test note 0",
+        "noteText": "O que é React?",
         "noteTextId": "0",
         "indentation": "0."
+      },
+      {
+        "noteText": "React JS é uma biblioteca JavaScript para a criação de interfaces de usuário — ou UI (user interface). Criado em 2011 pelo time do Facebook",
+        "noteTextId": "1",
+        "indentation": "0.1"
+      },
+      {
+        "noteText": "Quem criou o React? E por quê?",
+        "noteTextId": "2",
+        "indentation": "1."
+      },
+      {
+        "noteText": "Criado em 2011 pelo time do Facebook, o React surgiu com o objetivo de otimizar a atualização e a sincronização de atividades simultâneas no feed de notícias da rede social, entre eles chat, status, listagem de contatos e outros.",
+        "noteTextId": "3",
+        "indentation": "1.1"
+      },
+      {
+        "noteText": "Como ele funciona?",
+        "noteTextId": "4",
+        "indentation": "2."
+      },
+      {
+        "noteText": "O React divide uma tela em diversos componentes para, então, trabalhar sobre eles de maneira individual.",
+        "noteTextId": "5",
+        "indentation": "2.1"
+      },
+      {
+        "noteText": "Por que o React não é um framework?",
+        "noteTextId": "6",
+        "indentation": "3."
+      },
+      {
+        "noteText": "Frameworks possuem regras e organizações de arquivos restritos. O React não implementa essas restrições, mas sim, adiciona novas funcionalidades a algo já existente,",
+        "noteTextId": "7",
+        "indentation": "3.1"
       }
     ]
   },
   {
     "noteSetId": "1",
-    "noteSetName": "Athos",
+    "noteSetName": "Javascript",
     "noteSetNote": [
       {
-        "noteText": "This is a test note 1",
-        "noteTextId": "1",
+        "noteText": "O que é Javascript?",
+        "noteTextId": "7",
         "indentation": "0."
       },
       {
-        "noteText": "This is a test note embed level 1",
-        "noteTextId": "2",
+        "noteText": "aJvaScript é uma linguagem de programação usada por desenvolvedores para fazer páginas interativas da Internet. ",
+        "noteTextId": "8",
         "indentation": "0.1."
       },
       {
-        "noteText": "This is a test note embed level 2",
-        "noteTextId": "3",
-        "indentation": "0.1.1."
+        "noteText": "Qual a principal utilização do Javascript?",
+        "noteTextId": "7",
+        "indentation": "1."
+      },
+      {
+        "noteText": "Sendo uma linguagem de script do lado do cliente, ele é uma das tecnologias principais da World Wide Web",
+        "noteTextId": "8",
+        "indentation": "1.1."
+      },
+      {
+        "noteText": "O que são bibliotecas de Javascript?",
+        "noteTextId": "9",
+        "indentation": "2."
+      },
+      {
+        "noteText": "As bibliotecas de JavaScript são coleções de trechos prontos de código que os desenvolvedores Web podem reutilizar para executar funções padrão do JavaScript",
+        "noteTextId": "10",
+        "indentation": "2.1."
+      },
+      {
+        "noteText": "O que são frameworks de Javascript?",
+        "noteTextId": "11",
+        "indentation": "2."
+      },
+      {
+        "noteText": "Enquanto as bibliotecas de JavaScript são uma ferramenta especializada para uso sob demanda, os frameworks são um conjunto completo de ferramentas que ajuda a moldar e organizar qualquer aplicativo Web.",
+        "noteTextId": "12",
+        "indentation": "2.1."
       }
     ]
   },
   {
     "noteSetId": "2",
-    "noteSetName": "Porthos",
+    "noteSetName": "TypeScript",
     "noteSetNote": [
       {
-        "noteText": "This is a test note 2",
-        "noteTextId": "4",
+        "noteText": "O que é Typescript?",
+        "noteTextId": "12",
         "indentation": "0."
+      },
+      {
+        "noteText": "TypeScript é um superconjunto de JavaScript, ou seja, um conjunto de ferramentas e formas mais eficientes de escrever código JavaScript, adicionando recursos que não estão presentes de maneira nativa na linguagem. ",
+        "noteTextId": "13",
+        "indentation": "0.1."
+      },
+      {
+        "noteText": "Por que ele é considerado um superconjunto e não uma linguage?",
+        "noteTextId": "14",
+        "indentation": "1."
+      },
+      {
+        "noteText": "um superconjunto de JavaScript, pois o código é “transformado” (no termo técnico: transcompilado) em JavaScript “puro” antes de ser executado",
+        "noteTextId": "15",
+        "indentation": "1.1."
+      },
+      {
+        "noteText": "Um arquivo TypeScript geralmente tem a extensão “.ts”. ",
+        "noteTextId": "16",
+        "indentation": "1.1.1"
+      },
+      {
+        "noteText": "Sites e aplicativos criados com TypeScript podem ser executados tanto no lado do cliente (diretamente no navegador do usuário, por exemplo) quanto no lado do servidor (com Node.js)",
+        "noteTextId": "17",
+        "indentation": "1.1.2"
+      }
+    ]
+  },
+  {
+    "noteSetId": "3",
+    "noteSetName": "NextJS",
+    "noteSetNote": [
+      {
+        "noteText": "O que é NextJS?",
+        "noteTextId": "17",
+        "indentation": "0."
+      },
+      {
+        "noteText": "Next.js é um framework para React. ",
+        "noteTextId": "18",
+        "indentation": "0.1"
+      },
+      {
+        "noteText": "Quais as características do NextJS?",
+        "noteTextId": "19",
+        "indentation": "0."
+      },
+      {
+        "noteText": "Possui suporte ao Typescript",
+        "noteTextId": "20",
+        "indentation": "0.1"
+      },
+      {
+        "noteText": "Possui um serviço de tratamento de rotas ",
+        "noteTextId": "21",
+        "indentation": "0.2"
+      },
+      {
+        "noteText": "Torna a aplicação React mais performática",
+        "noteTextId": "21",
+        "indentation": "0.3"
+      },
+      {
+        "noteText": "Possibilita a indexação do conteúdo da página pelos motores de busca.",
+        "noteTextId": "21",
+        "indentation": "0.4"
       }
     ]
   }
