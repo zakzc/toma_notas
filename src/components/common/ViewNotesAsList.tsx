@@ -8,6 +8,7 @@ import { Button, Row, Col, Table } from "react-bootstrap";
 import Garbage from "../svg/Garbage";
 import Eraser from "../svg/SmallEraser";
 import Flip from "../svg/Flip";
+import ArrowBarRight from "../svg/ArrowBarRight";
 
 interface ViewNotesInterface {
   viewIndent: boolean;
@@ -231,51 +232,63 @@ export default function ViewNotesAsList(
     );
   };
   ///
-  const CornelVisualization = () => {
-    const currentNoteSet = currentlySelectedNoteSet.noteSetNote;
-    const [isDataVisible, setIsDataVisible] = useState(false)
-    const tableData = currentNoteSet.filter(
-      (item) => item.indentation.length === 2
-    );
-///
-  const handleClick = () => {
-    // toggle between note visible and not visible
-    setIsDataVisible(!isDataVisible)
-  };
-///
+  const CornVisual = () => {
+    const data = currentlySelectedNoteSet.noteSetNote;
+    const [visibleIndex, setVisibleIndex] = useState<number | null>(null);
+
+    const toggleVisibility = (index: number) => {
+      console.log("Toggle: ", index, typeof index)
+      if (visibleIndex === index) {
+        setVisibleIndex(null);
+      } else {
+        setVisibleIndex(index);
+      }
+    };
     return (
-      <Table variant="flat" striped="columns" responsive>
-        <thead>
-          <tr>
-            <th style={{ width: "30%" }}>Clue</th>
-            <th>Text</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tableData.map((item) => (
-            <tr key={item.indentation}>
-              <td>
-                {" "}
-                <Button variant="flat" onClick={handleClick}>
-                  {item.noteText}
-                </Button>
-              </td>
-              <td></td>
-            </tr>
-          ))}
-          {currentNoteSet.map((item) => {
-            if (item.indentation.length !== 2) {
-              return (
-                <tr key={item.indentation}>
-                  <td></td>
-                  <td>{isDataVisible ? item.noteText : ""}</td>
-                </tr>
-              );
-            }
-            return null;
-          })}
-        </tbody>
-      </Table>
+      <div>
+        {data.map((note, index) => {
+          const { indentation, noteText, noteTextId } = note;
+          const isIndented = indentation.length === 2;
+
+          return (
+            <div key={noteTextId} className="d-flex">
+              {isIndented ? (
+                <>
+                  <Col xs={4}>
+                    <Button
+                      variant="flat"
+                      size="sm"
+                      onClick={() => toggleVisibility(index)}
+                    >
+                      <div style={{ fontWeight: "bold" }}>{noteText}</div>
+                    </Button>
+                    <br />
+                  </Col>
+                  <Col xs={4}></Col>
+                </>
+              ) : (
+                <>
+                  <Col xs={4} className="text-end">
+                    <Button
+                      variant="flat"
+                      size="sm"
+                      onClick={() => toggleVisibility(index)}
+                    >
+                      <ArrowBarRight/>
+                    </Button>
+                    <br />
+                  </Col>
+                  <Col xs={8}>
+                    {visibleIndex === index && (
+                      <div style={{ marginRight: "20px" }}>{noteText}</div>
+                    )}
+                  </Col>
+                </>
+              )}
+            </div>
+          );
+        })}
+      </div>
     );
   };
   ///
@@ -298,7 +311,7 @@ export default function ViewNotesAsList(
             {props.viewIndent === false ? (
               <Row>
                 <Col md="auto">
-                  <FlatNote notes={i} key={k*200} />
+                  <FlatNote notes={i} key={k * 200} />
                 </Col>
                 <Col></Col>
                 <Col>
@@ -326,7 +339,7 @@ export default function ViewNotesAsList(
   );
   const NoteVisualization = () => {
     if (seeNotesAsCornel === true) {
-      return <CornelVisualization />;
+      return <CornVisual />;
     } else {
       return <NoteSetVisualizationModes />;
     }
