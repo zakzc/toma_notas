@@ -237,7 +237,6 @@ export default function ViewNotesAsList(
     const [visibleIndex, setVisibleIndex] = useState<number | null>(null);
 
     const toggleVisibility = (index: number) => {
-      console.log("Toggle: ", index, typeof index)
       if (visibleIndex === index) {
         setVisibleIndex(null);
       } else {
@@ -297,7 +296,6 @@ export default function ViewNotesAsList(
     // TODO: makes this bellow only if id = noteToEdit.id
     // setNoteToEdit('');
   }
-
   function editNote(thisNoteToEdit: NoteInterface) {
     setCurrentVisualizationMode(3);
     setNoteToEdit(thisNoteToEdit);

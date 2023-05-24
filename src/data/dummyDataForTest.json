@@ -82,12 +82,12 @@
       {
         "noteText": "O que são frameworks de Javascript?",
         "noteTextId": "11",
-        "indentation": "2."
+        "indentation": "3."
       },
       {
         "noteText": "Enquanto as bibliotecas de JavaScript são uma ferramenta especializada para uso sob demanda, os frameworks são um conjunto completo de ferramentas que ajuda a moldar e organizar qualquer aplicativo Web.",
         "noteTextId": "12",
-        "indentation": "2.1."
+        "indentation": "3.1."
       }
     ]
   },

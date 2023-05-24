@@ -60,21 +60,20 @@ const Header = () => {
     }
   }
 
-   const handleDownload = () => {
-     const jsonDataStr = JSON.stringify(noteSets, null, 2);
-     const blob = new Blob([jsonDataStr], { type: "application/json" });
-     const url = URL.createObjectURL(blob);
-     const link = document.createElement("a");
-     link.href = url;
-     link.download = "data.json";
-     document.body.appendChild(link);
-     link.click();
-     document.body.removeChild(link);
-     URL.revokeObjectURL(url);
-   };
-
+  const handleDownload = () => {
+    const jsonDataStr = JSON.stringify(noteSets, null, 2);
+    const blob = new Blob([jsonDataStr], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "data.json";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
   const DocumentVisualizationTools = () => (
-    <div className="centerPageStyle">
+    <div className="centerPageStyle" style={{ display: "flex" }}>
       <ToggleButton
         key={1}
         variant="flat"
@@ -141,19 +140,19 @@ const Header = () => {
 
   return (
     <Container fluid>
-    <Row>
-      <Col>
-        <br />
-        <DocumentVisualizationTools />
-      </Col>
-      <Col>
-        <br />
-        {userMessage === "" ? <></> : userMessage}
-      </Col>
-      <Col>
-        <DocumentManagementTools />
-      </Col>
-    </Row>
+      <Row>
+        <Col>
+          <br />
+          <DocumentVisualizationTools />
+        </Col>
+        <Col>
+          <br />
+          {userMessage === "" ? <></> : userMessage}
+        </Col>
+        <Col>
+          <DocumentManagementTools />
+        </Col>
+      </Row>
     </Container>
   );
 };

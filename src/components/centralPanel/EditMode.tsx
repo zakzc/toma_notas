@@ -17,7 +17,7 @@ export default function EditMode(): JSX.Element {
           backgroundColor: "#d3d3d3", // light gray
         }}
       >
-        {noteToEdit && noteToEdit.noteText
+        {noteToEdit && noteToEdit.noteText && noteToEdit.noteText !== ""
           ? noteToEdit.noteText
           : "No note to edit"}
       </div>
@@ -33,7 +33,7 @@ export default function EditMode(): JSX.Element {
       </Row>
       <br />
       <Row>
-        {noteToEdit && noteToEdit.noteText ? (
+        {noteToEdit && noteToEdit.noteText && noteToEdit.noteText !== "" ? (
           <EditNote />
         ) : (
           "No note selected to edit"
