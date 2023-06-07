@@ -116,14 +116,19 @@
         "indentation": "1.1."
       },
       {
+        "noteText": "um superconjunto de JavaScript, pois o código é “transformado” (no termo técnico: transcompilado) em JavaScript “puro” antes de ser executado",
+        "noteTextId": "15",
+        "indentation": "2."
+      },
+      {
         "noteText": "Um arquivo TypeScript geralmente tem a extensão “.ts”. ",
         "noteTextId": "16",
-        "indentation": "1.1.1"
+        "indentation": "2.1"
       },
       {
         "noteText": "Sites e aplicativos criados com TypeScript podem ser executados tanto no lado do cliente (diretamente no navegador do usuário, por exemplo) quanto no lado do servidor (com Node.js)",
         "noteTextId": "17",
-        "indentation": "1.1.2"
+        "indentation": "2.1.1."
       }
     ]
   },
